@@ -1,3 +1,5 @@
+setup: https://www.youtube.com/watch?v=o7jhf97m_gg
+
 # Turborepo starter
 
 This is an official starter Turborepo.

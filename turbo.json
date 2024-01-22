@@ -5,13 +5,17 @@
     "build": {
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**"]
+      // "outputs": [".next/**"]
     },
     "lint": {
       "dependsOn": ["^lint"]
     },
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "env": ["CONTENT_APP_URL"]
     }
   }
+  // "globalEnv": ["CONTENT_APP_URL, NEXT_PUBLIC_SHOP_APP_URL"]
+  // "globalPassThroughEnv": ["NEXT_PUBLIC_CONTENT_APP_URL", "GITHUB_TOKEN"]
 }

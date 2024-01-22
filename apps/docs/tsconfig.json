@@ -3,16 +3,21 @@
   "compilerOptions": {
     "plugins": [
       {
-        "name": "next"
-      }
-    ]
+        "name": "next",
+      },
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "*": ["./@mf-types/*"],
+    },
   },
   "include": [
     "next-env.d.ts",
     "next.config.js",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "*.d.ts",
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
 }

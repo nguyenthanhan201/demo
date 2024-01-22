@@ -18,7 +18,7 @@ module.exports = {
     node: true,
     browser: true,
   },
-  plugins: ["only-warn"],
+  plugins: [],
   settings: {
     "import/resolver": {
       typescript: {
@@ -32,4 +32,10 @@ module.exports = {
     "node_modules/",
   ],
   overrides: [{ files: ["*.js?(x)", "*.ts?(x)"] }],
+  rules: {
+    "no-unused-vars": [
+      "error",
+      // { vars: "all", args: "after-used", ignoreRestSiblings: false },
+    ],
+  },
 };
