@@ -14,6 +14,11 @@
       "cache": false,
       "persistent": true,
       "env": ["CONTENT_APP_URL"]
+    },
+    "preview": {
+      "cache": false,
+      "persistent": true,
+      "env": ["CONTENT_APP_URL"]
     }
   }
   // "globalEnv": ["CONTENT_APP_URL, NEXT_PUBLIC_SHOP_APP_URL"]

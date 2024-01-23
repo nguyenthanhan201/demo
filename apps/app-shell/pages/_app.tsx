@@ -19,7 +19,12 @@ import { isEmpty } from '@/lib/helpers/assertion';
 import { getCookie } from '@/lib/hooks/useCookie';
 import { ToastProvider } from '@/lib/providers/toast-provider';
 import { useNetWork } from 'my-package';
-import Page404 from './404';
+import Nav from 'nextjs-module-admin/Nav';
+// import Page404 from './404';
+// const Nav = lazy(() => {
+//   console.log(import('nextjs-module-admin/Nav'));
+//   return import('nextjs-module-admin/Nav');
+// });
 
 const roboto = Roboto({
   weight: ['400', '500', '700'],
@@ -39,7 +44,7 @@ const MyApp = ({ Component, pageProps }: any) => {
     router.replace(router.asPath, router.asPath, { locale: defaultLocale });
   }, []);
 
-  const channel = new BroadcastChannel('notifications');
+  // const channel = new BroadcastChannel('notifications');
 
   // useEffect(() => {
   //   getMessagingToken();
@@ -90,7 +95,7 @@ const MyApp = ({ Component, pageProps }: any) => {
     [ToastProvider] as any
   ] as const);
 
-  if (!online) return <Page404 />;
+  if (!online) return <>you offline</>;
   return (
     <>
       <DefaultSeo
@@ -105,6 +110,17 @@ const MyApp = ({ Component, pageProps }: any) => {
       <ProvidersTree>
         <main className={roboto.className}>
           <Layout {...layoutProps}>
+            <div
+              style={{
+                backgroundColor: 'red',
+                position: 'absolute',
+                zIndex: 1000
+              }}
+            >
+              {/* <Suspense fallback={'loading'}> */}
+              <Nav />
+              {/* </Suspense> */}
+            </div>
             <Component {...pageProps} />
           </Layout>
         </main>
@@ -112,6 +128,11 @@ const MyApp = ({ Component, pageProps }: any) => {
     </>
   );
 };
+// MyApp.getInitialProps = async (ctx: any) => {
+//   console.log('in app getInitialProps');
+//   const appProps = await App.getInitialProps(ctx);
+//   return appProps;
+// };
 export default MyApp;
 
 //  <ColorModeContext.Provider value={colorMode as any}>

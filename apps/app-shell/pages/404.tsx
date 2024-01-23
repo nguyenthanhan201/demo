@@ -41,8 +41,8 @@ const Page404 = () => {
 export default Page404;
 Page404.Layout = DefaultLayout;
 
-export async function getServerSideProps(_ctx: any) {
-  return {
-    props: {}
-  };
-}
+// export async function getServerSideProps(_ctx: any) {
+//   return {
+//     props: {}
+//   };
+// }

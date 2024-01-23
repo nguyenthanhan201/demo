@@ -5,7 +5,6 @@ import { useToast } from '@/lib/providers/toast-provider';
 import { GET_PRODUCTS } from '@/lib/redux/types';
 import { tokens } from '@/lib/theme/theme';
 import { Box, Button, useTheme } from '@mui/material';
-import { DataGrid, GridColumns } from '@mui/x-data-grid';
 import { NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
@@ -16,6 +15,11 @@ import { useSEO } from '@/lib/hooks/useSEO';
 import { queryClient } from '@/lib/react-query/queryClient';
 import { Product } from '@/lib/redux/types/product.type';
 import { ProductServices } from '@/lib/repo/product.repo';
+import { GridColumns } from 'nextjs-module-admin/DataGrid';
+
+const DataGrid = dynamic(() => import('nextjs-module-admin/DataGrid'), {
+  ssr: false
+});
 
 const ModalAddProduct = dynamic(import('@/components/index/admin/products/ModalAddProduct'));
 
@@ -190,7 +194,7 @@ const Page = (pageProps: PageProps<{ products: Product[] }>) => {
           <DataGrid
             checkboxSelection
             columns={columns}
-            getRowId={(row) => row._id}
+            getRowId={(row: any) => row._id}
             rows={products}
           />
         </Box>

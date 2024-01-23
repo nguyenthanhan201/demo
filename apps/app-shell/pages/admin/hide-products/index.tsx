@@ -5,8 +5,8 @@ import { useToast } from '@/lib/providers/toast-provider';
 import { GET_HIDE_PRODUCTS } from '@/lib/redux/types';
 import { tokens } from '@/lib/theme/theme';
 import { Box, Button, useTheme } from '@mui/material';
-import { DataGrid, GridColumns } from '@mui/x-data-grid';
 import { NextPageContext } from 'next';
+import { GridColumns } from 'nextjs-module-admin/DataGrid';
 import { useEffect, useMemo } from 'react';
 import { dehydrate } from 'react-query';
 
@@ -17,6 +17,11 @@ import { queryClient } from '@/lib/react-query/queryClient';
 import { Product } from '@/lib/redux/types/product.type';
 import { AuthServices } from '@/lib/repo/auth.repo';
 import { ProductServices } from '@/lib/repo/product.repo';
+import dynamic from 'next/dynamic';
+
+const DataGrid = dynamic(() => import('nextjs-module-admin/DataGrid'), {
+  ssr: false
+});
 
 const Page = (pageProps: PageProps<{ products: Product[] }>) => {
   const { dehydratedState } = pageProps;
@@ -93,7 +98,7 @@ const Page = (pageProps: PageProps<{ products: Product[] }>) => {
         flex: 1,
         headerAlign: 'center',
         align: 'center',
-        renderCell: (row) => {
+        renderCell: (row: any) => {
           return (
             <Box display='flex' justifyContent='center'>
               <Button
@@ -189,7 +194,12 @@ const Page = (pageProps: PageProps<{ products: Product[] }>) => {
           }
         }}
       >
-        <DataGrid checkboxSelection columns={columns} getRowId={(row) => row._id} rows={products} />
+        <DataGrid
+          checkboxSelection
+          columns={columns}
+          getRowId={(row: any) => row._id}
+          rows={products}
+        />
       </Box>
     </Box>
   );

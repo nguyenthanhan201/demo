@@ -52,7 +52,7 @@ const nextConfig = {
   // cant-access-my-pages-by-url-with-nextjs
   // trailingSlash: true,
   // Faster minification with SWC
-  swcMinify: true,
+  // swcMinify: true,
   // Adding policies:
   // https://blog.logrocket.com/using-next-js-security-headers/
 
@@ -68,15 +68,23 @@ const nextConfig = {
    */
   webpack(config, options) {
     const { isServer, dev } = options;
-    // config.plugins.push(new NextFederationPlugin(federationConfig(isServer)));
 
-    // if (!isServer) {
-    //   config.plugins.push(
-    //     new FederatedTypesPlugin({
-    //       federationConfig: federationConfig(isServer)
-    //     })
-    //   );
-    // }
+    // config.optimization.sideEffects = true;
+
+    // config.optimization = {
+    //   // usedExports: false
+    //   // sideEffects: true
+    // };
+
+    config.plugins.push(new NextFederationPlugin(federationConfig(isServer)));
+
+    if (!isServer) {
+      config.plugins.push(
+        new FederatedTypesPlugin({
+          federationConfig: federationConfig(isServer)
+        })
+      );
+    }
 
     // Reduce Next.Js Bundle Size By Replacing React With Preact
     // https://joyofcode.xyz/next-bundle-size
@@ -104,11 +112,23 @@ const nextConfig = {
     // );
 
     return config;
+  },
+  experimental: {
+    // urlImports: ['https://cdn.skypack.dev', 'https://images.unsplash.com']
+    // optimizeCss: true // enabling this will enable SSR for Tailwind
+  },
+  transpilePackages: ['@mui/material'],
+  modularizeImports: {
+    // '@mui/material/?(((\\w*)?/?)*)': {
+    //   transform: '@mui/material/{{ matches.[1] }}/{{member}}'
+    // },
+    // '@mui/material': {
+    //   transform: '@mui/material/{{member}}'
+    // },
+    '@mui/icons-material/?(((\\w*)?/?)*)': {
+      transform: '@mui/icons-material/{{ matches.[1] }}/{{member}}'
+    }
   }
-  // experimental: {
-  //   urlImports: ['https://cdn.skypack.dev', 'https://images.unsplash.com'],
-  //   optimizeCss: true // enabling this will enable SSR for Tailwind
-  // }
 };
 
 // const withBundleAnalyzer = require('@next/bundle-analyzer')({

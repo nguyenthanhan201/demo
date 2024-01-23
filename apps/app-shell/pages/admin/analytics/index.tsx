@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import {
+import Line, {
   CategoryScale,
   Chart as ChartJS,
   ChartOptions,
@@ -9,9 +9,8 @@ import {
   PointElement,
   Title,
   Tooltip
-} from 'chart.js';
+} from 'nextjs-module-admin/Line';
 import { useEffect, useState } from 'react';
-import { Line } from 'react-chartjs-2';
 
 import Header from '@/components/index/admin/components/Header';
 import AdminLayout from '@/layouts/admin-layout/AdminLayout';

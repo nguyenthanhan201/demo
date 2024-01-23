@@ -1,7 +1,6 @@
 import Header from '@/components/index/admin/components/Header';
 import { tokens } from '@/lib/theme/theme';
 import { Box, Button as ButtonMUI, useTheme } from '@mui/material';
-import { DataGrid } from '@mui/x-data-grid';
 import { NextPageContext } from 'next';
 import { useMemo, useState } from 'react';
 import { dehydrate } from 'react-query';
@@ -12,7 +11,12 @@ import { formatDate, getSalePrice, numberWithCommans } from '@/lib/helpers';
 import { useSEO } from '@/lib/hooks/useSEO';
 import { queryClient } from '@/lib/react-query/queryClient';
 import { OrderServices } from '@/lib/repo/order.repo';
+import dynamic from 'next/dynamic';
 // import { useExcelDownloder } from "react-xls";
+
+const DataGrid = dynamic(() => import('nextjs-module-admin/DataGrid'), {
+  ssr: false
+});
 
 const columns: any = [
   {
@@ -215,7 +219,7 @@ const Page = (pageProps: PageProps<{ orders: Array<any> }>) => {
           checkboxSelection
           rows={orders}
           columns={columns}
-          getRowId={(row) => row._id!}
+          getRowId={(row: any) => row._id!}
         />
       </Box>
     </Box>

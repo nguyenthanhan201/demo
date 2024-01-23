@@ -17,7 +17,10 @@ const federationConfig = (_isServer) => {
     // remotes: remotes(isServer),
     remotes: {},
     exposes: {
-      "./ReactAppLoader": "./src/ReactAppLoader.tsx",
+      // "./ReactAppLoader": "./src/ReactAppLoader.tsx",
+      "./DataGrid": "./src/DataGrid.tsx",
+      "./Nav": "./src/Nav.tsx",
+      "./Line": "./src/Line.tsx",
     },
     shared: {
       // ...dependencies,

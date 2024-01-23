@@ -1,6 +1,6 @@
 import { Box, useTheme } from '@mui/material';
-import { DataGrid, GridCellParams, GridColDef } from '@mui/x-data-grid';
 import dynamic from 'next/dynamic';
+import { GridCellParams, GridColDef } from 'nextjs-module-admin/DataGrid';
 import { useEffect, useState } from 'react';
 
 import Modal from '@/components/shared/Modal/Modal';
@@ -11,6 +11,7 @@ import { RatingServices } from '@/lib/repo/rating.repo';
 import { tokens } from '@/lib/theme/theme';
 
 const ModalRating = dynamic(() => import('./ModalRating'), { ssr: false });
+const DataGrid = dynamic(() => import('nextjs-module-admin/DataGrid'), { ssr: false });
 
 const ManagerRating = () => {
   const theme = useTheme();
@@ -22,9 +23,17 @@ const ManagerRating = () => {
 
   useEffect(() => {
     if (!auth?._id) return;
-    RatingServices.getRatingByIdAuth(auth?._id).then((res) => {
-      setRatings(res);
-    });
+    RatingServices.getRatingByIdAuth(auth?._id)
+      .then((res) => {
+        setRatings(res);
+      })
+      .catch((err) => {
+        console.log(
+          '🚀 ~ file: ManagerRating.tsx ~ line 41 ~ RatingServices.getRatingByIdAuth ~ err',
+          err
+        );
+        setRatings([]);
+      });
   }, [auth?._id]);
 
   const columns: GridColDef[] = [
@@ -123,7 +132,7 @@ const ManagerRating = () => {
           checkboxSelection
           columns={columns}
           getRowHeight={() => 'auto'}
-          getRowId={(row) => row._id!}
+          getRowId={(row: any) => row._id!}
           rows={ratings}
         />
       </Box>

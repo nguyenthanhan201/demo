@@ -1,18 +1,20 @@
 import { setCookie } from '@/lib/hooks/useCookie';
 import { AuthServices } from '@/lib/repo/auth.repo';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { authentication } from '../../../configs/firebase.config';
 
 const LoginPage = () => {
   const googleSignIn = async () => {
-    const authentication = await import('../../../configs/firebase.config').then(
-      (res) => res.authentication
-    );
-    const { signInWithPopup, GoogleAuthProvider } = await import('firebase/auth');
+    // const authentication = await import('../../../configs/firebase.config').then(
+    //   (res) => res.authentication
+    // );
+    // const { signInWithPopup, GoogleAuthProvider } = await import('firebase/auth');
 
     await signInWithPopup(authentication, new GoogleAuthProvider())
       .then(async (result) => {
         await AuthServices.login(result.user.email!, result.user.displayName!)
           .then((res) => {
-            console.log('👌  res:', res);
+            // console.log('👌  res:', res);
             setCookie('token', res.access_token, {
               // 2 day
               expires: new Date(Date.now() + 2 + 24 * 60 * 60 * 1000)

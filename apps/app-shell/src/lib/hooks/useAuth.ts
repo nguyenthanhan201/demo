@@ -30,14 +30,16 @@ function useAuth() {
         }
         return AuthServices.getUserByEmail(String(user.displayName), String(user.email)).then(
           (res) => {
-            const { name, email, _id } = res;
-            dispatch(
-              setAuthSlice({
-                name,
-                email,
-                _id
-              })
-            );
+            if (res) {
+              const { name, email, _id } = res;
+              dispatch(
+                setAuthSlice({
+                  name,
+                  email,
+                  _id
+                })
+              );
+            }
           },
           (err) => {
             console.log('err', err);

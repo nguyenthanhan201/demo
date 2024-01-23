@@ -2,11 +2,10 @@
 const { NextFederationPlugin } = require("@module-federation/nextjs-mf");
 const { FederatedTypesPlugin } = require("@module-federation/typescript");
 const federationConfig = require("./configs/federationConfig");
-const path = require("path");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  // reactStrictMode: false,
   transpilePackages: ["@repo/ui"],
   /**
    *
@@ -14,6 +13,12 @@ const nextConfig = {
    * @returns {import('webpack').Configuration}
    */
   webpack(config, { isServer }) {
+    // config.optimization.sideEffects = true;
+
+    // config.optimization = {
+    //   moduleIds: "deterministic",
+    //   chunkIds: "named",
+    // };
     config.plugins.push(new NextFederationPlugin(federationConfig(isServer)));
 
     if (!isServer) {

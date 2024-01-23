@@ -10,7 +10,6 @@ import PolicyCard from '@/components/shared/PolicyCard';
 import Section, { SectionBody, SectionTitle } from '@/components/shared/Section';
 import { Product } from '@/lib/redux/types/product.type';
 import { heroSliderData, policy } from '@/utils/index';
-// import ReactAppLoader from 'nextjs-module-admin/ReactAppLoader';
 
 const ProductCard = dynamic(import('@/components/shared/ProductCard'), {
   ssr: false
@@ -18,10 +17,6 @@ const ProductCard = dynamic(import('@/components/shared/ProductCard'), {
 const SlideBanner = dynamic(import('@/components/shared/SlideBanner'), {
   ssr: false
 });
-// const DynamicReactAppLoader = dynamic(() => import('nextjs-module-admin/ReactAppLoader'), {
-//   ssr: false
-// });
-
 const HomePage = ({ products }: any) => {
   return (
     <>
@@ -41,13 +36,11 @@ const HomePage = ({ products }: any) => {
         </SectionBody>
       </Section>
       <Section>
-        {/* <ReactAppLoader title='thanh an' age2={22} /> */}
         <SectionTitle>top sản phẩm bản chạy trong tuần</SectionTitle>
         <SectionBody>
           <Grid col={4} gap={20} mdCol={2} smCol={1}>
             {products?.length > 0
               ? products.map((item: Product) => {
-                  // console.log("👌 ~ products", products);
                   if (!item.image01) return null;
                   return <ProductCard key={item.title} product={item} />;
                 })

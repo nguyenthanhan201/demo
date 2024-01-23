@@ -1,13 +1,15 @@
 import Loading from '@/components/shared/Loading/Loading';
 import { useAppSelector } from '@/lib/hooks/useAppSelector';
 import { Box, useTheme } from '@mui/material';
-import { DataGrid } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
 
 import Img from '@/components/shared/Img/Img';
 import { formatDate, getSalePrice, numberWithCommans } from '@/lib/helpers';
 import { OrderServices } from '@/lib/repo/order.repo';
 import { tokens } from '@/lib/theme/theme';
+import dynamic from 'next/dynamic';
+
+const DataGrid = dynamic(() => import('nextjs-module-admin/DataGrid'), { ssr: false });
 
 const columns: any = [
   {
@@ -148,7 +150,7 @@ const ManagerOrders = () => {
               checkboxSelection
               rows={orders}
               columns={columns}
-              getRowId={(row) => row._id!}
+              getRowId={(row: any) => row._id!}
             />
           </Box>
         </>
