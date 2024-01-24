@@ -1,3 +1,4 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   // disable reset styles of tailwind
   corePlugins: {

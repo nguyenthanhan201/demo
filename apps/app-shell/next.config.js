@@ -7,8 +7,8 @@ const federationConfig = require('./src/configs/federationConfig');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // compress: true,
-  // optimizeFonts: true,
+  compress: true,
+  optimizeFonts: true,
   // transpilePackages: ['@mui/material'],
   // sassOptions: {
   //   includePaths: ['./src'],
