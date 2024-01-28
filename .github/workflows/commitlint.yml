@@ -11,6 +11,18 @@ jobs:
           fetch-depth: 0
       - uses: wagoid/commitlint-github-action@v5
 
+  # this job install pnpm
+  install:
+    runs-on: ubuntu-latest
+
+    steps:
+        - uses: actions/checkout@v3
+        
+        - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+            version: 8.9.0  # Optional: specify a pnpm version
+
   # this job make sure code is linted
   lint-code:
     runs-on: ubuntu-latest
