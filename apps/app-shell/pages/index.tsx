@@ -12,6 +12,8 @@ import { ProductServices } from '@/lib/repo/product.repo';
 export default function Page(pageProps: PageProps<{ products: Product[] }>) {
   const { dehydratedState } = pageProps;
 
+  const a = 1;
+
   return <HomePage products={dehydratedState.queries.at(0)?.state.data} />;
 }
 Page.Layout = DefaultLayout;
