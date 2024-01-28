@@ -1,5 +1,3 @@
-import { Button } from '@repo/ui/button';
-
 export default function Page() {
   const a: any = 1;
 
@@ -7,7 +5,7 @@ export default function Page() {
 
   return (
     <div>
-      <Button appName='12123'>123123123123</Button>
+      <button type='button'>123123123123</button>
       {/* <ReactAppLoader title="2sfsfd" /> */}
     </div>
   );
