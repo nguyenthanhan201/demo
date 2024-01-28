@@ -81,6 +81,8 @@ const ImagePreview = ({ previewImg }: ImagePreviewProps) => {
 
         // ?Lay cac phan tu tinh toan do dai zoom_result
         let container = Array.from(document.getElementsByClassName('container'));
+
+        if (!container[1]) return;
         // console.log(container[1].clientWidth);
         let product_image: any = document.querySelector('.product_image');
         let num: any = (product_image.clientWidth * 100) / container[1].clientWidth;
@@ -110,8 +112,8 @@ const ImagePreview = ({ previewImg }: ImagePreviewProps) => {
 
   return (
     <div className='img-zoom-container'>
-      <img id='myimage' src={previewImg} alt={previewImg} />
-      <div id='myresult' className='img-zoom-result'></div>
+      <img alt={previewImg} id='myimage' src={previewImg} />
+      <div className='img-zoom-result' id='myresult' />
     </div>
   );
 };

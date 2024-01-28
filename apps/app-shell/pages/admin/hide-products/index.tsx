@@ -1,27 +1,25 @@
-import Header from '@/components/index/admin/components/Header';
-import { useAppDispatch } from '@/lib/hooks/useAppDispatch';
-import { useAppSelector } from '@/lib/hooks/useAppSelector';
-import { useToast } from '@/lib/providers/toast-provider';
-import { GET_HIDE_PRODUCTS } from '@/lib/redux/types';
-import { tokens } from '@/lib/theme/theme';
 import { Box, Button, useTheme } from '@mui/material';
 import { NextPageContext } from 'next';
+import dynamic from 'next/dynamic';
 import { GridColumns } from 'nextjs-module-admin/DataGrid';
 import { useEffect, useMemo } from 'react';
 import { dehydrate } from 'react-query';
 
+import Header from '@/components/index/admin/components/Header';
 import AdminLayout from '@/layouts/admin-layout/AdminLayout';
+import { useAppDispatch } from '@/lib/hooks/useAppDispatch';
+import { useAppSelector } from '@/lib/hooks/useAppSelector';
 import useCookie from '@/lib/hooks/useCookie';
 import { useSEO } from '@/lib/hooks/useSEO';
+import { useToast } from '@/lib/providers/toast-provider';
 import { queryClient } from '@/lib/react-query/queryClient';
+import { GET_HIDE_PRODUCTS } from '@/lib/redux/types';
 import { Product } from '@/lib/redux/types/product.type';
 import { AuthServices } from '@/lib/repo/auth.repo';
 import { ProductServices } from '@/lib/repo/product.repo';
-import dynamic from 'next/dynamic';
+import { tokens } from '@/lib/theme/theme';
 
-const DataGrid = dynamic(() => import('nextjs-module-admin/DataGrid'), {
-  ssr: false
-});
+const DataGrid = dynamic(() => import('nextjs-module-admin/DataGrid'));
 
 const Page = (pageProps: PageProps<{ products: Product[] }>) => {
   const { dehydratedState } = pageProps;
@@ -102,22 +100,22 @@ const Page = (pageProps: PageProps<{ products: Product[] }>) => {
           return (
             <Box display='flex' justifyContent='center'>
               <Button
-                variant='contained'
-                style={{ backgroundColor: '#70d8bd' }}
                 onClick={() => {
                   handleShowProduct(row.row._id);
                 }}
+                style={{ backgroundColor: '#70d8bd' }}
+                variant='contained'
               >
                 Hiện
               </Button>
               <Button
-                variant='contained'
-                style={{ backgroundColor: '#70d8bd' }}
                 onClick={() => {
                   ProductServices.deleteProduct(row.row._id).then(() => {
                     dispatch({ type: GET_HIDE_PRODUCTS });
                   });
                 }}
+                style={{ backgroundColor: '#70d8bd' }}
+                variant='contained'
               >
                 Xóa
               </Button>

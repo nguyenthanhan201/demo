@@ -9,13 +9,13 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { shallowEqual } from 'react-redux';
-import { useAppSelector } from '../../lib/hooks/useAppSelector';
 
 import Img from '@/components/shared/Img/Img';
-import { LanguageTypes, MainNavTypes, contentHeader } from '@/dictionaries/header';
+import { contentHeader, LanguageTypes, MainNavTypes } from '@/dictionaries/header';
 import { removeCookie } from '@/lib/hooks/useCookie';
 import { AuthServices } from '@/lib/repo/auth.repo';
 
+import { useAppSelector } from '../../lib/hooks/useAppSelector';
 import { mainNav } from '../../utils/fake-data/header-navs';
 
 const Menu = dynamic(() => import('./components/Menu'), { ssr: false });

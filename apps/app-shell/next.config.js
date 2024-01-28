@@ -61,6 +61,21 @@ const nextConfig = {
     defaultLocale: 'vi'
   },
   reactStrictMode: false,
+  // async headers() {
+  //   return [
+  //     {
+  //       // matching all API routes
+  //       source:
+  //         '/demo-nextjs-module-admin-27w0gnlcj-nguyenthanhan201.vercel.app/_next/static/chunks/remoteEntry.js ',
+  //       headers: [
+  //         {
+  //           key: 'Authorization',
+  //           value: 'SnJmfAX7LcaRBbszdAwbHTYj'
+  //         }
+  //       ]
+  //     }
+  //   ];
+  // },
   /**
    *
    * @param {import('webpack').Configuration} config
@@ -117,7 +132,7 @@ const nextConfig = {
     // urlImports: ['https://cdn.skypack.dev', 'https://images.unsplash.com']
     // optimizeCss: true // enabling this will enable SSR for Tailwind
   },
-  transpilePackages: ['@mui/material'],
+  // transpilePackages: ['@mui/material'],
   modularizeImports: {
     // '@mui/material/?(((\\w*)?/?)*)': {
     //   transform: '@mui/material/{{ matches.[1] }}/{{member}}'
@@ -125,6 +140,10 @@ const nextConfig = {
     // '@mui/material': {
     //   transform: '@mui/material/{{member}}'
     // },
+    '@mui/material/!(styles)/?*': {
+      transform: '@mui/material/{{path}}/{{member}}',
+      skipDefaultConversion: true
+    },
     '@mui/icons-material/?(((\\w*)?/?)*)': {
       transform: '@mui/icons-material/{{ matches.[1] }}/{{member}}'
     }

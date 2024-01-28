@@ -12,6 +12,7 @@ function useAuth() {
   const toast = useToast();
 
   const isLogined = !isEmpty(getCookie('token'));
+  // console.log('👌  isLogined:', isLogined);
 
   useEffect(() => {
     (async function unsubscribe() {
@@ -23,6 +24,7 @@ function useAuth() {
         const _isLogined = !isEmpty(getCookie('token'));
         // console.log('👌  _isLogined:', _isLogined);
         // console.log('👌 ~ user', user);
+        // console.log(!user || !_isLogined);
         if (!user || !_isLogined) {
           removeCookie('token');
           removeCookie('refreshToken');
@@ -31,6 +33,7 @@ function useAuth() {
         return AuthServices.getUserByEmail(String(user.displayName), String(user.email)).then(
           (res) => {
             if (res) {
+              console.log('👌  res:', res);
               const { name, email, _id } = res;
               dispatch(
                 setAuthSlice({

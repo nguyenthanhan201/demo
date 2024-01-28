@@ -1,7 +1,3 @@
-import { useAppDispatch } from '@/lib/hooks/useAppDispatch';
-import { useAppSelector } from '@/lib/hooks/useAppSelector';
-import { useToast } from '@/lib/providers/toast-provider';
-import { GET_CART_ITEMS } from '@/lib/redux/types';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { memo, useCallback, useMemo, useState } from 'react';
@@ -9,7 +5,11 @@ import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 
 import { getSalePrice, numberWithCommans } from '@/lib/helpers';
+import { useAppDispatch } from '@/lib/hooks/useAppDispatch';
+import { useAppSelector } from '@/lib/hooks/useAppSelector';
 import { useDevice } from '@/lib/hooks/useDevice';
+import { useToast } from '@/lib/providers/toast-provider';
+import { GET_CART_ITEMS } from '@/lib/redux/types';
 import { Product } from '@/lib/redux/types/product.type';
 import { Rating } from '@/lib/redux/types/rating.type';
 import { CartServices } from '@/lib/repo/cart.repo';
@@ -164,7 +164,7 @@ const ProductView = ({ product }: ProductViewProps) => {
               <p className='animate-pulse'>Đang lấy thông tin đánh giá</p>
             ) : (
               <>
-                {ratings.length > 0 && ratings[0].rating !== 0 ? (
+                {ratings.length > 0 && ratings[0]?.rating !== 0 ? (
                   <div
                     className='flex cursor-pointer flex-col gap-1'
                     onClick={() => setShowModal(true)}

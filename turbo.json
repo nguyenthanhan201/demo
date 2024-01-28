@@ -8,12 +8,13 @@
       // "outputs": [".next/**"]
     },
     "lint": {
-      "dependsOn": ["^lint"]
+      "dependsOn": ["^lint"],
+      "cache": false
     },
     "dev": {
       "cache": false,
       "persistent": true,
-      "env": ["CONTENT_APP_URL"]
+      "env": ["CONTENT_APP_URL", "NEXT_PUBLIC_BE"]
     },
     "preview": {
       "cache": false,

@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { NextFederationPlugin } = require("@module-federation/nextjs-mf");
-const { FederatedTypesPlugin } = require("@module-federation/typescript");
-const federationConfig = require("./configs/federationConfig");
+const { NextFederationPlugin } = require('@module-federation/nextjs-mf');
+const { FederatedTypesPlugin } = require('@module-federation/typescript');
+const federationConfig = require('./configs/federationConfig');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // reactStrictMode: false,
-  transpilePackages: ["@repo/ui"],
+  transpilePackages: ['@repo/ui'],
   /**
    *
    * @param {import('webpack').Configuration} config
@@ -29,7 +29,7 @@ const nextConfig = {
 
       config.plugins.push(
         new FederatedTypesPlugin({
-          federationConfig: federationConfig(isServer),
+          federationConfig: federationConfig(isServer)
         })
       );
     }
@@ -53,7 +53,7 @@ const nextConfig = {
     // };
 
     return config;
-  },
+  }
   // experimental: {
   //   optimizeCss: true,
   // },

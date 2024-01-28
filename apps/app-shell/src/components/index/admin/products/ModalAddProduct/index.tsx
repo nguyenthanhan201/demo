@@ -1,17 +1,17 @@
-import Input from '@/components/shared/Input/Input';
-import Select from '@/components/shared/Select/Select';
-import { useAppDispatch } from '@/lib/hooks/useAppDispatch';
-import { useToast } from '@/lib/providers/toast-provider';
-import { registerSchema } from '@/lib/schema/formSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
+import Input from '@/components/shared/Input/Input';
+import Select from '@/components/shared/Select/Select';
+import { useAppDispatch } from '@/lib/hooks/useAppDispatch';
+import { useToast } from '@/lib/providers/toast-provider';
 import { GET_PRODUCTS } from '@/lib/redux/types';
 import { Product } from '@/lib/redux/types/product.type';
 import { ProductServices } from '@/lib/repo/product.repo';
+import { registerSchema } from '@/lib/schema/formSchema';
 import { category, colors, size } from '@/utils/index';
 
 type ModalAddProductProps = {

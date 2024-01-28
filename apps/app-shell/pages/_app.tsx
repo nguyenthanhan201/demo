@@ -18,8 +18,7 @@ import { buildProvidersTree } from '@/lib/helpers';
 import { isEmpty } from '@/lib/helpers/assertion';
 import { getCookie } from '@/lib/hooks/useCookie';
 import { ToastProvider } from '@/lib/providers/toast-provider';
-import { useNetWork } from 'my-package';
-import Nav from 'nextjs-module-admin/Nav';
+import { useNetwork } from 'my-package';
 // import Page404 from './404';
 // const Nav = lazy(() => {
 //   console.log(import('nextjs-module-admin/Nav'));
@@ -37,7 +36,7 @@ const MyApp = ({ Component, pageProps }: any) => {
   const Layout = Component.Layout ? Component.Layout : Fragment;
   const layoutProps = Component.LayoutProps ? Component.LayoutProps : {};
   const [theme, colorMode] = useMode();
-  const { online } = useNetWork();
+  const { online } = useNetwork();
   const router = useRouter();
 
   useEffect(() => {
@@ -118,7 +117,7 @@ const MyApp = ({ Component, pageProps }: any) => {
               }}
             >
               {/* <Suspense fallback={'loading'}> */}
-              <Nav />
+              {/* <Nav /> */}
               {/* </Suspense> */}
             </div>
             <Component {...pageProps} />

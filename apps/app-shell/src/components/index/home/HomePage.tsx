@@ -1,22 +1,23 @@
 // import React from 'https://cdn.skypack.dev/react';
 // import React from 'https://unpkg.com/browse/react@18.2.0';
 // import { isEmpty } from 'https://cdn.skypack.dev/lodash';
-import dynamic from 'next/dynamic';
 import { memo } from 'react';
 
 import Grid from '@/components/shared/Grid';
 import HeroSlider from '@/components/shared/HeroSlider';
 import PolicyCard from '@/components/shared/PolicyCard';
+import ProductCard from '@/components/shared/ProductCard';
 import Section, { SectionBody, SectionTitle } from '@/components/shared/Section';
+import SlideBanner from '@/components/shared/SlideBanner';
 import { Product } from '@/lib/redux/types/product.type';
 import { heroSliderData, policy } from '@/utils/index';
 
-const ProductCard = dynamic(import('@/components/shared/ProductCard'), {
-  ssr: false
-});
-const SlideBanner = dynamic(import('@/components/shared/SlideBanner'), {
-  ssr: false
-});
+// const ProductCard = dynamic(import('@/components/shared/ProductCard'), {
+//   ssr: false
+// });
+// const SlideBanner = dynamic(import('@/components/shared/SlideBanner'), {
+//   ssr: false
+// });
 const HomePage = ({ products }: any) => {
   return (
     <>

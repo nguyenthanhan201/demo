@@ -3,17 +3,17 @@ import {
   Chart,
   ChartOptions,
   Legend,
-  LineElement,
   LinearScale,
+  LineElement,
   PointElement,
   Title,
-  Tooltip,
-} from "chart.js";
-import { ChartProps, Line as LineChartJs } from "react-chartjs-2";
+  Tooltip
+} from 'chart.js';
+import { ChartProps, Line as LineChartJs } from 'react-chartjs-2';
 
 type LineProps = {
-  data: ChartProps["data"];
-  options: ChartProps["options"];
+  data: ChartProps['data'];
+  options: ChartProps['options'];
 };
 
 const Line = (props: LineProps) => {
@@ -22,15 +22,6 @@ const Line = (props: LineProps) => {
 
 export default Line;
 
-export {
-  CategoryScale,
-  Chart,
-  Legend,
-  LineElement,
-  LinearScale,
-  PointElement,
-  Title,
-  Tooltip,
-};
+export { CategoryScale, Chart, Legend, LinearScale, LineElement, PointElement, Title, Tooltip };
 
 export type { ChartOptions, LineProps };

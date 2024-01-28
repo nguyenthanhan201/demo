@@ -1,11 +1,12 @@
 import { FormControl, InputLabel, Select as SelectMUI } from '@mui/material';
 import React from 'react';
 
-interface SelectProps extends FormControlProps {
+interface SelectProps {
   defaultValue?: string | string[];
   label?: string;
   error?: any;
   multiple?: boolean;
+  children?: React.ReactNode;
 }
 
 const Select = React.forwardRef(

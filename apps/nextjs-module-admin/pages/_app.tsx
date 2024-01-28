@@ -1,9 +1,9 @@
-import { Roboto } from "next/font/google";
-import { Fragment } from "react";
+import { Roboto } from 'next/font/google';
+import { Fragment } from 'react';
 
 const roboto = Roboto({
-  weight: ["400", "500", "700"],
-  subsets: ["vietnamese"],
+  weight: ['400', '500', '700'],
+  subsets: ['vietnamese']
 });
 
 const MyApp = ({ Component, pageProps }: any) => {

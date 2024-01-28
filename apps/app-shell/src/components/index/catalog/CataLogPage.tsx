@@ -1,9 +1,9 @@
-import { memo, useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 
 import Grid from '@/components/shared/Grid';
 import ProductCard from '@/components/shared/ProductCard';
-
 import { productData } from '@/utils/index';
+
 import CatalogFilter from './components/CatalogFilter';
 
 export type FilterType = {
@@ -66,10 +66,10 @@ const CatalogPage = () => {
   //   }
   // );
 
-  const [productList, setProductList] = useState<Array<any>>(productData.getAllProducts());
-  const [products, setProducts] = useState<Array<any>>([]);
+  const [productList, _setProductList] = useState<Array<any>>(productData.getAllProducts());
+  const [_products, setProducts] = useState<Array<any>>([]);
   const [filter, setFilter] = useState<FilterType>(initFilter);
-  const listRef = useRef(null);
+  // const listRef = useRef(null);
 
   // const rowVirtualizer = useVirtual({
   //   size: products.length,
@@ -105,7 +105,7 @@ const CatalogPage = () => {
 
       if (filter.prices.length > 0) {
         temp = temp.filter((e) => {
-          const check = filter.prices.find((price) => {
+          const check = filter.prices.find((price: any) => {
             return Number(e.price) >= price[0] && Number(e.price) <= price[1];
           });
           return check !== undefined;

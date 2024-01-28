@@ -17,7 +17,7 @@
     // "jsx": "preserve",
     // "lib": ["dom", "dom.iterable", "esnext"],
     // "module": "esnext",
-    // "moduleResolution": "node",
+    // "moduleResolution": "Bundler"
     // "noEmit": true,
     // "noFallthroughCasesInSwitch": true,
     // "noImplicitReturns": true,
@@ -30,15 +30,6 @@
     // "target": "es2018",
     // "incremental": true
   },
-  "include": [
-    "next-env.d.ts",
-    "next.config.js",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "configs/federationConfig.js"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "next.config.js", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }

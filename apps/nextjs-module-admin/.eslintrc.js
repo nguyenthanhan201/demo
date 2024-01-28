@@ -1,25 +1,29 @@
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
   root: true,
+  // parserOptions: {
+  //   ecmaVersion: 'latest',
+  //   sourceType: 'module'
+  // },
+  settings: {
+    react: {
+      version: 'detect'
+    }
+  },
+  env: {
+    browser: true,
+    es2021: true,
+    node: true
+  },
   extends: [
-    "@repo/eslint-config/next.js",
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
+    // 'eslint:recommended',
+    // 'plugin:@typescript-eslint/recommended',
+    '@repo/eslint-config/next.js'
   ],
-  parser: "@typescript-eslint/parser",
+  parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: true,
+    project: false
   },
-  plugins: ["@typescript-eslint"],
-  rules: {
-    "@typescript-eslint/no-explicit-any": "warn",
-    "@typescript-eslint/no-unused-vars": [
-      "error",
-      {
-        argsIgnorePattern: "^_",
-        varsIgnorePattern: "^_",
-        caughtErrorsIgnorePattern: "^_",
-      },
-    ],
-  },
+  plugins: [],
+  rules: {}
 };

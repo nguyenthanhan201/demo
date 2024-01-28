@@ -1,6 +1,8 @@
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+
 import { setCookie } from '@/lib/hooks/useCookie';
 import { AuthServices } from '@/lib/repo/auth.repo';
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+
 import { authentication } from '../../../configs/firebase.config';
 
 const LoginPage = () => {

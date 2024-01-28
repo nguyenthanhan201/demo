@@ -1,25 +1,23 @@
-import Header from '@/components/index/admin/components/Header';
-import Modal from '@/components/shared/Modal/Modal';
-import { useAppDispatch } from '@/lib/hooks/useAppDispatch';
-import { useToast } from '@/lib/providers/toast-provider';
-import { GET_PRODUCTS } from '@/lib/redux/types';
-import { tokens } from '@/lib/theme/theme';
 import { Box, Button, useTheme } from '@mui/material';
 import { NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
+import { GridColumns } from 'nextjs-module-admin/DataGrid';
 import { useState } from 'react';
 import { dehydrate } from 'react-query';
 
+import Header from '@/components/index/admin/components/Header';
+import Modal from '@/components/shared/Modal/Modal';
 import AdminLayout from '@/layouts/admin-layout/AdminLayout';
+import { useAppDispatch } from '@/lib/hooks/useAppDispatch';
 import { useSEO } from '@/lib/hooks/useSEO';
+import { useToast } from '@/lib/providers/toast-provider';
 import { queryClient } from '@/lib/react-query/queryClient';
+import { GET_PRODUCTS } from '@/lib/redux/types';
 import { Product } from '@/lib/redux/types/product.type';
 import { ProductServices } from '@/lib/repo/product.repo';
-import { GridColumns } from 'nextjs-module-admin/DataGrid';
+import { tokens } from '@/lib/theme/theme';
 
-const DataGrid = dynamic(() => import('nextjs-module-admin/DataGrid'), {
-  ssr: false
-});
+const DataGrid = dynamic(() => import('nextjs-module-admin/DataGrid'));
 
 const ModalAddProduct = dynamic(import('@/components/index/admin/products/ModalAddProduct'));
 

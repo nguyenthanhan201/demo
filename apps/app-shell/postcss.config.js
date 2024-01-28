@@ -16,10 +16,15 @@ module.exports = {
     },
     // configure PurgeCSS
     '@fullhuman/postcss-purgecss': {
-      content: ['./src/**/*.{html,tsx}', './pages/**/*.{html,tsx}'],
+      content: [
+        './src/**/*.{html,tsx}',
+        './pages/**/*.{html,tsx}',
+        './node_modules/react-pro-sidebar/**/*.js'
+      ],
       defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || [],
       safelist: {
-        standard: ['html', 'body']
+        standard: ['html', 'body'],
+        deep: []
       }
     }
   }

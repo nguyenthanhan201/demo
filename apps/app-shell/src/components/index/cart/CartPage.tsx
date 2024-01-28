@@ -65,7 +65,7 @@ const CartPage = () => {
           </div>
         </div>
         <div className='cart_info_btn'>
-          <Button size='block' onClick={handleCreateOrder}>
+          <Button onClick={handleCreateOrder} size='block'>
             đặt hàng
           </Button>
           <Link href='/'>
@@ -79,11 +79,11 @@ const CartPage = () => {
               // console.log("👌 ~ item", item);
               return (
                 <CartItem
+                  color={item[0].color}
                   key={index}
                   product={item[0].idProduct}
                   quantity={item[0].quantity}
                   size={item[0].size}
-                  color={item[0].color}
                 />
               );
             })
@@ -91,9 +91,9 @@ const CartPage = () => {
         <p className='text-red-500'>
           Lưu ý: vào link sau để lấy thông tin thanh toán&nbsp;
           <Link
+            className='text-blue-500'
             href='https://sandbox.vnpayment.vn/apis/vnpay-demo/'
             target='_blank'
-            className='text-blue-500'
           >
             https://sandbox.vnpayment.vn/apis/vnpay-demo/
           </Link>

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { dependencies } = require("../package.json");
+const { dependencies } = require('../package.json');
 
 // const CONTENT_APP_URL = process.env.CONTENT_APP_URL || "http://localhost:3001";
 
@@ -12,15 +12,15 @@ const { dependencies } = require("../package.json");
 
 const federationConfig = (_isServer) => {
   return {
-    name: "nextjs-module-admin",
-    filename: "static/chunks/remoteEntry.js",
+    name: 'nextjs-module-admin',
+    filename: 'static/chunks/remoteEntry.js',
     // remotes: remotes(isServer),
     remotes: {},
     exposes: {
       // "./ReactAppLoader": "./src/ReactAppLoader.tsx",
-      "./DataGrid": "./src/DataGrid.tsx",
-      "./Nav": "./src/Nav.tsx",
-      "./Line": "./src/Line.tsx",
+      './DataGrid': './src/DataGrid.tsx',
+      './Nav': './src/Nav.tsx',
+      './Line': './src/Line.tsx'
     },
     shared: {
       // ...dependencies,
@@ -43,7 +43,7 @@ const federationConfig = (_isServer) => {
       //   singleton: true,
       //   requiredVersion: dependencies["next"],
       // },
-    },
+    }
     // extraOptions: {
     //   exposePages: true,
     // },

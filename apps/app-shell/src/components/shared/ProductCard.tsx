@@ -48,6 +48,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <div className='imgBox'>
           <h2>{product.title}</h2>
           <Link
+            className='shoess'
             href={{
               pathname: `/product-detail/${product.slug}`,
               query: {
@@ -67,13 +68,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
               }
             }}
             onClick={handleIncreaseViewsProduct}
-            className='shoess'
           >
             <Img
-              src={product.image01}
               alt={product.title}
-              layout='fill'
               className='rounded-[20px]'
+              layout='fill'
+              src={product.image01}
             />
           </Link>
           <div className='size'>
@@ -88,10 +88,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
             )}
           </div>
           <Button
-            size='sm'
-            icon={<ShoppingCartOutlinedIcon fontSize='inherit' />}
             animate={true}
+            icon={<ShoppingCartOutlinedIcon fontSize='inherit' />}
             onClick={() => setOpen(true)}
+            size='sm'
           >
             chọn mua
           </Button>

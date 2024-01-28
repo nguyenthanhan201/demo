@@ -3,8 +3,8 @@ import {
   DataGridProps,
   GridCellParams,
   GridColDef,
-  GridColumns,
-} from "@mui/x-data-grid";
+  GridColumns
+} from '@mui/x-data-grid';
 
 export type { GridCellParams, GridColDef, GridColumns };
 

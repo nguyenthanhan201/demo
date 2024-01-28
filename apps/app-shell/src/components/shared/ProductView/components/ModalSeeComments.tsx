@@ -17,12 +17,12 @@ const ModalSeeComments = ({ ratings }: Props) => {
           <h1 className='mb-3'>Đánh giá sản phẩm</h1>
           <div>
             {ratings.map((item, index: number) => (
-              <div key={index} className='product-rating'>
+              <div className='product-rating' key={index}>
                 <Avatar sx={{ width: 24, height: 24 }}>{item.idAuth.name.charAt(0)}</Avatar>
                 <div className='product-rating__main'>
                   <div>
                     <p>{item.idAuth.name}</p>
-                    <RatingMUI value={item.rating} readOnly size='small' />
+                    <RatingMUI readOnly size='small' value={item.rating} />
                     <p className='product-rating__time'>{formatDate(item.updatedAt, 'date')}</p>
                   </div>
                   {/* eslint-disable-next-line react/no-danger */}

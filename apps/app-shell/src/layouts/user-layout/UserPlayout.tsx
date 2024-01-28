@@ -1,10 +1,11 @@
+import { useEffect } from 'react';
+
 import DefaultFooter from '@/layouts/default-footer/DefaultFooter';
 import DefaultHeader from '@/layouts/default-header/DefaultHeader';
 import { useAppDispatch } from '@/lib/hooks/useAppDispatch';
 import { useAppSelector } from '@/lib/hooks/useAppSelector';
 import useAuth from '@/lib/hooks/useAuth';
 import { GET_CART_ITEMS } from '@/lib/redux/types';
-import { useEffect } from 'react';
 
 import SiderBar from './components/SiderBar';
 
@@ -36,7 +37,7 @@ const UserPlayout = ({ ...props }: any) => {
 
   return (
     <>
-      <div id='progressbar'></div>
+      <div id='progressbar' />
       <DefaultHeader />
       <div className='container'>
         <div className='main user-layout'>

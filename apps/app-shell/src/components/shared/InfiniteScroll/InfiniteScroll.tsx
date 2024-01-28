@@ -49,6 +49,9 @@ const InfiniteScroll = forwardRef<InfiniteScrollRef, InfinityListProps>(function
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
+
+        if (!entry) return;
+
         if (entry.isIntersecting) {
           loadMoreItems();
         }

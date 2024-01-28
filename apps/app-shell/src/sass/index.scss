@@ -1,3 +1,4 @@
+/*! purgecss start ignore */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -36,3 +37,4 @@
 // lib styles
 @import "react-toastify/dist/ReactToastify.css";
 @import 'react-quill/dist/quill.snow.css';
+/*! purgecss end ignore */

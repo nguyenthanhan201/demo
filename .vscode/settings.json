@@ -3,5 +3,12 @@
     {
       "mode": "auto"
     }
-  ]
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit",
+    "source.fixAll.tslint": "explicit",
+    "source.fixAll.eslint": "explicit"
+  }
+  // "eslint.workingDirectories": ["../apps/nextjs-module-admin", "../libs/**"]
 }

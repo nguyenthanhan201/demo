@@ -1,9 +1,9 @@
 import PersonIcon from '@mui/icons-material/Person';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import StarsOutlinedIcon from '@mui/icons-material/StarsOutlined';
-import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { NextSeo } from 'next-seo';
 
 const listSidebar = [
   {
@@ -33,7 +33,7 @@ const SiderBar = () => {
           const isSelect = router.pathname === item.path;
           return (
             <li key={item.path}>
-              <Link href={item.path} className={`side-bar__content__item ${isSelect && 'active'}`}>
+              <Link className={`side-bar__content__item ${isSelect && 'active'}`} href={item.path}>
                 <NextSeo title={isSelect ? item.title : ''} />
                 {item.icon}
                 <p>{item.title}</p>

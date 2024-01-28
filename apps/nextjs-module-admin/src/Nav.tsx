@@ -1,8 +1,8 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 const links = [
-  { href: "https://zeit.co/now", label: "ZEIT" },
-  { href: "https://github.com/zeit/next.js", label: "GitHub" },
+  { href: 'https://zeit.co/now', label: 'ZEIT' },
+  { href: 'https://github.com/zeit/next.js', label: 'GitHub' }
 ].map((link: any) => {
   link.key = `nav-link-${link.href}-${link.label}`;
   return link;
@@ -12,10 +12,10 @@ const Nav = () => (
   <nav>
     <ul>
       <li>
-        <Link href="/">Home</Link>
-        <Link href="/shop">Shop</Link>
-        <Link href="/p/something">Federated Catch All</Link>
-        <Link href="/checkout">Checkout</Link>
+        <Link href='/'>Home</Link>
+        <Link href='/shop'>Shop</Link>
+        <Link href='/p/something'>Federated Catch All</Link>
+        <Link href='/checkout'>Checkout</Link>
       </li>
       {links.map(({ key, href, label }) => (
         <li key={key}>
@@ -24,7 +24,7 @@ const Nav = () => (
       ))}
     </ul>
 
-    <style jsx>{`
+    {/* <style jsx>{`
       :global(body) {
         margin: 0;
         font-family:
@@ -56,7 +56,7 @@ const Nav = () => (
         font-size: 13px;
         padding-right: 10px;
       }
-    `}</style>
+    `}</style> */}
   </nav>
 );
 

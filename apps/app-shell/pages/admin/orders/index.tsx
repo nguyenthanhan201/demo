@@ -1,22 +1,20 @@
-import Header from '@/components/index/admin/components/Header';
-import { tokens } from '@/lib/theme/theme';
 import { Box, Button as ButtonMUI, useTheme } from '@mui/material';
 import { NextPageContext } from 'next';
+import dynamic from 'next/dynamic';
 import { useMemo, useState } from 'react';
 import { dehydrate } from 'react-query';
 
+import Header from '@/components/index/admin/components/Header';
 import Img from '@/components/shared/Img/Img';
 import AdminLayout from '@/layouts/admin-layout/AdminLayout';
 import { formatDate, getSalePrice, numberWithCommans } from '@/lib/helpers';
 import { useSEO } from '@/lib/hooks/useSEO';
 import { queryClient } from '@/lib/react-query/queryClient';
 import { OrderServices } from '@/lib/repo/order.repo';
-import dynamic from 'next/dynamic';
+import { tokens } from '@/lib/theme/theme';
 // import { useExcelDownloder } from "react-xls";
 
-const DataGrid = dynamic(() => import('nextjs-module-admin/DataGrid'), {
-  ssr: false
-});
+const DataGrid = dynamic(() => import('nextjs-module-admin/DataGrid'));
 
 const columns: any = [
   {
@@ -40,12 +38,12 @@ const columns: any = [
             return (
               <div className='flex items-center gap-2' key={index}>
                 <Img
-                  src={product.image01}
                   alt={product.image01}
-                  width={30}
-                  height={30}
                   className='rounded-full'
                   hasNotplaceholder
+                  height={30}
+                  src={product.image01}
+                  width={30}
                 />
                 <p style={{ whiteSpace: 'break-spaces' }}>{`${product.title}-${size}-${color}`}</p>
               </div>
@@ -93,17 +91,24 @@ const columns: any = [
     headerAlign: 'center',
     align: 'center',
     renderCell: () => {
-      return <> {'Hoàn thành'}</>;
+      return <> Hoàn thành</>;
     }
   }
 ];
 
 const Page = (pageProps: PageProps<{ orders: Array<any> }>) => {
   const { dehydratedState } = pageProps;
+  console.log('👌  dehydratedState:', dehydratedState.queries);
   // const { ExcelDownloder } = useExcelDownloder();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [orders] = useState<any>(dehydratedState.queries.at(0)?.state.data || []);
+  const [orders] = useState(() => {
+    const findIndex = dehydratedState.queries.findIndex(
+      (item: any) => item.queryKey === 'ordersQuery'
+    );
+    return dehydratedState.queries.at(findIndex)?.state.data || [];
+  });
+  // console.log('👌  orders:', dehydratedState.queries.at(0)?.state.data);
 
   const convertOrdersToExcel = () => {
     if (orders.length <= 0) return;
@@ -180,13 +185,13 @@ const Page = (pageProps: PageProps<{ orders: Array<any> }>) => {
 
   return (
     <Box m='20px'>
-      <Box display='flex' justifyContent='space-between' alignItems='center'>
-        <Header title='Orders' subtitle='Welcome to orders dashboard' />
+      <Box alignItems='center' display='flex' justifyContent='space-between'>
+        <Header subtitle='Welcome to orders dashboard' title='Orders' />
         {ButtonExcel}
       </Box>
       <Box
-        m='20px 0 0 0'
         height='75vh'
+        m='20px 0 0 0'
         sx={{
           '& .MuiDataGrid-root': {
             border: 'none'
@@ -215,11 +220,11 @@ const Page = (pageProps: PageProps<{ orders: Array<any> }>) => {
         }}
       >
         <DataGrid
-          getRowHeight={() => 'auto'}
           checkboxSelection
-          rows={orders}
           columns={columns}
+          getRowHeight={() => 'auto'}
           getRowId={(row: any) => row._id!}
+          rows={orders}
         />
       </Box>
     </Box>

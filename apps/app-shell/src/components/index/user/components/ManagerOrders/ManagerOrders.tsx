@@ -1,13 +1,13 @@
-import Loading from '@/components/shared/Loading/Loading';
-import { useAppSelector } from '@/lib/hooks/useAppSelector';
 import { Box, useTheme } from '@mui/material';
+import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 
 import Img from '@/components/shared/Img/Img';
+import Loading from '@/components/shared/Loading/Loading';
 import { formatDate, getSalePrice, numberWithCommans } from '@/lib/helpers';
+import { useAppSelector } from '@/lib/hooks/useAppSelector';
 import { OrderServices } from '@/lib/repo/order.repo';
 import { tokens } from '@/lib/theme/theme';
-import dynamic from 'next/dynamic';
 
 const DataGrid = dynamic(() => import('nextjs-module-admin/DataGrid'), { ssr: false });
 
@@ -27,12 +27,12 @@ const columns: any = [
             return (
               <div className='flex items-center gap-2' key={index}>
                 <Img
-                  src={product.image01}
                   alt={product.image01}
-                  width={30}
-                  height={30}
                   className='rounded-full'
                   hasNotplaceholder
+                  height={30}
+                  src={product.image01}
+                  width={30}
                 />
                 <p style={{ whiteSpace: 'break-spaces' }}>{`${product.title}-${size}-${color}`}</p>
               </div>
@@ -80,7 +80,7 @@ const columns: any = [
     headerAlign: 'center',
     align: 'center',
     renderCell: () => {
-      return <> {'Hoàn thành'}</>;
+      return <> Hoàn thành</>;
     }
   }
 ];
@@ -116,8 +116,8 @@ const ManagerOrders = () => {
       ) : (
         <>
           <Box
-            m='40px 0 0 0'
             height='75vh'
+            m='40px 0 0 0'
             sx={{
               '& .MuiDataGrid-root': {
                 border: 'none'
@@ -146,11 +146,11 @@ const ManagerOrders = () => {
             }}
           >
             <DataGrid
-              getRowHeight={() => 'auto'}
               checkboxSelection
-              rows={orders}
               columns={columns}
+              getRowHeight={() => 'auto'}
               getRowId={(row: any) => row._id!}
+              rows={orders}
             />
           </Box>
         </>

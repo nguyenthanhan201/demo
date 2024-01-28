@@ -5,9 +5,9 @@ import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { clsx } from '@/lib/helpers';
 import { HeroSliderData } from '@/utils/fake-data/hero-slider';
 
-import { clsx } from '@/lib/helpers';
 import Button from './Button';
 import Img from './Img/Img';
 
@@ -43,9 +43,9 @@ const HeroSlider = ({ data, timeOut, auto, control }: HeroSliderProps) => {
 
   return (
     <div className='hero-slider'>
-      <div></div>
+      <div />
       {data.map((item, index: number) => (
-        <HeroSliderItem key={index} item={item} index={index} active={index === activeSlide} />
+        <HeroSliderItem active={index === activeSlide} index={index} item={item} key={index} />
       ))}
       {control ? (
         <div className='hero-slider_control'>
@@ -79,9 +79,9 @@ const HeroSliderItem = ({ item, active, index }: any) => {
         <div className='hero-slider_item_info_btn'>
           <Link href={item.path as any}>
             <Button
+              animate={true}
               backgroundColor={item.color}
               icon={<ShoppingCartOutlinedIcon fontSize='inherit' />}
-              animate={true}
             >
               {t('HeroSliderButton')}
             </Button>
@@ -89,17 +89,17 @@ const HeroSliderItem = ({ item, active, index }: any) => {
         </div>
       </div>
       <div className='hero-slider_item_image'>
-        <div className={`shape bg-${item.color}`}></div>
+        <div className={`shape bg-${item.color}`} />
         {/* <img src={item.img} /> */}
         <Img
-          src={item.img}
           alt='oki'
+          className='!max-h-[900px]'
           layout='fill'
           loading={item.path === '/catalog/ao-thun-dinosaur-01' ? 'eager' : undefined}
           // sizes="(max-width: 768px) 100vw,
           //     (max-width: 1200px) 50vw,
           //     33vw"
-          className='!max-h-[900px]'
+          src={item.img}
         />
       </div>
     </div>
