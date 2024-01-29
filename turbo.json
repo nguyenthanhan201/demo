@@ -8,8 +8,7 @@
       // "outputs": [".next/**"]
     },
     "lint": {
-      "dependsOn": ["^lint"],
-      "cache": false
+      "dependsOn": ["^lint"]
     },
     "dev": {
       "cache": false,
@@ -17,7 +16,6 @@
       "env": ["CONTENT_APP_URL", "NEXT_PUBLIC_BE"]
     },
     "preview": {
-      "cache": false,
       "persistent": true,
       "env": ["CONTENT_APP_URL"]
     }

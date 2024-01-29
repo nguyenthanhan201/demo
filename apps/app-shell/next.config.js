@@ -50,15 +50,16 @@ const nextConfig = {
     unoptimized: false
   },
   // cant-access-my-pages-by-url-with-nextjs
-  // trailingSlash: true,
+  trailingSlash: true,
   // Faster minification with SWC
   // swcMinify: true,
   // Adding policies:
   // https://blog.logrocket.com/using-next-js-security-headers/
 
   i18n: {
-    locales: ['vi', 'en'],
-    defaultLocale: 'vi'
+    locales: ['vi'],
+    defaultLocale: 'vi',
+    localeDetection: false
   },
   reactStrictMode: false,
   // async headers() {
