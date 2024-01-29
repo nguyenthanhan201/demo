@@ -130,7 +130,7 @@ const nextConfig = {
   },
   experimental: {
     // urlImports: ['https://cdn.skypack.dev', 'https://images.unsplash.com']
-    // optimizeCss: true // enabling this will enable SSR for Tailwind
+    optimizeCss: true // enabling this will enable SSR for Tailwind
   },
   // transpilePackages: ['@mui/material'],
   modularizeImports: {

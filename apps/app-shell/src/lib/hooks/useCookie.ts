@@ -21,13 +21,15 @@ export function getCookieExpirationTime(cookieName: CookiesValues) {
   const cookies = document.cookie.split(';');
 
   for (let i = 0; i < cookies.length; i++) {
-    const cookie = cookies[i].trim();
+    const cookie = cookies[i]?.trim();
+    if (!cookie) return null;
     if (cookie.startsWith(`${cookieName}=`)) {
       const cookieParts = cookie.split('=');
-      // const cookieValue = decodeURIComponent(cookieParts[1]);
+      // const _cookieValue = cookieParts[1] ? decodeURIComponent(cookieParts[1]) : undefined;
       const cookieOptions = cookieParts[2] ? cookieParts[2].split(';') : [];
       for (let j = 0; j < cookieOptions.length; j++) {
-        const option = cookieOptions[j].trim();
+        const option = cookieOptions[j]?.trim();
+        if (!option) return null;
         if (option.startsWith('expires=')) {
           const expiresValue = option.substring('expires='.length);
           return new Date(expiresValue).toUTCString();
