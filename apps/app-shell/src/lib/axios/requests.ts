@@ -1,7 +1,8 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { getCookie } from 'my-package';
 
 import { isEmptyToken } from '../helpers/assertion';
-import { removeCookie, setCookie } from '../hooks/useCookie';
+import { removeCookie } from '../hooks/useCookie';
 import { AuthServices } from '../repo/auth.repo';
 
 type SuccessResponse<V> = {
@@ -22,11 +23,12 @@ const request = () => {
   const instance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_BE,
     withCredentials: true,
-    timeout: 60000 // 60s
-    // headers: {
-    //   'Access-Control-Allow-Headers': '*', // allow all
-    //   Cookie: `token=${getCookie('token')}`,
-    // },
+    timeout: 60000, // 60s
+    headers: {
+      // 'Access-Control-Allow-Headers': '*', // allow all
+      // Cookie: `token=${getCookie('token')}`,
+      Authorization: `Bearer ${getCookie('token')}`
+    }
   });
 
   instance.interceptors.response.use(undefined, async (errorResponse: AxiosError) => {
@@ -81,7 +83,8 @@ const request = () => {
         }
 
         const { access_token: newToken } = rs.data;
-        setCookie('token', newToken);
+        // setCookie('token', newToken);
+        instance.defaults.headers.Authorization = `Bearer ${newToken}`;
 
         // call expired api again
         return await request.then(
