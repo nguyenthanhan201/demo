@@ -16,6 +16,7 @@ const Nav = () => (
         <Link href='/shop'>Shop</Link>
         <Link href='/p/something'>Federated Catch All</Link>
         <Link href='/checkout'>Checkout</Link>
+        <Link href='/cart'>Cart</Link>
       </li>
       {links.map(({ key, href, label }) => (
         <li key={key}>

@@ -1,13 +1,13 @@
-name: Vercel App Shell Production Deployment
+name: Vercel Nextjs Module Admin Production Deployment
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_NEXT_MODULE_ADMIN_ID }}
 on:
   push:
     branches:
       - main
     paths:
-      - 'apps/app-shell/**'
+      - 'apps/nextjs-module-admin/**'
 jobs:
   Deploy-Production:
     runs-on: ubuntu-latest
