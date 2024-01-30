@@ -19,7 +19,8 @@ module.exports = {
       content: [
         './src/**/*.{html,tsx}',
         './pages/**/*.{html,tsx}',
-        './node_modules/react-pro-sidebar/**/*.js'
+        './node_modules/react-pro-sidebar/**/*.js',
+        './node_modules/react-quill/**/*.js'
       ],
       defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || [],
       safelist: {

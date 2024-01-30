@@ -20,6 +20,7 @@ type BaseResponse<V, E = AxiosError> = Promise<SuccessResponse<V> | ErrorRespons
 const ERROR_MAX_RETRY = 2;
 
 const request = () => {
+  console.log('token', getCookie('token'));
   const instance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_BE,
     withCredentials: true,
@@ -66,7 +67,7 @@ const request = () => {
               });
           }, randomTime);
         } else {
-          console.log('🚀 ~ file: crud-axios.ts error', errorResponse);
+          // console.log('🚀 ~ file: crud-axios.ts error', errorResponse);
           return Promise.reject(errorResponse);
         }
       };

@@ -1,6 +1,6 @@
 const { dependencies } = require('../../package.json');
 
-const NEXTJS_MODULE_ADMIN_URL = process.env.NEXTJS_MODULE_ADMIN_URL || 'http://localhost:3000';
+const NEXTJS_MODULE_ADMIN_URL = process.env.NEXTJS_MODULE_ADMIN_URL;
 
 const remotes = (isServer) => {
   const location = isServer ? 'ssr' : 'chunks';

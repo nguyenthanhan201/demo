@@ -8,6 +8,7 @@ import Header from '@/components/index/admin/components/Header';
 import Img from '@/components/shared/Img/Img';
 import AdminLayout from '@/layouts/admin-layout/AdminLayout';
 import { formatDate, getSalePrice, numberWithCommans } from '@/lib/helpers';
+import { decodedToken, parseCookie } from '@/lib/helpers/cookie';
 import { useSEO } from '@/lib/hooks/useSEO';
 import { queryClient } from '@/lib/react-query/queryClient';
 import { OrderServices } from '@/lib/repo/order.repo';
@@ -98,7 +99,7 @@ const columns: any = [
 
 const Page = (pageProps: PageProps<{ orders: Array<any> }>) => {
   const { dehydratedState } = pageProps;
-  console.log('👌  dehydratedState:', dehydratedState.queries);
+  // console.log('👌  dehydratedState:', dehydratedState.queries);
   // const { ExcelDownloder } = useExcelDownloder();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -236,12 +237,15 @@ Page.Layout = AdminLayout;
 
 export async function getServerSideProps(ctx: NextPageContext) {
   const cookies = ctx.req?.headers.cookie;
+
+  const parsedCookies = parseCookie(cookies || '');
+
   await queryClient.prefetchQuery(
     'ordersQuery',
     async () =>
       await OrderServices.getAll({
         headers: {
-          Cookie: cookies!
+          Authorization: `Bearer ${decodedToken(parsedCookies.token)}`
         }
       })
   );

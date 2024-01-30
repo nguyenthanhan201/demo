@@ -7,6 +7,7 @@ import { dehydrate } from 'react-query';
 
 import Header from '@/components/index/admin/components/Header';
 import AdminLayout from '@/layouts/admin-layout/AdminLayout';
+import { decodedToken, parseCookie } from '@/lib/helpers/cookie';
 import { useAppDispatch } from '@/lib/hooks/useAppDispatch';
 import { useAppSelector } from '@/lib/hooks/useAppSelector';
 import useCookie from '@/lib/hooks/useCookie';
@@ -196,7 +197,7 @@ const Page = (pageProps: PageProps<{ products: Product[] }>) => {
           checkboxSelection
           columns={columns}
           getRowId={(row: any) => row._id}
-          rows={products}
+          rows={products.data}
         />
       </Box>
     </Box>
@@ -208,12 +209,15 @@ Page.Layout = AdminLayout;
 
 export async function getServerSideProps(ctx: NextPageContext) {
   const cookies = ctx.req?.headers.cookie;
+
+  const parsedCookies = parseCookie(cookies || '');
+
   await queryClient.prefetchQuery(
     'productsQuery',
     async () =>
       await ProductServices.getHideProducts({
         headers: {
-          Cookie: cookies
+          Authorization: `Bearer ${decodedToken(parsedCookies.token)}`
         }
       })
   );
