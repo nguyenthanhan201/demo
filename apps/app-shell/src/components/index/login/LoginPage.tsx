@@ -20,6 +20,7 @@ const LoginPage = () => {
             setCookie('token', res.access_token, {
               // 2 day
               expires: new Date(Date.now() + 2 + 24 * 60 * 60 * 1000)
+              // sameSite: 'None'
             });
             setCookie('refreshToken', res.refresh_token, {
               // 7 days

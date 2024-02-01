@@ -11,7 +11,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useContext, useMemo, useState } from 'react';
 
-import { setCookie } from '@/lib/hooks/useCookie';
 import { ColorModeContext } from '@/lib/theme/theme';
 
 const MenuChild = dynamic(() => import('../MenuChild'), { ssr: false });
@@ -57,21 +56,11 @@ const Menu = ({ handleLogout }: MenuProps) => {
           data: [
             {
               title: 'Tiếng Việt',
-              func: () => {
-                setCookie('i18next', 'vi', {
-                  expires: 365 * 24 * 60 * 60
-                });
-                router.replace({ pathname, query }, asPath, { locale: 'vi' });
-              }
+              func: () => router.push({ pathname, query }, asPath, { locale: 'vi' })
             },
             {
               title: 'Tiếng Anh',
-              func: () => {
-                setCookie('i18next', 'en', {
-                  expires: 365 * 24 * 60 * 60
-                });
-                router.replace({ pathname, query }, asPath, { locale: 'en' });
-              }
+              func: () => router.push({ pathname, query }, asPath, { locale: 'en' })
             }
           ]
         }

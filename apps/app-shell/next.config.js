@@ -57,7 +57,7 @@ const nextConfig = {
   // https://blog.logrocket.com/using-next-js-security-headers/
 
   i18n: {
-    locales: ['vi'],
+    locales: ['vi', 'en'],
     defaultLocale: 'vi',
     localeDetection: false
   },

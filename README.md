@@ -1,4 +1,6 @@
 setup: https://www.youtube.com/watch?v=o7jhf97m_gg
+i18n: https://viblo.asia/p/nextjs-da-ngon-ngu-khong-can-thu-vien-ngoai-Eb85oe0OZ2G
+live steaming: https://blog.logrocket.com/build-react-live-streaming-app-100ms/
 
 # Turborepo starter
 

@@ -2,8 +2,7 @@ import Cookies, { CookieAttributes } from 'js-cookie';
 
 export enum CookiesKeys {
   'token' = 'token',
-  'refreshToken' = 'refreshToken',
-  'i18next' = 'i18next'
+  'refreshToken' = 'refreshToken'
 }
 
 type CookiesValues = keyof typeof CookiesKeys;

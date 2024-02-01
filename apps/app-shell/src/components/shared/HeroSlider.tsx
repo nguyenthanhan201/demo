@@ -3,9 +3,9 @@ import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRig
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import { clsx } from '@/lib/helpers';
+import useTrans from '@/lib/hooks/useTrans';
 import { HeroSliderData } from '@/utils/fake-data/hero-slider';
 
 import Button from './Button';
@@ -65,16 +65,18 @@ const HeroSlider = ({ data, timeOut, auto, control }: HeroSliderProps) => {
   );
 };
 // http://localhost:3000/images/slider/slide-1.webp?w=1920&q=70
-const HeroSliderItem = ({ item, active, index }: any) => {
-  const { t } = useTranslation('home');
+const HeroSliderItem = ({ item, active }: any) => {
+  const tran = useTrans();
   return (
     <div className={clsx('hero-slider_item', { active })}>
       <div className='hero-slider_item_info'>
         <div className={`hero-slider_item_info_title color-${item.color}`}>
-          <span>{t(`HeroSlider.${index}.title`, '')}</span>
+          {/* <span>{t(`HeroSlider.${index}.title`, '')}</span> */}
+          {item.title}
         </div>
         <div className='hero-slider_item_info_description'>
-          <span>{t(`HeroSlider.${index}.description`, '')}</span>
+          {/* <span>{t(`HeroSlider.${index}.description`, '')}</span> */}
+          {item.description}
         </div>
         <div className='hero-slider_item_info_btn'>
           <Link href={item.path as any}>
@@ -83,7 +85,7 @@ const HeroSliderItem = ({ item, active, index }: any) => {
               backgroundColor={item.color}
               icon={<ShoppingCartOutlinedIcon fontSize='inherit' />}
             >
-              {t('HeroSliderButton')}
+              {tran.header.home}
             </Button>
           </Link>
         </div>

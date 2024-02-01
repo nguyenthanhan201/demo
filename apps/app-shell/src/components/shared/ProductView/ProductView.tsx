@@ -1,7 +1,6 @@
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { memo, useCallback, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 
 import { getSalePrice, numberWithCommans } from '@/lib/helpers';
@@ -47,7 +46,6 @@ const ProductView = ({ product }: ProductViewProps) => {
         }
       })
   });
-  const { t } = useTranslation('product');
   const { isMobile } = useDevice();
   const toast = useToast();
   const auth = useAppSelector((state) => state.auth.auth);
@@ -193,7 +191,10 @@ const ProductView = ({ product }: ProductViewProps) => {
             </div>
           </div>
           <div className='product_info_item'>
-            <div className='product_info_item_title'>{t('color')}</div>
+            <div className='product_info_item_title'>
+              {/* {t('color')} */}
+              Color
+            </div>
             <div className='product_info_item_list'>
               {product.colors.map((item: any, index: number) => (
                 <div
@@ -208,7 +209,10 @@ const ProductView = ({ product }: ProductViewProps) => {
             </div>
           </div>
           <div className='product_info_item'>
-            <div className='product_info_item_title'>{t('size')}</div>
+            <div className='product_info_item_title'>
+              {/* {t('size')} */}
+              Size
+            </div>
             <div className='product_info_item_list'>
               {product.size.map((item: any, index: number) => (
                 <div
@@ -225,7 +229,10 @@ const ProductView = ({ product }: ProductViewProps) => {
           {product.stock > 0 ? (
             <>
               <div className='product_info_item'>
-                <div className='product_info_item_title'>{t('quantity')}</div>
+                <div className='product_info_item_title'>
+                  {/* {t('quantity')} */}
+                  Quantity
+                </div>
                 <div className='product_info_item_quantity'>
                   <div
                     className='product_info_item_quantity_btn'
@@ -243,16 +250,19 @@ const ProductView = ({ product }: ProductViewProps) => {
                     +
                   </div>
                   <p className='stock'>
-                    {t('available')} {product.stock}
+                    {/* {t('available')} */}
+                    {product.stock}
                   </p>
                 </div>
               </div>
               <div className='product_info_item'>
                 <Button animate={false} icon='' onClick={addToCart}>
-                  {t('add_to_cart')}
+                  {/* {t('add_to_cart')} */}
+                  Add to cart
                 </Button>
                 <Button animate={false} icon='' onClick={gotoCart}>
-                  {t('buy_now')}
+                  {/* {t('buy_now')} */}
+                  Buy now
                 </Button>
               </div>
             </>

@@ -7,12 +7,12 @@ import Tooltip from '@mui/material/Tooltip';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { ElementRef, memo, useCallback, useEffect, useRef, useState } from 'react';
 import { shallowEqual } from 'react-redux';
 
 import Img from '@/components/shared/Img/Img';
-import { contentHeader, LanguageTypes, MainNavTypes } from '@/dictionaries/header';
 import { removeCookie } from '@/lib/hooks/useCookie';
+import useTrans, { TranslatedHeader } from '@/lib/hooks/useTrans';
 import { AuthServices } from '@/lib/repo/auth.repo';
 
 import { useAppSelector } from '../../lib/hooks/useAppSelector';
@@ -26,8 +26,9 @@ const Defaultheader = () => {
   const auth = useAppSelector((state) => state.auth.auth, shallowEqual);
   const router = useRouter();
   const activeNav = mainNav.findIndex((e) => e.path === router.pathname);
-  const menuLeft = useRef<any>(null);
+  const menuLeft = useRef<ElementRef<'div'>>(null);
   const [headerShrink, setHeaderShrink] = useState(false);
+  const trans = useTrans();
 
   useEffect(() => {
     window.addEventListener('scroll', () => {
@@ -51,7 +52,7 @@ const Defaultheader = () => {
   }, [theme.palette.mode]);
 
   const menuToggle = useCallback(() => {
-    menuLeft.current.classList.toggle('active');
+    menuLeft.current?.classList.toggle('active');
   }, []);
 
   const handleLogout = useCallback(async () => {
@@ -96,14 +97,7 @@ const Defaultheader = () => {
                 role='presentation'
               >
                 <Link href={item.path}>
-                  {/* <span>{t('mainNavs.' + item.name, '')}</span> */}
-                  <span>
-                    {
-                      contentHeader.mainNavs[router.locale as LanguageTypes][
-                        item.name as MainNavTypes
-                      ]
-                    }
-                  </span>
+                  <span>{trans.header[item.name as TranslatedHeader]}</span>
                 </Link>
               </div>
             ))}

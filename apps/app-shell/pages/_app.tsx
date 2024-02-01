@@ -1,24 +1,19 @@
 // eslint-disable-next-line simple-import-sort/imports
-import '../src/i18n/i18n';
 import '../src/sass/index.scss';
 
 import { ThemeProvider } from '@mui/material';
+import { useNetwork } from 'my-package';
 import { DefaultSeo, NextSeo } from 'next-seo';
 import { Roboto } from 'next/font/google';
-import { useRouter } from 'next/router';
-import { Fragment, useEffect } from 'react';
+import { Fragment } from 'react';
 import { Hydrate } from 'react-query';
 import { Provider } from 'react-redux';
 
+import { buildProvidersTree } from '@/lib/helpers';
+import { ToastProvider } from '@/lib/providers/toast-provider';
 import { queryClient, QueryClientProvider } from '@/lib/react-query/queryClient';
 import store from '@/lib/redux/store';
 import { ColorModeContext, useMode } from '@/lib/theme/theme';
-
-import { buildProvidersTree } from '@/lib/helpers';
-import { isEmpty } from '@/lib/helpers/assertion';
-import { getCookie } from '@/lib/hooks/useCookie';
-import { ToastProvider } from '@/lib/providers/toast-provider';
-import { useNetwork } from 'my-package';
 // import Page404 from './404';
 // const Nav = lazy(() => {
 //   console.log(import('nextjs-module-admin/Nav'));
@@ -30,18 +25,11 @@ const roboto = Roboto({
   subsets: ['vietnamese']
 });
 
-const defaultLocale = isEmpty(getCookie('i18next')) ? 'vi' : getCookie('i18next');
-
 const MyApp = ({ Component, pageProps }: any) => {
   const Layout = Component.Layout ? Component.Layout : Fragment;
   const layoutProps = Component.LayoutProps ? Component.LayoutProps : {};
   const [theme, colorMode] = useMode();
   const { online } = useNetwork();
-  const router = useRouter();
-
-  useEffect(() => {
-    router.replace(router.asPath, router.asPath, { locale: defaultLocale });
-  }, []);
 
   // const channel = new BroadcastChannel('notifications');
 
