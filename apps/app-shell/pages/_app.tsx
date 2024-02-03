@@ -5,13 +5,12 @@ import { ThemeProvider } from '@mui/material';
 import { useNetwork } from 'my-package';
 import { DefaultSeo, NextSeo } from 'next-seo';
 import { Roboto } from 'next/font/google';
-import { Fragment } from 'react';
-import { Hydrate } from 'react-query';
+import { Fragment, useState } from 'react';
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 
 import { buildProvidersTree } from '@/lib/helpers';
 import { ToastProvider } from '@/lib/providers/toast-provider';
-import { queryClient, QueryClientProvider } from '@/lib/react-query/queryClient';
 import store from '@/lib/redux/store';
 import { ColorModeContext, useMode } from '@/lib/theme/theme';
 import { HMSRoomProvider } from '@100mslive/react-sdk';
@@ -31,6 +30,7 @@ const MyApp = ({ Component, pageProps }: any) => {
   const layoutProps = Component.LayoutProps ? Component.LayoutProps : {};
   const [theme, colorMode] = useMode();
   const { online } = useNetwork();
+  const [queryClient] = useState(() => new QueryClient());
 
   // const channel = new BroadcastChannel('notifications');
 
