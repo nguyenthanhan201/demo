@@ -13,7 +13,7 @@
     "dev": {
       "cache": false,
       "persistent": true,
-      "env": ["CONTENT_APP_URL", "NEXT_PUBLIC_BE"]
+      "env": ["CONTENT_APP_URL", "NEXT_PUBLIC_BE", "NEXT_PUBLIC_100MS_TOKEN_ENDPOINT"]
     },
     "preview": {
       "persistent": true,

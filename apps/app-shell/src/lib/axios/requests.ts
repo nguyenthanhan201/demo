@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { getCookie } from 'my-package';
+import { getCookie, setCookie } from 'my-package';
 
 import { isEmptyToken } from '../helpers/assertion';
 import { removeCookie } from '../hooks/useCookie';
@@ -20,7 +20,6 @@ type BaseResponse<V, E = AxiosError> = Promise<SuccessResponse<V> | ErrorRespons
 const ERROR_MAX_RETRY = 2;
 
 const request = () => {
-  console.log('token', getCookie('token'));
   const instance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_BE,
     withCredentials: true,
@@ -84,7 +83,7 @@ const request = () => {
         }
 
         const { access_token: newToken } = rs.data;
-        // setCookie('token', newToken);
+        setCookie('token', newToken);
         instance.defaults.headers.Authorization = `Bearer ${newToken}`;
 
         // call expired api again

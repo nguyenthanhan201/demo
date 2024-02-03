@@ -1,36 +1,31 @@
 /* eslint-disable react/destructuring-assignment */
-import { memo, ReactNode } from 'react';
+import { ComponentPropsWithoutRef, memo, ReactNode } from 'react';
 
-type ButtonProps = {
-  children: ReactNode;
+type ButtonProps = ComponentPropsWithoutRef<'button'> & {
   backgroundColor?: string;
   size?: string;
   icon?: ReactNode;
   animate?: boolean;
-  onClick?: () => void;
 };
 
 const Button = (props: ButtonProps) => {
-  // console.log("button");
-  const bg = props.backgroundColor ? 'bg-' + props.backgroundColor : 'bg-main';
+  const { children, className, type = 'button', backgroundColor, animate, ...restProps } = props;
+  const bg = backgroundColor ? 'bg-' + backgroundColor : 'bg-main';
 
   const size = props.size ? 'btn-' + props.size : '';
 
-  const animate = props.animate ? 'btn-animate' : '';
+  const _animate = animate ? 'btn-animate' : '';
 
   return (
     <button
-      className={`btn ${bg} ${size} ${animate}`}
+      {...restProps}
+      className={`btn ${bg} ${size} ${_animate} ${className}`}
       onClick={props.onClick ? props.onClick : undefined}
-      type='button'
+      // eslint-disable-next-line react/button-has-type
+      type={type}
     >
-      <span className='btn_txt'>{props.children}</span>
-      {props.icon ? (
-        <span className='btn_icon'>
-          {/* <i className={`${props.icon} bx-tada`}></i> */}
-          {props.icon}
-        </span>
-      ) : null}
+      <span className='btn_txt'>{children}</span>
+      {props.icon ? <span className='btn_icon'>{props.icon}</span> : null}
     </button>
   );
 };

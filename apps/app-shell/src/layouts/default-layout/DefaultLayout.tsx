@@ -39,6 +39,7 @@ const DefaultLayout = ({ ...props }: any) => {
   // useEffect(() => {
   //   handleGetUser();
   // }, []);
+  // const isConnected = useHMSStore(selectIsConnectedToRoom);
 
   return (
     <>
@@ -46,6 +47,7 @@ const DefaultLayout = ({ ...props }: any) => {
       <DefaultHeader />
       <div className='app container'>
         <div className='main'>
+          {/* {isConnected ? <LiveStreamPage /> : props.children} */}
           {props.children}
           <DefaultFooter />
         </div>

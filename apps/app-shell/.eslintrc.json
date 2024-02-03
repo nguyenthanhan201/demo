@@ -29,7 +29,7 @@
   "parserOptions": {
     "project": false
   },
-  "plugins": [],
+  "plugins": ["import"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx"],
@@ -37,7 +37,10 @@
         "no-undef": "off"
       }
     }
-  ]
+  ],
+  "rules": {
+    "import/no-cycle": [2, { "maxDepth": "∞" }]
+  }
   // "ignorePatterns": ["node_modules/", "build/", "dist/", "tailwind.config.js", "postcss.config.js"],
   // "settings": {
   //   "react": {

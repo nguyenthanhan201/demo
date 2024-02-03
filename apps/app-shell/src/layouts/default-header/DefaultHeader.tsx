@@ -1,4 +1,6 @@
+import { selectIsConnectedToRoom, useHMSStore } from '@100mslive/react-sdk';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import LiveTvIcon from '@mui/icons-material/LiveTv';
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import LoginIcon from '@mui/icons-material/Login';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -14,6 +16,7 @@ import Img from '@/components/shared/Img/Img';
 import { removeCookie } from '@/lib/hooks/useCookie';
 import useTrans, { TranslatedHeader } from '@/lib/hooks/useTrans';
 import { AuthServices } from '@/lib/repo/auth.repo';
+import { LiveStreamServices } from '@/lib/repo/live-stream';
 
 import { useAppSelector } from '../../lib/hooks/useAppSelector';
 import { mainNav } from '../../utils/fake-data/header-navs';
@@ -29,6 +32,7 @@ const Defaultheader = () => {
   const menuLeft = useRef<ElementRef<'div'>>(null);
   const [headerShrink, setHeaderShrink] = useState(false);
   const trans = useTrans();
+  const isConnected = useHMSStore(selectIsConnectedToRoom);
 
   useEffect(() => {
     window.addEventListener('scroll', () => {
@@ -69,12 +73,27 @@ const Defaultheader = () => {
         await signOut(authentication);
         removeCookie('token');
         removeCookie('refreshToken');
+        router.push('/');
       })
       .catch((err) => {
         console.log(err);
         alert(err);
       });
   }, [auth?.email]);
+
+  const handleClickLiveStream = async () => {
+    if (isConnected) return;
+
+    if (auth) {
+      const roomData = await LiveStreamServices.getRoomData();
+      return router.push({
+        pathname: '/live-stream/[roomId]',
+        query: { roomId: roomData?.roomId }
+      });
+    }
+
+    return router.push('/live-stream');
+  };
 
   return (
     <div className={`header ${headerShrink && 'shrink'}`}>
@@ -114,6 +133,14 @@ const Defaultheader = () => {
             />
           </Link>
           <div className='header_menu_right'>
+            <div
+              className='header_menu_item header_menu_right_item'
+              onClick={handleClickLiveStream}
+            >
+              <Tooltip title='Live Stream'>
+                <LiveTvIcon />
+              </Tooltip>
+            </div>
             <div className='header_menu_item header_menu_right_item'>
               <Tooltip title='Giỏ hàng'>
                 <Link href='/cart'>

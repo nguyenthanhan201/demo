@@ -14,6 +14,7 @@ import { ToastProvider } from '@/lib/providers/toast-provider';
 import { queryClient, QueryClientProvider } from '@/lib/react-query/queryClient';
 import store from '@/lib/redux/store';
 import { ColorModeContext, useMode } from '@/lib/theme/theme';
+import { HMSRoomProvider } from '@100mslive/react-sdk';
 // import Page404 from './404';
 // const Nav = lazy(() => {
 //   console.log(import('nextjs-module-admin/Nav'));
@@ -79,7 +80,8 @@ const MyApp = ({ Component, pageProps }: any) => {
     [Provider, { store }],
     [QueryClientProvider, { client: queryClient }],
     [Hydrate, { state: pageProps.dehydratedState }],
-    [ToastProvider] as any
+    [ToastProvider] as any,
+    [HMSRoomProvider]
   ] as const);
 
   if (!online) return <>you offline</>;
