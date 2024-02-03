@@ -18,7 +18,7 @@ const ChatNdParticipants = () => {
   const [message, setMessage] = useState('');
 
   return (
-    <div className='rightBox'>
+    <div className='rightBox md:w-full'>
       <div className='rightBox__head'>
         <span
           className={selectedOption === 'chat' ? 'selected' : ''}

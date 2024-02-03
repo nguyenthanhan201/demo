@@ -4,7 +4,7 @@ import Stream from './Stream';
 
 const Room = () => {
   return (
-    <div className='room'>
+    <div className='room md:flex-col'>
       <div className='room__streamSpace'>
         <Stream />
         <Controls />

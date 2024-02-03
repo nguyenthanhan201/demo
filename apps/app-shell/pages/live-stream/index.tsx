@@ -18,9 +18,7 @@ const Page = (pageProps: PageProps<{ rooms: LiveStream[] }>) => {
       {rooms?.map((room) => (
         <Button
           key={room._id}
-          onClick={() => {
-            router.push(`/live-stream/${room.roomId}`);
-          }}
+          onClick={() => router.push(`/live-stream/${room.roomId}`)}
           type='button'
         >
           Tham gia phòng {room.roomId}
