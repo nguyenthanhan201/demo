@@ -1,9 +1,11 @@
 import { selectIsConnectedToRoom, useHMSStore } from '@100mslive/react-sdk';
 
+import { LiveStream } from '@/lib/redux/types/liveStream.type';
+
 import JoinRoom from './components/JoinRoom';
 import Room from './components/Room';
 
-const LiveStreamPage = () => {
+const LiveStreamPage = ({ rooms }: { rooms: LiveStream[] }) => {
   const isConnected = useHMSStore(selectIsConnectedToRoom);
   // const hmsActions = useHMSActions();
 
@@ -15,7 +17,7 @@ const LiveStreamPage = () => {
   //   };
   // }, [hmsActions, isConnected]);
 
-  return <>{isConnected ? <Room /> : <JoinRoom />}</>;
+  return <>{isConnected ? <Room /> : <JoinRoom rooms={rooms} />}</>;
 };
 
 export default LiveStreamPage;

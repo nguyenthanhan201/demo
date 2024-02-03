@@ -3,10 +3,12 @@ import { useRouter } from 'next/router';
 
 import Button from '@/components/shared/Button';
 import { useAppSelector } from '@/lib/hooks/useAppSelector';
+import { LiveStream } from '@/lib/redux/types/liveStream.type';
 import { LiveStreamServices } from '@/lib/repo/live-stream';
 
-const JoinRoom = () => {
-  const { roomId } = useRouter().query;
+const JoinRoom = ({ rooms }: { rooms: LiveStream[] }) => {
+  const router = useRouter();
+  const { roomId } = router.query;
   const hmsActions = useHMSActions();
   const auth = useAppSelector((state) => state.auth.auth);
 
@@ -42,8 +44,20 @@ const JoinRoom = () => {
   };
 
   return (
-    <form className='w-full flex' onSubmit={handleSubmit}>
-      {/* <input
+    <>
+      <div className='justify-center flex gap-2 py-4'>
+        {rooms?.map((room) => (
+          <Button
+            key={room._id}
+            onClick={() => router.push(`/live-stream/${room.roomId}`)}
+            type='button'
+          >
+            Tham gia phòng {room.roomId}
+          </Button>
+        ))}
+      </div>
+      <form className='w-full flex' onSubmit={handleSubmit}>
+        {/* <input
         type='text'
         required
         placeholder='Enter name'
@@ -60,10 +74,11 @@ const JoinRoom = () => {
         <option>broadcaster</option>
         <option>viewer-realtime</option>
       </select> */}
-      <Button className='mx-auto' type='submit'>
-        Tham gia phòng
-      </Button>
-    </form>
+        <Button className='mx-auto' type='submit'>
+          Tham gia phòng
+        </Button>
+      </form>
+    </>
   );
 };
 
