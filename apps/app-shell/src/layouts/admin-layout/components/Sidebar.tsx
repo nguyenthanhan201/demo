@@ -1,5 +1,3 @@
-import 'react-pro-sidebar/dist/css/styles.css';
-
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import ReceiptLongOutlinedIcon from '@mui/icons-material/ReceiptLongOutlined';
