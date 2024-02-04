@@ -1,7 +1,6 @@
 // eslint-disable-next-line simple-import-sort/imports
 import '../src/sass/index.scss';
 
-import { ThemeProvider } from '@mui/material';
 import { useNetwork } from 'my-package';
 import { DefaultSeo, NextSeo } from 'next-seo';
 import { Roboto } from 'next/font/google';
@@ -12,8 +11,6 @@ import { Provider } from 'react-redux';
 import { buildProvidersTree } from '@/lib/helpers';
 import { ToastProvider } from '@/lib/providers/toast-provider';
 import store from '@/lib/redux/store';
-import { ColorModeContext, useMode } from '@/lib/theme/theme';
-import { HMSRoomProvider } from '@100mslive/react-sdk';
 // import Page404 from './404';
 // const Nav = lazy(() => {
 //   console.log(import('nextjs-module-admin/Nav'));
@@ -28,7 +25,7 @@ const roboto = Roboto({
 const MyApp = ({ Component, pageProps }: any) => {
   const Layout = Component.Layout ? Component.Layout : Fragment;
   const layoutProps = Component.LayoutProps ? Component.LayoutProps : {};
-  const [theme, colorMode] = useMode();
+  // const [theme, colorMode] = useMode();
   const { online } = useNetwork();
   const [queryClient] = useState(() => new QueryClient());
 
@@ -75,13 +72,12 @@ const MyApp = ({ Component, pageProps }: any) => {
   // }, []);
 
   const ProvidersTree = buildProvidersTree([
-    [ColorModeContext.Provider, { value: colorMode }],
-    [ThemeProvider, { theme: theme }],
+    // [ColorModeContext.Provider, { value: colorMode }],
+    // [ThemeProvider, { theme: theme }],
     [Provider, { store }],
     [QueryClientProvider, { client: queryClient }],
     [Hydrate, { state: pageProps.dehydratedState }],
-    [ToastProvider] as any,
-    [HMSRoomProvider]
+    [ToastProvider] as any
   ] as const);
 
   if (!online) return <>you offline</>;

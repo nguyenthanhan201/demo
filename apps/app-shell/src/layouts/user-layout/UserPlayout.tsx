@@ -1,6 +1,7 @@
+import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
+import { shallowEqual } from 'react-redux';
 
-import DefaultFooter from '@/layouts/default-footer/DefaultFooter';
 import DefaultHeader from '@/layouts/default-header/DefaultHeader';
 import { useAppDispatch } from '@/lib/hooks/useAppDispatch';
 import { useAppSelector } from '@/lib/hooks/useAppSelector';
@@ -9,35 +10,37 @@ import { GET_CART_ITEMS } from '@/lib/redux/types';
 
 import SiderBar from './components/SiderBar';
 
+const DefaultFooter = dynamic(() => import('@/layouts/default-footer/DefaultFooter'));
+
 const UserPlayout = ({ ...props }: any) => {
   useAuth();
   const dispatch = useAppDispatch();
-  const auth = useAppSelector((state) => state.auth.auth);
+  const auth = useAppSelector((state) => state.auth.auth, shallowEqual);
 
   useEffect(() => {
     if (!auth) return;
     dispatch({ type: GET_CART_ITEMS, payload: auth._id });
   }, [auth, dispatch]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const progress: any = document.querySelector('#progressbar');
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const progress: any = document.querySelector('#progressbar');
 
-      const totalHeight = document.body.scrollHeight - window.innerHeight;
-      const progressHeight = (window.pageYOffset / totalHeight) * 100;
-      progress.style.height = progressHeight + '%';
-    };
+  //     const totalHeight = document.body.scrollHeight - window.innerHeight;
+  //     const progressHeight = (window.pageYOffset / totalHeight) * 100;
+  //     progress.style.height = progressHeight + '%';
+  //   };
 
-    window.addEventListener('scroll', handleScroll);
+  //   window.addEventListener('scroll', handleScroll);
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll);
+  //   };
+  // }, []);
 
   return (
     <>
-      <div id='progressbar' />
+      {/* <div id='progressbar' /> */}
       <DefaultHeader />
       <div className='container'>
         <div className='main user-layout'>

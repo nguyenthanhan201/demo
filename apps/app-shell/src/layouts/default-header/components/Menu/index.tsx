@@ -5,13 +5,12 @@ import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
-import { useTheme } from '@mui/material';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
-import { ColorModeContext } from '@/lib/theme/theme';
+import useTheme from '@/lib/hooks/useTheme';
 
 const MenuChild = dynamic(() => import('../MenuChild'), { ssr: false });
 
@@ -30,10 +29,9 @@ type MenuItemsProps = {
 const Menu = ({ handleLogout }: MenuProps) => {
   const router = useRouter();
   const { pathname, asPath, query } = router;
-  const theme = useTheme();
-  const colorMode = useContext(ColorModeContext);
   const [isChangedDropdown, setIsChangedDropdown] = useState<boolean>(false);
   const [selectedTypeChild, setSelectedTypeChild] = useState<string | null>(null);
+  const { themeLocal, toggleTheme } = useTheme();
 
   const MENU_ITEMS: MenuItemsProps[] = useMemo(() => {
     return [
@@ -67,13 +65,13 @@ const Menu = ({ handleLogout }: MenuProps) => {
       },
       {
         icon:
-          theme.palette.mode === 'dark' ? (
+          themeLocal === 'dark' ? (
             <DarkModeOutlinedIcon className='dark_toggle' sx={{ fontSize: '80% !important' }} />
           ) : (
             <WbSunnyOutlinedIcon className='dark_toggle' sx={{ fontSize: '80% !important' }} />
           ),
         title: 'Giao diện',
-        func: () => colorMode.toggleColorMode()
+        func: toggleTheme
       },
       {
         icon: <LogoutOutlinedIcon sx={{ fontSize: '80% !important' }} />,
@@ -81,7 +79,7 @@ const Menu = ({ handleLogout }: MenuProps) => {
         func: () => handleLogout()
       }
     ];
-  }, [handleLogout, theme]);
+  }, [handleLogout, themeLocal]);
 
   const childrenItems = useMemo(() => {
     if (selectedTypeChild === null) return [];

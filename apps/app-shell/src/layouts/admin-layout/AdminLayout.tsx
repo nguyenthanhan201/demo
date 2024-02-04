@@ -1,5 +1,3 @@
-import { CssBaseline } from '@mui/material';
-
 import Sidebar from './components/Sidebar';
 import Topbar from './components/Topbar';
 
@@ -9,16 +7,13 @@ const AdminLayout = ({ ...props }: any) => {
   // const _colors = tokens(theme.palette.mode);
 
   return (
-    <>
-      <CssBaseline />
-      <div className='flex'>
-        <Sidebar />
-        <main className='h-full w-full'>
-          <Topbar />
-          {props.children}
-        </main>
-      </div>
-    </>
+    <div className='app !h-screen'>
+      <Sidebar />
+      <main className='h-full w-full'>
+        <Topbar />
+        {props.children}
+      </main>
+    </div>
   );
 };
 

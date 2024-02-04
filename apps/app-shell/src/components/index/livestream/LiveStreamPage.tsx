@@ -1,9 +1,10 @@
 import { selectIsConnectedToRoom, useHMSStore } from '@100mslive/react-sdk';
+import dynamic from 'next/dynamic';
 
 import { LiveStream } from '@/lib/redux/types/liveStream.type';
 
-import JoinRoom from './components/JoinRoom';
-import Room from './components/Room';
+const JoinRoom = dynamic(() => import('./components/JoinRoom'));
+const Room = dynamic(() => import('./components/Room'));
 
 const LiveStreamPage = ({ rooms }: { rooms: LiveStream[] }) => {
   const isConnected = useHMSStore(selectIsConnectedToRoom);

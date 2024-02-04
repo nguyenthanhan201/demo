@@ -1,15 +1,14 @@
-import { selectIsConnectedToRoom, useHMSStore } from '@100mslive/react-sdk';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import LoginIcon from '@mui/icons-material/Login';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Avatar, Badge, useTheme } from '@mui/material';
+import { Avatar, Badge } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { ElementRef, memo, useCallback, useEffect, useRef, useState } from 'react';
+import { ElementRef, useCallback, useEffect, useRef, useState } from 'react';
 import { shallowEqual } from 'react-redux';
 
 import Img from '@/components/shared/Img/Img';
@@ -23,16 +22,13 @@ import { mainNav } from '../../utils/fake-data/header-navs';
 
 const Menu = dynamic(() => import('./components/Menu'), { ssr: false });
 
-const Defaultheader = () => {
-  const theme = useTheme();
+const DefaultHeader = () => {
   const cartItems = useAppSelector((state) => state.cartItems, shallowEqual);
   const auth = useAppSelector((state) => state.auth.auth, shallowEqual);
   const router = useRouter();
-  const activeNav = mainNav.findIndex((e) => e.path === router.pathname);
   const menuLeft = useRef<ElementRef<'div'>>(null);
   const [headerShrink, setHeaderShrink] = useState(false);
   const trans = useTrans();
-  const isConnected = useHMSStore(selectIsConnectedToRoom);
 
   useEffect(() => {
     window.addEventListener('scroll', () => {
@@ -46,14 +42,6 @@ const Defaultheader = () => {
       window.removeEventListener('scroll', () => {});
     };
   }, []);
-
-  useEffect(() => {
-    const darkTheme = theme.palette.mode === 'dark';
-    const root = document.documentElement;
-    root?.style.setProperty('--main-bg', darkTheme ? '#262833' : '#fff');
-    root?.style.setProperty('--main-color', darkTheme ? '#fff' : '#262833');
-    root?.style.setProperty('--txt-second-color', darkTheme ? '#fff' : '#8d8d8d');
-  }, [theme.palette.mode]);
 
   const menuToggle = useCallback(() => {
     menuLeft.current?.classList.toggle('active');
@@ -82,7 +70,9 @@ const Defaultheader = () => {
   }, [auth?.email]);
 
   const handleClickLiveStream = async () => {
-    if (isConnected) return;
+    const isLiveStreamPage = router.pathname.includes('live-stream');
+
+    if (isLiveStreamPage) return;
 
     if (auth) {
       const roomData = await LiveStreamServices.getRoomData();
@@ -109,7 +99,7 @@ const Defaultheader = () => {
             {mainNav.map((item, index) => (
               <div
                 className={`header_menu_item header_menu_left_item ${
-                  index === activeNav ? 'active' : ''
+                  item.path === router.pathname ? 'active' : ''
                 }`}
                 key={index}
                 onClick={menuToggle}
@@ -174,4 +164,4 @@ const Defaultheader = () => {
   );
 };
 
-export default memo(Defaultheader);
+export default DefaultHeader;
