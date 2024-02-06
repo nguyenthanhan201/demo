@@ -1,16 +1,14 @@
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-
-import UserPage from '@/components/index/user/UserPage';
 
 const Page = () => {
   const router = useRouter();
 
   useEffect(() => {
     router.replace('/user/account');
-  }, []);
+  });
 
-  return <UserPage />;
+  return <></>;
 };
 
 export default Page;

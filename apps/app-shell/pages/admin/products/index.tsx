@@ -8,14 +8,12 @@ import { dehydrate } from 'react-query';
 import Header from '@/components/index/admin/components/Header';
 import Modal from '@/components/shared/Modal/Modal';
 import AdminLayout from '@/layouts/admin-layout/AdminLayout';
-import { useAppDispatch } from '@/lib/hooks/useAppDispatch';
 import { useSEO } from '@/lib/hooks/useSEO';
 import { useToast } from '@/lib/providers/toast-provider';
 import { queryClient } from '@/lib/react-query/queryClient';
-import { GET_PRODUCTS } from '@/lib/redux/types';
-import { Product } from '@/lib/redux/types/product.type';
 import { ProductServices } from '@/lib/repo/product.repo';
 import { tokens } from '@/lib/theme/theme';
+import { Product } from '@/types/product.type';
 
 const DataGrid = dynamic(() => import('nextjs-module-admin/DataGrid'));
 
@@ -24,7 +22,7 @@ const ModalAddProduct = dynamic(import('@/components/index/admin/products/ModalA
 const Page = (pageProps: PageProps<{ products: Product[] }>) => {
   const { dehydratedState } = pageProps;
   const toast = useToast();
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const products = dehydratedState.queries.at(0)?.state.data;
@@ -126,7 +124,7 @@ const Page = (pageProps: PageProps<{ products: Product[] }>) => {
   const hideProduct = (id: string) => {
     toast.promise(
       'Ẩn sản phẩm thành công',
-      ProductServices.hideProduct(id).then(() => dispatch({ type: GET_PRODUCTS })),
+      ProductServices.hideProduct(id),
       'Ẩn sản phẩm thất bại'
     );
   };

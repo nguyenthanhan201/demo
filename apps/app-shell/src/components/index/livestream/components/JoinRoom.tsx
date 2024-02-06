@@ -2,15 +2,15 @@ import { useHMSActions } from '@100mslive/react-sdk';
 import { useRouter } from 'next/router';
 
 import Button from '@/components/shared/Button';
-import { useAppSelector } from '@/lib/hooks/useAppSelector';
-import { LiveStream } from '@/lib/redux/types/liveStream.type';
 import { LiveStreamServices } from '@/lib/repo/live-stream';
+import { useAuthStore } from '@/lib/zustand/useAuthStore';
+import { LiveStream } from '@/types/liveStream.type';
 
 const JoinRoom = ({ rooms }: { rooms: LiveStream[] }) => {
   const router = useRouter();
   const { roomId } = router.query;
   const hmsActions = useHMSActions();
-  const auth = useAppSelector((state) => state.auth.auth);
+  const { auth } = useAuthStore(['auth']);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

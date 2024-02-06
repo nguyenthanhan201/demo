@@ -2,17 +2,19 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import Button from '@/components/shared/Button';
-import { useAppDispatch } from '@/lib/hooks/useAppDispatch';
-import { useAppSelector } from '@/lib/hooks/useAppSelector';
+import { refetchCart } from '@/lib/helpers';
 import { useToast } from '@/lib/providers/toast-provider';
-import { GET_CART_ITEMS } from '@/lib/redux/types';
 import { OrderServices } from '@/lib/repo/order.repo';
+import { useAuthStore } from '@/lib/zustand/useAuthStore';
+import { useCartStore } from '@/lib/zustand/useCartStore';
 
 const VNPayReturnPage = () => {
   const toast = useToast();
-  const auth = useAppSelector((state) => state.auth.auth);
+  // const auth = useAppSelector((state) => state.auth.auth);
   const [responseCode, setResponseCode] = useState<string>('');
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
+  const { auth } = useAuthStore(['auth']);
+  const { setCart } = useCartStore(['setCart']);
 
   useEffect(() => {
     const query = window.location.search;
@@ -30,9 +32,8 @@ const VNPayReturnPage = () => {
     toast.promise(
       'Xử lí đơn hàng thành công',
       OrderServices.addOrder(auth._id)
-        .then((res) => {
-          console.log('👌 ~ res', res);
-          dispatch({ type: GET_CART_ITEMS, payload: auth._id });
+        .then(() => {
+          refetchCart(auth._id, setCart);
         })
         .catch((err) => {
           console.log('🚀 ~ file: VNPayReturn.tsx ~ line 43 ~ err', err);

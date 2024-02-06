@@ -1,7 +1,5 @@
 import Link from 'next/link';
 
-import DefaultLayout from '@/layouts/default-layout/DefaultLayout';
-
 const Page404 = () => {
   return (
     <div className='min-h-fit bg-white px-4 py-16 sm:px-6 sm:py-24 md:grid md:place-items-center lg:px-8'>
@@ -39,7 +37,7 @@ const Page404 = () => {
 };
 
 export default Page404;
-Page404.Layout = DefaultLayout;
+// Page404.Layout = DefaultLayout;
 
 // export async function getServerSideProps(_ctx: any) {
 //   return {

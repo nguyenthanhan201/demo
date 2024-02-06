@@ -1,8 +1,10 @@
+import { Rating } from '@/types/rating.type';
+
 import { get, put } from '../axios/requests';
 
 export class RatingRepository {
   async getRatingByIdAuth(idAuth: string) {
-    const res = await get(`/rating/getRatingByIdAuth/${idAuth}`);
+    const res = await get<Rating[]>(`/rating/getRatingByIdAuth/${idAuth}`);
     return res;
   }
   async getRatingByIdProduct(idProduct: string) {

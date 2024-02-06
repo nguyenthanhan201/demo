@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 
-import { Product } from '@/lib/redux/types/product.type';
+import { Product } from '@/types/product.type';
 
 import Button from './Button';
 

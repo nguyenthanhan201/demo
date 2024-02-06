@@ -1,16 +1,13 @@
 // eslint-disable-next-line simple-import-sort/imports
+import { buildProvidersTree } from '@/lib/helpers';
 import '../src/sass/index.scss';
 
+import { ToastProvider } from '@/lib/providers/toast-provider';
 import { useNetwork } from 'my-package';
 import { DefaultSeo, NextSeo } from 'next-seo';
 import { Roboto } from 'next/font/google';
-import { Fragment, useState } from 'react';
-import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
-import { Provider } from 'react-redux';
+import { Fragment } from 'react';
 
-import { buildProvidersTree } from '@/lib/helpers';
-import { ToastProvider } from '@/lib/providers/toast-provider';
-import store from '@/lib/redux/store';
 // import Page404 from './404';
 // const Nav = lazy(() => {
 //   console.log(import('nextjs-module-admin/Nav'));
@@ -27,7 +24,7 @@ const MyApp = ({ Component, pageProps }: any) => {
   const layoutProps = Component.LayoutProps ? Component.LayoutProps : {};
   // const [theme, colorMode] = useMode();
   const { online } = useNetwork();
-  const [queryClient] = useState(() => new QueryClient());
+  // const [queryClient] = useState(() => new QueryClient());
 
   // const channel = new BroadcastChannel('notifications');
 
@@ -74,9 +71,9 @@ const MyApp = ({ Component, pageProps }: any) => {
   const ProvidersTree = buildProvidersTree([
     // [ColorModeContext.Provider, { value: colorMode }],
     // [ThemeProvider, { theme: theme }],
-    [Provider, { store }],
-    [QueryClientProvider, { client: queryClient }],
-    [Hydrate, { state: pageProps.dehydratedState }],
+    // [Provider, { store }],
+    // [QueryClientProvider, { client: QueryClient }],
+    // [Hydrate, { state: pageProps.dehydratedState }],
     [ToastProvider] as any
   ] as const);
 
@@ -95,17 +92,6 @@ const MyApp = ({ Component, pageProps }: any) => {
       <ProvidersTree>
         <main className={roboto.className}>
           <Layout {...layoutProps}>
-            <div
-              style={{
-                backgroundColor: 'red',
-                position: 'absolute',
-                zIndex: 1000
-              }}
-            >
-              {/* <Suspense fallback={'loading'}> */}
-              {/* <Nav /> */}
-              {/* </Suspense> */}
-            </div>
             <Component {...pageProps} />
           </Layout>
         </main>

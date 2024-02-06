@@ -1,7 +1,7 @@
-import { useAppSelector } from '@/lib/hooks/useAppSelector';
+import { useAuthStore } from '@/lib/zustand/useAuthStore';
 
 const AccountInfo = () => {
-  const auth = useAppSelector((state) => state.auth.auth);
+  const { auth } = useAuthStore(['auth']);
 
   return (
     <table className='table'>

@@ -34,7 +34,8 @@
       "@/utils/*": ["utils/*"],
       "@/api/*": ["api/*"],
       "@/i18n/*": ["i18n/*"],
-      "@/dictionaries/*": ["dictionaries/*"]
+      "@/dictionaries/*": ["dictionaries/*"],
+      "@/types/*": ["types/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.d.ts", "src/@types/*"],

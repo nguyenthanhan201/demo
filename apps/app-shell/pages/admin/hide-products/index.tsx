@@ -2,36 +2,27 @@ import { Box, Button, useTheme } from '@mui/material';
 import { NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
 import { GridColumns } from 'nextjs-module-admin/DataGrid';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { dehydrate } from 'react-query';
 
 import Header from '@/components/index/admin/components/Header';
 import AdminLayout from '@/layouts/admin-layout/AdminLayout';
 import { decodedToken, parseCookie } from '@/lib/helpers/cookie';
-import { useAppDispatch } from '@/lib/hooks/useAppDispatch';
-import { useAppSelector } from '@/lib/hooks/useAppSelector';
-import useCookie from '@/lib/hooks/useCookie';
 import { useSEO } from '@/lib/hooks/useSEO';
 import { useToast } from '@/lib/providers/toast-provider';
 import { queryClient } from '@/lib/react-query/queryClient';
-import { GET_HIDE_PRODUCTS } from '@/lib/redux/types';
-import { Product } from '@/lib/redux/types/product.type';
-import { AuthServices } from '@/lib/repo/auth.repo';
 import { ProductServices } from '@/lib/repo/product.repo';
 import { tokens } from '@/lib/theme/theme';
+import { Product } from '@/types/product.type';
 
 const DataGrid = dynamic(() => import('nextjs-module-admin/DataGrid'));
 
 const Page = (pageProps: PageProps<{ products: Product[] }>) => {
   const { dehydratedState } = pageProps;
   const toast = useToast();
-  const dispatch = useAppDispatch();
-  const { set } = useCookie('token');
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const products = dehydratedState.queries.at(0)?.state.data || [];
-  const errProducts: string | null = useAppSelector((state) => state.products.err);
-  const auth = useAppSelector((state) => state.auth.auth);
 
   const columns: GridColumns<Product> = useMemo(() => {
     return [
@@ -111,9 +102,7 @@ const Page = (pageProps: PageProps<{ products: Product[] }>) => {
               </Button>
               <Button
                 onClick={() => {
-                  ProductServices.deleteProduct(row.row._id).then(() => {
-                    dispatch({ type: GET_HIDE_PRODUCTS });
-                  });
+                  ProductServices.deleteProduct(row.row._id);
                 }}
                 style={{ backgroundColor: '#70d8bd' }}
                 variant='contained'
@@ -127,27 +116,10 @@ const Page = (pageProps: PageProps<{ products: Product[] }>) => {
     ];
   }, []);
 
-  useEffect(() => {
-    if (errProducts === 'TokenExpiredError' && auth) {
-      toast.promise(
-        'Làm mới access token thành công. Làm mới trang để tiếp tục',
-        AuthServices.token(auth?.email)
-          .then((res) => {
-            // localStorage.setItem('token', res.accessToken);
-            set(res.accessToken);
-          })
-          .catch((err) => {
-            Promise.reject(err);
-          }),
-        'Làm mới access token thất bại'
-      );
-    }
-  }, [errProducts, auth]);
-
   const handleShowProduct = (id: string) => {
     toast.promise(
       'Hiện sản phẩm thành công',
-      ProductServices.unhideProduct(id).then(() => dispatch({ type: GET_HIDE_PRODUCTS })),
+      ProductServices.unhideProduct(id),
       'Hiện sản phẩm thất bại'
     );
   };

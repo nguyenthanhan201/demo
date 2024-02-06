@@ -3,37 +3,33 @@ import dynamic from 'next/dynamic';
 import { GridCellParams, GridColDef } from 'nextjs-module-admin/DataGrid';
 import { useEffect, useState } from 'react';
 
-import Modal from '@/components/shared/Modal/Modal';
 import { formatDate } from '@/lib/helpers';
-import { useAppSelector } from '@/lib/hooks/useAppSelector';
-import { Rating } from '@/lib/redux/types/rating.type';
 import { RatingServices } from '@/lib/repo/rating.repo';
 import { tokens } from '@/lib/theme/theme';
+import { useAuthStore } from '@/lib/zustand/useAuthStore';
+import { Rating } from '@/types/rating.type';
 
+const Modal = dynamic(() => import('@/components/shared/Modal/Modal'), { ssr: false });
 const ModalRating = dynamic(() => import('./ModalRating'), { ssr: false });
 const DataGrid = dynamic(() => import('nextjs-module-admin/DataGrid'), { ssr: false });
 
 const ManagerRating = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const auth = useAppSelector((state) => state.auth.auth);
-  const [ratings, setRatings] = useState<any>([]);
+  const { auth } = useAuthStore(['auth']);
+  const [ratings, setRatings] = useState<Rating[]>([]);
   const [open, setOpen] = useState(false);
   const [selectedRating, setSelectedRating] = useState<Rating | null>(null);
 
   useEffect(() => {
     if (!auth?._id) return;
-    RatingServices.getRatingByIdAuth(auth?._id)
-      .then((res) => {
-        setRatings(res);
-      })
-      .catch((err) => {
-        console.log(
-          '🚀 ~ file: ManagerRating.tsx ~ line 41 ~ RatingServices.getRatingByIdAuth ~ err',
-          err
-        );
-        setRatings([]);
-      });
+    RatingServices.getRatingByIdAuth(auth?._id).then((res) => {
+      if (res.code === 'SUCCESS') {
+        return setRatings(res.data);
+      }
+
+      console.log('🚀 ~ file: ManagerRating.tsx ~ line 64 ~ res', res.error);
+    });
   }, [auth?._id]);
 
   const columns: GridColDef[] = [
@@ -136,9 +132,12 @@ const ManagerRating = () => {
           rows={ratings}
         />
       </Box>
-      <Modal handleClose={() => setOpen(false)} open={open}>
-        {open && selectedRating ? <ModalRating selectedRating={selectedRating} /> : null}
-      </Modal>
+
+      {open && selectedRating ? (
+        <Modal handleClose={() => setOpen(false)} open={open}>
+          <ModalRating selectedRating={selectedRating} />
+        </Modal>
+      ) : null}
     </>
   );
 };

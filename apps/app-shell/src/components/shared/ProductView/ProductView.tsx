@@ -1,34 +1,32 @@
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
-import { memo, useCallback, useMemo, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useCallback, useMemo, useState } from 'react';
 
-import { getSalePrice, numberWithCommans } from '@/lib/helpers';
-import { useAppDispatch } from '@/lib/hooks/useAppDispatch';
-import { useAppSelector } from '@/lib/hooks/useAppSelector';
+import { getSalePrice, numberWithCommans, refetchCart } from '@/lib/helpers';
 import { useDevice } from '@/lib/hooks/useDevice';
 import { useToast } from '@/lib/providers/toast-provider';
-import { GET_CART_ITEMS } from '@/lib/redux/types';
-import { Product } from '@/lib/redux/types/product.type';
-import { Rating } from '@/lib/redux/types/rating.type';
 import { CartServices } from '@/lib/repo/cart.repo';
-import { RatingServices } from '@/lib/repo/rating.repo';
+import { useAuthStore } from '@/lib/zustand/useAuthStore';
+import { useCartStore } from '@/lib/zustand/useCartStore';
+import { Product } from '@/types/product.type';
+import { Rating } from '@/types/rating.type';
 
 import Page404 from '../../../../pages/404';
 import Button from '../Button';
 import Img from '../Img/Img';
-import Modal from '../Modal/Modal';
 import ImagePreview from './components/ImagePreview';
 
-const RatingMUI = dynamic(() => import('@mui/material/Rating'), {
+const RatingMUI = dynamic(() => import('@mui/material/Rating'));
+const ModalSeeComments = dynamic(() => import('./components/ModalSeeComments'), {
   ssr: false
 });
-const ModalSeeComments = dynamic(() => import('./components/ModalSeeComments'), {
+const Modal = dynamic(() => import('../Modal/Modal'), {
   ssr: false
 });
 
 type ProductViewProps = {
   product: Product;
+  ratings?: Rating[];
 };
 type ChoosenItemType = {
   color: string | undefined;
@@ -36,20 +34,13 @@ type ChoosenItemType = {
   quantity: number;
 };
 
-const ProductView = ({ product }: ProductViewProps) => {
-  const { isLoading } = useQuery({
-    queryKey: 'rating',
-    queryFn: async () =>
-      RatingServices.getRatingByIdProduct(product._id).then((res) => {
-        if (res.code === 'SUCCESS') {
-          setRatings(res.data as any);
-        }
-      })
-  });
+const ProductView = ({ product, ratings }: ProductViewProps) => {
   const { isMobile } = useDevice();
   const toast = useToast();
-  const auth = useAppSelector((state) => state.auth.auth);
-  const dispatch = useAppDispatch();
+  // const auth = useAppSelector((state) => state.auth.auth);
+  const { auth } = useAuthStore(['auth']);
+  const { setCart } = useCartStore(['setCart']);
+  // const dispatch = useAppDispatch();
   const router = useRouter();
   const [previewImg, setReviewImg] = useState<string>(product.image01 || '');
   const [descriptionExpand, setDescriptionExpand] = useState<boolean>(false);
@@ -58,12 +49,11 @@ const ProductView = ({ product }: ProductViewProps) => {
     size: undefined,
     quantity: 1
   });
-  const [ratings, setRatings] = useState<Rating[]>([]);
   const [showModal, setShowModal] = useState<boolean>(false);
   const { color, size, quantity } = choosenItems;
 
   const ratingValue = useMemo(() => {
-    if (ratings.length === 0) return 0;
+    if (!ratings || ratings.length === 0) return 0;
     const sum = ratings.reduce((acc, cur) => acc + cur.rating, 0);
     return sum / ratings.length;
   }, [ratings]);
@@ -106,7 +96,8 @@ const ProductView = ({ product }: ProductViewProps) => {
     CartServices.createCartItem(auth!._id, product._id, size!, color!, quantity)
       .then((res) => {
         if (res) {
-          dispatch({ type: GET_CART_ITEMS, payload: auth!._id });
+          // dispatch({ type: GET_CART_ITEMS, payload: auth!._id });
+          refetchCart(auth!._id, (cartItems) => setCart(cartItems));
           toast.success('Thêm giỏ hàng thành công');
         }
       })
@@ -158,7 +149,7 @@ const ProductView = ({ product }: ProductViewProps) => {
         <div className='product_info'>
           <h1 className='product_info_title'>{product.title}</h1>
           <div className='flex items-start gap-2'>
-            {isLoading ? (
+            {/* {isLoading ? (
               <p className='animate-pulse'>Đang lấy thông tin đánh giá</p>
             ) : (
               <>
@@ -175,6 +166,18 @@ const ProductView = ({ product }: ProductViewProps) => {
                   'Chưa có đánh giá'
                 )}
               </>
+            )} */}
+            {ratings && ratings.length > 0 && ratings[0]?.rating !== 0 ? (
+              <div
+                className='flex cursor-pointer flex-col gap-1'
+                onClick={() => setShowModal(true)}
+                role='presentation'
+              >
+                <RatingMUI readOnly value={ratingValue} />
+                <small className='text-[10px]'>Nhấn để xem đánh giá</small>
+              </div>
+            ) : (
+              'Chưa có đánh giá'
             )}
             <p>{product.sold} đã bán</p>
           </div>
@@ -286,10 +289,12 @@ const ProductView = ({ product }: ProductViewProps) => {
           </div>
         ) : null}
       </div>
-      <Modal handleClose={() => setShowModal(false)} open={showModal}>
-        {showModal ? <ModalSeeComments ratings={ratings} /> : null}
-      </Modal>
+      {showModal ? (
+        <Modal handleClose={() => setShowModal(false)} open={showModal}>
+          <ModalSeeComments ratings={ratings || []} />
+        </Modal>
+      ) : null}
     </>
   );
 };
-export default memo(ProductView);
+export default ProductView;

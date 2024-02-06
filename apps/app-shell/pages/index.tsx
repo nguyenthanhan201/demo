@@ -5,8 +5,8 @@ import HomePage from '@/components/index/home/HomePage';
 import DefaultLayout from '@/layouts/default-layout/DefaultLayout';
 import { useSEO } from '@/lib/hooks/useSEO';
 import { queryClient } from '@/lib/react-query/queryClient';
-import { Product } from '@/lib/redux/types/product.type';
 import { ProductServices } from '@/lib/repo/product.repo';
+import { Product } from '@/types/product.type';
 
 // eslint-disable-next-line react/function-component-definition
 export default function Page(pageProps: PageProps<{ products: Product[] }>) {
@@ -15,7 +15,6 @@ export default function Page(pageProps: PageProps<{ products: Product[] }>) {
   return <HomePage products={dehydratedState.queries.at(0)?.state.data} />;
 }
 Page.Layout = DefaultLayout;
-
 export async function getServerSideProps(_ctx: NextPageContext) {
   await queryClient.prefetchQuery('productsQuery', async () => await ProductServices.getAll());
 

@@ -9,39 +9,24 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ElementRef, useCallback, useEffect, useRef, useState } from 'react';
-import { shallowEqual } from 'react-redux';
 
 import Img from '@/components/shared/Img/Img';
-import { removeCookie } from '@/lib/hooks/useCookie';
 import useTrans, { TranslatedHeader } from '@/lib/hooks/useTrans';
-import { AuthServices } from '@/lib/repo/auth.repo';
-import { LiveStreamServices } from '@/lib/repo/live-stream';
+import { useAuthStore } from '@/lib/zustand/useAuthStore';
+import { useCartStore } from '@/lib/zustand/useCartStore';
+import { CartItem } from '@/types/cartItem.type';
 
-import { useAppSelector } from '../../lib/hooks/useAppSelector';
 import { mainNav } from '../../utils/fake-data/header-navs';
 
 const Menu = dynamic(() => import('./components/Menu'), { ssr: false });
 
 const DefaultHeader = () => {
-  const cartItems = useAppSelector((state) => state.cartItems, shallowEqual);
-  const auth = useAppSelector((state) => state.auth.auth, shallowEqual);
+  const { auth, setAuth } = useAuthStore(['auth', 'setAuth']);
+  const { cart, setCart } = useCartStore(['cart', 'setCart']);
   const router = useRouter();
   const menuLeft = useRef<ElementRef<'div'>>(null);
   const [headerShrink, setHeaderShrink] = useState(false);
   const trans = useTrans();
-
-  useEffect(() => {
-    window.addEventListener('scroll', () => {
-      if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
-        setHeaderShrink(true);
-      } else {
-        setHeaderShrink(false);
-      }
-    });
-    return () => {
-      window.removeEventListener('scroll', () => {});
-    };
-  }, []);
 
   const menuToggle = useCallback(() => {
     menuLeft.current?.classList.toggle('active');
@@ -53,6 +38,9 @@ const DefaultHeader = () => {
       (res) => res.authentication
     );
     const { signOut } = await import('firebase/auth');
+    const AuthServices = await import('@/lib/repo/auth.repo').then((res) => res.AuthServices);
+    const removeCookie = await import('@/lib/hooks/useCookie').then((res) => res.removeCookie);
+
     // const promise1 = await signOut(authentication);
     const promise2 = await AuthServices.logout(auth.email);
 
@@ -61,6 +49,8 @@ const DefaultHeader = () => {
         await signOut(authentication);
         removeCookie('token');
         removeCookie('refreshToken');
+        setAuth(null);
+        setCart({} as CartItem);
         router.push('/');
       })
       .catch((err) => {
@@ -75,6 +65,9 @@ const DefaultHeader = () => {
     if (isLiveStreamPage) return;
 
     if (auth) {
+      const LiveStreamServices = await import('@/lib/repo/live-stream').then(
+        (res) => res.LiveStreamServices
+      );
       const roomData = await LiveStreamServices.getRoomData();
       return router.push({
         pathname: '/live-stream/[roomId]',
@@ -84,6 +77,19 @@ const DefaultHeader = () => {
 
     return router.push('/live-stream');
   };
+
+  useEffect(() => {
+    window.addEventListener('scroll', () => {
+      if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+        setHeaderShrink(true);
+      } else {
+        setHeaderShrink(false);
+      }
+    });
+    return () => {
+      window.removeEventListener('scroll', () => {});
+    };
+  }, []);
 
   return (
     <div className={`header ${headerShrink && 'shrink'}`}>
@@ -134,10 +140,7 @@ const DefaultHeader = () => {
             <div className='header_menu_item header_menu_right_item'>
               <Tooltip title='Giỏ hàng'>
                 <Link href='/cart'>
-                  <Badge
-                    badgeContent={cartItems.value ? Object.keys(cartItems.value).length : 0}
-                    color='primary'
-                  >
+                  <Badge badgeContent={Object.keys(cart).length} color='primary'>
                     <LocalMallOutlinedIcon />
                   </Badge>
                 </Link>

@@ -3,13 +3,13 @@ import RatingMUI from '@mui/material/Rating';
 import { memo } from 'react';
 
 import { formatDate } from '@/lib/helpers';
-import { Rating } from '@/lib/redux/types/rating.type';
+import { Rating } from '@/types/rating.type';
 
 type Props = {
   ratings: Rating[];
 };
 const ModalSeeComments = ({ ratings }: Props) => {
-  console.log('👌  ratings:', ratings);
+  // console.log('👌  ratings:', ratings);
   return (
     <>
       {ratings.length > 0 ? (

@@ -1,6 +1,8 @@
 setup: https://www.youtube.com/watch?v=o7jhf97m_gg
 i18n: https://viblo.asia/p/nextjs-da-ngon-ngu-khong-can-thu-vien-ngoai-Eb85oe0OZ2G
 live steaming: https://blog.logrocket.com/build-react-live-streaming-app-100ms/
+optimizer bundle: https://knip.dev/
+zustand: https://codesandbox.io/p/devbox/nextjs-with-zustand-ku82o?file=%2Fpages%2F_app.js%3A5%2C17-5%2C27
 
 # Turborepo starter
 

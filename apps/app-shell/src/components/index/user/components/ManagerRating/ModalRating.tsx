@@ -3,8 +3,8 @@ import { useState } from 'react';
 
 import Input from '@/components/shared/Input/Input';
 import { useToast } from '@/lib/providers/toast-provider';
-import { Rating } from '@/lib/redux/types/rating.type';
 import { RatingServices } from '@/lib/repo/rating.repo';
+import { Rating } from '@/types/rating.type';
 
 type ModalRatingProps = {
   selectedRating: Rating | null;

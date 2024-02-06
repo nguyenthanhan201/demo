@@ -1,54 +1,48 @@
 import { useEffect } from 'react';
 
+import { authentication } from '../../configs/firebase.config';
 import { isEmpty } from '../helpers/assertion';
 import { useToast } from '../providers/toast-provider';
-import { setAuthSlice } from '../redux/slices/auth';
 import { AuthServices } from '../repo/auth.repo';
-import { useAppDispatch } from './useAppDispatch';
+import { CartServices } from '../repo/cart.repo';
+import { useAuthStore } from '../zustand/useAuthStore';
+import { useCartStore } from '../zustand/useCartStore';
 import { getCookie, removeCookie } from './useCookie';
 
 function useAuth() {
-  const dispatch = useAppDispatch();
   const toast = useToast();
+  const { setAuth } = useAuthStore(['setAuth']);
+  const { setCart } = useCartStore(['setCart']);
 
   const isLogined = !isEmpty(getCookie('token'));
-  // console.log('👌  isLogined:', isLogined);
 
   useEffect(() => {
     (async function unsubscribe() {
-      const authentication = await import('../../configs/firebase.config').then(
-        (res) => res.authentication
-      );
       const { onAuthStateChanged } = await import('firebase/auth');
-      onAuthStateChanged(authentication, (user) => {
-        const _isLogined = !isEmpty(getCookie('token'));
-        // console.log('👌  _isLogined:', _isLogined);
-        // console.log('👌 ~ user', user);
-        // console.log(!user || !_isLogined);
-        if (!user || !_isLogined) {
+      onAuthStateChanged(authentication, async (user) => {
+        if (!user) {
           removeCookie('token');
           removeCookie('refreshToken');
-          return dispatch(setAuthSlice(undefined));
+          return;
         }
-        return AuthServices.getUserByEmail(String(user.displayName), String(user.email)).then(
-          (res) => {
-            if (res) {
-              // console.log('👌  res:', res);
-              const { name, email, _id } = res;
-              dispatch(
-                setAuthSlice({
-                  name,
-                  email,
-                  _id
-                })
-              );
-            }
-          },
-          (err) => {
-            console.log('err', err);
-            toast.error(err.message);
-          }
-        );
+
+        try {
+          const userData = await AuthServices.getUserByEmail(
+            String(user.displayName),
+            String(user.email)
+          );
+          const cartItems = await CartServices.getCartItemsByIdAuth(userData._id);
+
+          setAuth({
+            name: userData.name,
+            email: userData.email,
+            _id: userData._id
+          });
+          setCart(cartItems);
+        } catch (error) {
+          console.log('🚀 ~ file: useAuth.ts ~ line 57 ~ onAuthStateChanged ~ error', error);
+          toast.error('Error when fetching user data');
+        }
       });
     })();
   }, []);

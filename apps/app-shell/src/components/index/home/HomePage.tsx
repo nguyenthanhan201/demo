@@ -8,7 +8,7 @@ import Grid from '@/components/shared/Grid';
 import HeroSlider from '@/components/shared/HeroSlider';
 import PolicyCard from '@/components/shared/PolicyCard';
 import Section, { SectionBody, SectionTitle } from '@/components/shared/Section';
-import { Product } from '@/lib/redux/types/product.type';
+import { Product } from '@/types/product.type';
 import { heroSliderData, policy } from '@/utils/index';
 
 const ProductCard = dynamic(import('@/components/shared/ProductCard'));

@@ -6,12 +6,10 @@ import { useForm } from 'react-hook-form';
 
 import Input from '@/components/shared/Input/Input';
 import Select from '@/components/shared/Select/Select';
-import { useAppDispatch } from '@/lib/hooks/useAppDispatch';
 import { useToast } from '@/lib/providers/toast-provider';
-import { GET_PRODUCTS } from '@/lib/redux/types';
-import { Product } from '@/lib/redux/types/product.type';
 import { ProductServices } from '@/lib/repo/product.repo';
 import { registerSchema } from '@/lib/schema/formSchema';
+import { Product } from '@/types/product.type';
 import { category, colors, size } from '@/utils/index';
 
 type ModalAddProductProps = {
@@ -42,7 +40,6 @@ const ModalAddProduct = ({ product }: ModalAddProductProps) => {
     }
   });
   const toast = useToast();
-  const dispatch = useAppDispatch();
   const [img1, setImg1] = useState(product?.image01 || '');
   const [img2, setImg2] = useState(product?.image02 || '');
   const editorContent = watch('description');
@@ -62,16 +59,12 @@ const ModalAddProduct = ({ product }: ModalAddProductProps) => {
         ProductServices.updateProduct({
           ...data,
           _id: product._id
-        }).then(() => {
-          dispatch({ type: GET_PRODUCTS });
         }),
         'Cập nhật sản phẩm thất bại'
       );
     return toast.promise(
       'Thêm sản phẩm thành công',
-      ProductServices.createProduct(data).then(() => {
-        dispatch({ type: GET_PRODUCTS });
-      }),
+      ProductServices.createProduct(data),
       'Thêm sản phẩm thất bại'
     );
   };

@@ -1,5 +1,3 @@
-import DefaultLayout from '@/layouts/default-layout/DefaultLayout';
-
 const Error = ({ statusCode }: any) => {
   console.log('👌  statusCode:', statusCode);
   return (
@@ -9,7 +7,7 @@ const Error = ({ statusCode }: any) => {
   );
 };
 
-Error.Layout = DefaultLayout;
+// Error.Layout = DefaultLayout;
 
 Error.getInitialProps = ({ res, err }: any) => {
   const statusCode = res ? res.statusCode : err ? err.statusCode : 404;

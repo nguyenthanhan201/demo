@@ -15,8 +15,8 @@ import { useEffect, useState } from 'react';
 import Header from '@/components/index/admin/components/Header';
 import AdminLayout from '@/layouts/admin-layout/AdminLayout';
 import { useToast } from '@/lib/providers/toast-provider';
-import { Product } from '@/lib/redux/types/product.type';
 import { ProductServices } from '@/lib/repo/product.repo';
+import { Product } from '@/types/product.type';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 

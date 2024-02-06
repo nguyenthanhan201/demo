@@ -5,9 +5,9 @@ import { useEffect, useState } from 'react';
 import Img from '@/components/shared/Img/Img';
 import Loading from '@/components/shared/Loading/Loading';
 import { formatDate, getSalePrice, numberWithCommans } from '@/lib/helpers';
-import { useAppSelector } from '@/lib/hooks/useAppSelector';
 import { OrderServices } from '@/lib/repo/order.repo';
 import { tokens } from '@/lib/theme/theme';
+import { useAuthStore } from '@/lib/zustand/useAuthStore';
 
 const DataGrid = dynamic(() => import('nextjs-module-admin/DataGrid'), { ssr: false });
 
@@ -88,7 +88,8 @@ const columns: any = [
 const ManagerOrders = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const auth = useAppSelector((state) => state.auth.auth);
+  // const auth = useAppSelector((state) => state.auth.auth);
+  const { auth } = useAuthStore(['auth']);
   const [orders, setOrders] = useState<any[]>([]);
   // console.log("👌 ~ orders", orders);
   const [isLoading, setIsLoading] = useState<boolean>(false);

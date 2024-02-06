@@ -1,11 +1,11 @@
 import ProductView from '@/components/shared/ProductView/ProductView';
 import Section, { SectionBody } from '@/components/shared/Section';
 
-const ProductDetailPage = ({ product }: any) => {
+const ProductDetailPage = ({ product, ratings }: any) => {
   return (
     <Section>
       <SectionBody>
-        <ProductView product={product} />
+        <ProductView product={product} ratings={ratings} />
       </SectionBody>
     </Section>
   );

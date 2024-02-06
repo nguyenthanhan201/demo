@@ -1,3 +1,7 @@
+import { CartItem } from '@/types/cartItem.type';
+
+import { CartServices } from '../repo/cart.repo';
+
 export function getUniqueID(prefix: string) {
   return `${prefix}-${Math.floor(Math.random() * 1000000)}`;
 }
@@ -53,4 +57,9 @@ export const withCSR = (next: any) => async (ctx: any) => {
   }
 
   return next?.(ctx);
+};
+
+export const refetchCart = async (authId: string, CbSuccess: (cartItems: CartItem) => void) => {
+  const cartItems = await CartServices.getCartItemsByIdAuth(authId);
+  CbSuccess(cartItems);
 };

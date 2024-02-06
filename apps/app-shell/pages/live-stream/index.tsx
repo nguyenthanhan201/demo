@@ -4,8 +4,8 @@ import { dehydrate, QueryClient } from 'react-query';
 
 import Button from '@/components/shared/Button';
 import DefaultLayout from '@/layouts/default-layout/DefaultLayout';
-import { LiveStream } from '@/lib/redux/types/liveStream.type';
 import { LiveStreamServices } from '@/lib/repo/live-stream';
+import { LiveStream } from '@/types/liveStream.type';
 
 const Page = (pageProps: PageProps<{ rooms: LiveStream[] }>) => {
   const { dehydratedState } = pageProps;

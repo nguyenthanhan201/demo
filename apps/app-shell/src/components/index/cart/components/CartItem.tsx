@@ -2,13 +2,12 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import Link from 'next/link';
 
 import Img from '@/components/shared/Img/Img';
-import { getSalePrice, numberWithCommans } from '@/lib/helpers';
-import { useAppDispatch } from '@/lib/hooks/useAppDispatch';
-import { useAppSelector } from '@/lib/hooks/useAppSelector';
+import { getSalePrice, numberWithCommans, refetchCart } from '@/lib/helpers';
 import { useToast } from '@/lib/providers/toast-provider';
-import { GET_CART_ITEMS } from '@/lib/redux/types';
-import { Product } from '@/lib/redux/types/product.type';
 import { CartServices } from '@/lib/repo/cart.repo';
+import { useAuthStore } from '@/lib/zustand/useAuthStore';
+import { useCartStore } from '@/lib/zustand/useCartStore';
+import { Product } from '@/types/product.type';
 
 type CartItemProps = {
   product: Product;
@@ -18,17 +17,20 @@ type CartItemProps = {
 };
 
 const CartItem = ({ product, quantity, size, color }: CartItemProps) => {
-  const auth = useAppSelector((state) => state.auth.auth);
-  const dispatch = useAppDispatch();
+  const { auth } = useAuthStore(['auth']);
+  const { setCart } = useCartStore(['setCart']);
   const toast = useToast();
+
+  const refetchCartByAuthId = async () => {
+    if (!auth) return toast.error('Please login to get cart items');
+    refetchCart(auth._id, (cartItems) => setCart(cartItems));
+  };
 
   const handleDeleteCartItem = () => {
     if (!auth) return toast.error('Please login to delete cart item');
     return toast.promise(
       'Xóa sản phẩm khỏi giỏ hàng thành công',
-      CartServices.deleteCartItem(auth._id, product._id, size, color).then(() => {
-        dispatch({ type: GET_CART_ITEMS, payload: auth._id });
-      }),
+      CartServices.deleteCartItem(auth._id, product._id, size, color).then(refetchCartByAuthId),
       'Đã có lỗi xảy ra'
     );
   };
@@ -40,18 +42,18 @@ const CartItem = ({ product, quantity, size, color }: CartItemProps) => {
         if (quantity === 1) return handleDeleteCartItem();
         return toast.promise(
           'Cập nhật giỏ hàng thành công',
-          CartServices.createCartItem(auth._id, product._id, size, color, -1).then(() => {
-            dispatch({ type: GET_CART_ITEMS, payload: auth._id });
-          }),
+          CartServices.createCartItem(auth._id, product._id, size, color, -1).then(
+            refetchCartByAuthId
+          ),
           'Đã có lỗi xảy ra'
         );
       case '+':
         if (product.stock === quantity) return toast.error('Quá số lượng hàng');
         return toast.promise(
           'Cập nhật giỏ hàng thành công',
-          CartServices.createCartItem(auth._id, product._id, size, color, 1).then(() => {
-            dispatch({ type: GET_CART_ITEMS, payload: auth._id });
-          }),
+          CartServices.createCartItem(auth._id, product._id, size, color, 1).then(
+            refetchCartByAuthId
+          ),
           'Đã có lỗi xảy ra'
         );
       default:

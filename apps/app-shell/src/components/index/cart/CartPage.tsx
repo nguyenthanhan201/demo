@@ -4,20 +4,21 @@ import { useMemo } from 'react';
 import CartItem from '@/components/index/cart/components/CartItem';
 import Button from '@/components/shared/Button';
 import { getSalePrice, numberWithCommans } from '@/lib/helpers';
-import { useAppSelector } from '@/lib/hooks/useAppSelector';
 import { useToast } from '@/lib/providers/toast-provider';
-import { CartItem as CartItemType } from '@/lib/redux/types/cartItem.type';
 import { OrderServices } from '@/lib/repo/order.repo';
+import { useCartStore } from '@/lib/zustand/useCartStore';
+import { CartItem as CartItemType } from '@/types/cartItem.type';
 
 const CartPage = () => {
   const toast = useToast();
-  const cartItems = useAppSelector((state) => state.cartItems.value);
+  // const cartItems = useAppSelector((state) => state.cartItems.value);
+  const { cart } = useCartStore(['cart']);
   const filteredCartItems = useMemo(() => {
-    if (!cartItems) return [];
+    if (!cart) return [];
 
-    if (Object.keys(cartItems).length === 0) return [];
+    if (Object.keys(cart).length === 0) return [];
 
-    const asArray = Object.entries(cartItems).map(([key, value]) => {
+    const asArray = Object.entries(cart).map(([key, value]) => {
       return {
         ...value,
         _id: key
@@ -26,7 +27,7 @@ const CartPage = () => {
 
     // filter out cart items with products are not hidden
     return asArray.filter((item) => item[0].idProduct.deletedAt === null);
-  }, [cartItems]);
+  }, [cart]);
   const totalPrice = useMemo(() => {
     let total = 0;
     if (!filteredCartItems) return total;
@@ -44,7 +45,7 @@ const CartPage = () => {
   const handleCreateOrder = () => {
     if (filteredCartItems && filteredCartItems.length === 0)
       return toast.error('Giỏ hàng trống', { autoClose: 300 });
-    return OrderServices.createOrder(totalPrice, cartItems)
+    return OrderServices.createOrder(totalPrice, cart)
       .then((res) => (window.location.href = res.data))
       .catch((err) => {
         toast.error(err.response.data.message);
@@ -74,8 +75,8 @@ const CartPage = () => {
         </div>
       </div>
       <div className='cart_list'>
-        {cartItems
-          ? Object.values(cartItems).map((item, index) => {
+        {cart
+          ? Object.values(cart).map((item, index) => {
               // console.log("👌 ~ item", item);
               return (
                 <CartItem

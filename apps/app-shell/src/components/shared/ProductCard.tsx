@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 import { getSalePrice, numberWithCommans } from '@/lib/helpers';
-import { Product } from '@/lib/redux/types/product.type';
 import { ProductServices } from '@/lib/repo/product.repo';
+import { Product } from '@/types/product.type';
 
 import Button from './Button';
 import Img from './Img/Img';
