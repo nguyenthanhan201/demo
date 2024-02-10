@@ -10,8 +10,7 @@ const LoginPage = () => {
     await signInWithPopup(authentication, new GoogleAuthProvider())
       .then(async (result) => {
         await AuthServices.login(result.user.email!, result.user.displayName!)
-          .then((res) => {
-            // console.log('👌  res:', res);
+          .then(async (res) => {
             setCookie('token', res.access_token, {
               // 2 day
               expires: new Date(Date.now() + 2 + 24 * 60 * 60 * 1000)

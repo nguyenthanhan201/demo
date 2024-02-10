@@ -3,7 +3,8 @@ import LiveTvIcon from '@mui/icons-material/LiveTv';
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import LoginIcon from '@mui/icons-material/Login';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Avatar, Badge } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
+import Badge from '@mui/material/Badge';
 import Tooltip from '@mui/material/Tooltip';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
@@ -111,13 +112,13 @@ const DefaultHeader = () => {
                 onClick={menuToggle}
                 role='presentation'
               >
-                <Link href={item.path}>
+                <Link href={item.path} prefetch={false}>
                   <span>{trans.header[item.name as TranslatedHeader]}</span>
                 </Link>
               </div>
             ))}
           </div>
-          <Link className='header_logo' href='/'>
+          <Link className='header_logo' href='/' prefetch={false}>
             <Img
               alt='Yolo'
               layout='fill'

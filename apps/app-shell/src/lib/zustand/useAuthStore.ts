@@ -1,4 +1,3 @@
-import { SetState } from 'zustand';
 import { createWithEqualityFn } from 'zustand/traditional';
 
 import { Auth } from '../../types/auth.type';
@@ -9,7 +8,7 @@ type AuthStore = {
   setAuth: (auth: Auth | null) => void;
 };
 
-export const authStore = (set: SetState<AuthStore>) => ({
+export const authStore = (set: any) => ({
   auth: null,
   setAuth: (userData: Auth | null) => {
     set(() => ({

@@ -1,15 +1,17 @@
+/* eslint-disable simple-import-sort/imports */
 import { Cancel, CheckCircle, Info, WarningOutlined } from '@mui/icons-material';
-import { useTheme } from '@mui/material';
-import { createContext, ReactNode, useContext } from 'react';
+import { ReactNode, createContext, useContext } from 'react';
 import {
-  toast as toastify,
   ToastContainer,
   ToastContent,
   ToastOptions,
-  Zoom
+  Zoom,
+  toast as toastify
 } from 'react-toastify';
 
 import Loading from '@/components/shared/Loading/Loading';
+
+import useTheme from '../hooks/useTheme';
 
 const ToastContext = createContext<{
   default: (content: ToastContent, options?: ToastOptions | undefined) => void;
@@ -23,8 +25,16 @@ const ToastContext = createContext<{
   ) => void;
 }>(null!);
 
+const icons = {
+  info: <Info />,
+  success: <CheckCircle sx={{ fontSize: '60px', color: 'green' }} />,
+  error: <Cancel className='text-red-500' />,
+  warn: <WarningOutlined />,
+  loading: <Loading />
+};
+
 export const ToastProvider = ({ children }: { children: ReactNode }) => {
-  const theme = useTheme();
+  const { themeLocal } = useTheme();
   const defaultOptions: ToastOptions = {
     autoClose: 1000,
     hideProgressBar: true,
@@ -36,14 +46,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
     closeButton: false,
     icon: false,
     toastId: 'toast',
-    theme: theme.palette.mode
-  };
-  const icons = {
-    info: <Info />,
-    success: <CheckCircle sx={{ fontSize: '60px', color: 'green' }} />,
-    error: <Cancel className='text-red-500' />,
-    warn: <WarningOutlined />,
-    loading: <Loading />
+    theme: themeLocal === 'dark' ? 'dark' : 'light'
   };
 
   const createToastContent = (

@@ -2,17 +2,12 @@
 import { buildProvidersTree } from '@/lib/helpers';
 import '../src/sass/index.scss';
 
+import useTheme from '@/lib/hooks/useTheme';
 import { ToastProvider } from '@/lib/providers/toast-provider';
 import { useNetwork } from 'my-package';
 import { DefaultSeo, NextSeo } from 'next-seo';
 import { Roboto } from 'next/font/google';
 import { Fragment } from 'react';
-
-// import Page404 from './404';
-// const Nav = lazy(() => {
-//   console.log(import('nextjs-module-admin/Nav'));
-//   return import('nextjs-module-admin/Nav');
-// });
 
 const roboto = Roboto({
   weight: ['400', '500', '700'],
@@ -20,6 +15,7 @@ const roboto = Roboto({
 });
 
 const MyApp = ({ Component, pageProps }: any) => {
+  useTheme();
   const Layout = Component.Layout ? Component.Layout : Fragment;
   const layoutProps = Component.LayoutProps ? Component.LayoutProps : {};
   // const [theme, colorMode] = useMode();
@@ -99,28 +95,4 @@ const MyApp = ({ Component, pageProps }: any) => {
     </>
   );
 };
-// MyApp.getInitialProps = async (ctx: any) => {
-//   console.log('in app getInitialProps');
-//   const appProps = await App.getInitialProps(ctx);
-//   return appProps;
-// };
 export default MyApp;
-
-//  <ColorModeContext.Provider value={colorMode as any}>
-//    <ThemeProvider theme={theme as any}>
-//      <ToastProvider>
-//        <Provider store={store}>
-//          <QueryClientProvider client={queryClient}>
-//            {/* Hydrate query cache */}
-//            <Hydrate state={pageProps.dehydratedState}>
-//              <main className={roboto.className}>
-//                <Layout {...layoutProps}>
-//                  <Component {...pageProps} />
-//                </Layout>
-//              </main>
-//            </Hydrate>
-//          </QueryClientProvider>
-//        </Provider>
-//      </ToastProvider>
-//    </ThemeProvider>
-//  </ColorModeContext.Provider>;

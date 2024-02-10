@@ -1,3 +1,5 @@
+import { Auth } from '@/types/auth.type';
+
 import { get, post } from '../axios/requests';
 
 export class AuthRepository {
@@ -24,6 +26,16 @@ export class AuthRepository {
   async refreshToken() {
     const res = await get<{ access_token: string }>(`auth/refresh-token`);
     return res;
+  }
+
+  async getProfile() {
+    const res = await get<Auth>(`/auth/profile`);
+
+    if (res.code === 'SUCCESS') {
+      return res.data;
+    }
+
+    return null;
   }
 }
 export const AuthServices = new AuthRepository();

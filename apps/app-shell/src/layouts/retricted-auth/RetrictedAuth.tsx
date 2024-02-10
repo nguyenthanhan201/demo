@@ -1,11 +1,12 @@
 import { useRouter } from 'next/router';
 import { Fragment, useEffect } from 'react';
 
-import useAuth from '@/lib/hooks/useAuth';
+import { isEmpty } from '@/lib/helpers';
+import { getCookie } from '@/lib/hooks/useCookie';
 
 const RetrictedAuth = ({ ...props }: any): JSX.Element => {
   const router = useRouter();
-  const { isLogined } = useAuth();
+  const isLogined = !isEmpty(getCookie('token'));
 
   const layoutProps = props ? props : {};
   const { ChildLayout, ...restProps } = layoutProps;

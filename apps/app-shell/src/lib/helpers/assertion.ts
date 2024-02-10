@@ -32,3 +32,5 @@ export function isEmpty(value: any): boolean {
 export function isEmptyToken(): boolean {
   return isEmpty(getCookie('token'));
 }
+
+export const isServer = () => typeof window === 'undefined';

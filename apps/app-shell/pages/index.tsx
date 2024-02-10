@@ -1,22 +1,24 @@
 import { NextPageContext } from 'next';
-import { dehydrate } from 'react-query';
 
 import HomePage from '@/components/index/home/HomePage';
 import DefaultLayout from '@/layouts/default-layout/DefaultLayout';
 import { useSEO } from '@/lib/hooks/useSEO';
-import { queryClient } from '@/lib/react-query/queryClient';
-import { ProductServices } from '@/lib/repo/product.repo';
+import { NextPageWithLayout } from '@/types/index';
 import { Product } from '@/types/product.type';
 
-// eslint-disable-next-line react/function-component-definition
-export default function Page(pageProps: PageProps<{ products: Product[] }>) {
-  const { dehydratedState } = pageProps;
-
-  return <HomePage products={dehydratedState.queries.at(0)?.state.data} />;
-}
+const Page: NextPageWithLayout<{
+  products: Product[];
+}> = ({ products }) => {
+  return <HomePage products={products} />;
+};
 Page.Layout = DefaultLayout;
+export default Page;
 export async function getServerSideProps(_ctx: NextPageContext) {
-  await queryClient.prefetchQuery('productsQuery', async () => await ProductServices.getAll());
+  const ProductServices = await import('@/lib/repo/product.repo').then(
+    (res) => res.ProductServices
+  );
+  // await queryClient.prefetchQuery('productsQuery', async () => await ProductServices.getAll());
+  const products = await ProductServices.getAll();
 
   // const products = await ProductServices.getAll(true)
   //   .then((res) => {
@@ -39,7 +41,8 @@ export async function getServerSideProps(_ctx: NextPageContext) {
     props: JSON.parse(
       JSON.stringify({
         seo,
-        dehydratedState: dehydrate(queryClient)
+        products
+        // dehydratedState: dehydrate(queryClient)
         // pageData: {
         //   products,
         // },

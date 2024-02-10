@@ -134,6 +134,7 @@ const nextConfig = {
     optimizeCss: true // enabling this will enable SSR for Tailwind
   },
   // transpilePackages: ['@mui/material'],
+  transpilePackages: ['my-package', 'firebase'],
   modularizeImports: {
     // '@mui/material/?(((\\w*)?/?)*)': {
     //   transform: '@mui/material/{{ matches.[1] }}/{{member}}'

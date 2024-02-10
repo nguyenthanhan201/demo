@@ -1,9 +1,9 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { getCookie, setCookie } from 'my-package';
+import { getCookie } from 'my-package';
+import { GetServerSidePropsContext } from 'next';
 
-import { isEmptyToken } from '../helpers/assertion';
-import { removeCookie } from '../hooks/useCookie';
-import { AuthServices } from '../repo/auth.repo';
+import { isServer } from '../helpers';
+import { decodedToken } from '../helpers/cookie';
 
 type SuccessResponse<V> = {
   code: 'SUCCESS';
@@ -17,7 +17,13 @@ type ErrorResponse<E = AxiosError> = {
 
 type BaseResponse<V, E = AxiosError> = Promise<SuccessResponse<V> | ErrorResponse<E>>;
 
+let accessToken = getCookie('token');
 const ERROR_MAX_RETRY = 2;
+let context = <GetServerSidePropsContext>{};
+
+export const setContext = (_context: GetServerSidePropsContext) => {
+  context = _context;
+};
 
 const request = () => {
   const instance = axios.create({
@@ -25,80 +31,103 @@ const request = () => {
     withCredentials: true,
     timeout: 60000, // 60s
     headers: {
-      // 'Access-Control-Allow-Headers': '*', // allow all
-      // Cookie: `token=${getCookie('token')}`,
-      Authorization: `Bearer ${getCookie('token')}`
+      'Content-Type': 'application/json'
     }
   });
 
-  instance.interceptors.response.use(undefined, async (errorResponse: AxiosError) => {
-    const originalRequest = errorResponse.config;
+  instance.interceptors.request.use((config) => {
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
 
-    // Create a new instance with updated headers
-    const newRequestInstance = axios.create({
-      ...instance.defaults,
-      headers: {
-        ...instance.defaults.headers
-      }
-    });
+    if (isServer() && context?.req?.headers.cookie) {
+      const token = decodedToken(
+        context.req.headers.cookie?.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1')
+      );
 
-    // Copy headers from original request
-    const request = newRequestInstance.request({
-      ...originalRequest,
-      headers: {
-        ...originalRequest?.headers
-      }
-    });
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  });
 
-    // retry if error is not expired token
-    if (errorResponse.response?.status !== 401 || isEmptyToken()) {
-      const fetchWithRetry = (errorCount = 0) => {
-        const randomTime = Math.pow(2, errorCount) * 3000 + Math.random() * 1000;
+  instance.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    async (errorResponse: AxiosError) => {
+      // @ts-ignore
+      const isTokenExpiredError = errorResponse.response?.data?.message;
+      const originalRequest = errorResponse.config;
 
-        if (errorCount < ERROR_MAX_RETRY) {
-          return setTimeout(async () => {
-            await request
-              .then((res) => {
-                return res;
-              })
-              .catch(async () => {
-                await fetchWithRetry(errorCount + 1);
-              });
-          }, randomTime);
-        } else {
-          // console.log('🚀 ~ file: crud-axios.ts error', errorResponse);
-          return Promise.reject(errorResponse);
+      // Create a new instance with updated headers
+      const newRequestInstance = axios.create({
+        ...instance.defaults,
+        headers: {
+          ...instance.defaults.headers
         }
-      };
-
-      return fetchWithRetry();
-    } else {
-      // handle access token expired
-      return await AuthServices.refreshToken().then(async (rs) => {
-        if (rs.code === 'ERROR') {
-          console.log('🚀 ~ file: crud-axios.ts error', rs.error);
-          removeCookie('token');
-          removeCookie('refreshToken');
-          return Promise.reject(rs.error);
-        }
-
-        const { access_token: newToken } = rs.data;
-        setCookie('token', newToken);
-        instance.defaults.headers.Authorization = `Bearer ${newToken}`;
-
-        // call expired api again
-        return await request.then(
-          (res) => {
-            return res;
-          },
-          (error) => {
-            console.log('🚀 ~ file: crud-axios.ts error', error);
-            return Promise.reject(error);
-          }
-        );
       });
+
+      // Copy headers from original request
+      const request = newRequestInstance.request({
+        ...originalRequest,
+        headers: {
+          ...originalRequest?.headers
+        }
+      });
+
+      // retry if error is not expired token
+      if (!isTokenExpiredError) {
+        const fetchWithRetry = (errorCount = 0) => {
+          const randomTime = Math.pow(2, errorCount) * 3000 + Math.random() * 1000;
+
+          if (errorCount < ERROR_MAX_RETRY) {
+            return setTimeout(async () => {
+              await request
+                .then((res) => {
+                  return res;
+                })
+                .catch(async () => {
+                  await fetchWithRetry(errorCount + 1);
+                });
+            }, randomTime);
+          } else {
+            // console.log('🚀 ~ file: crud-axios.ts error', errorResponse);
+            return Promise.reject(errorResponse);
+          }
+        };
+
+        return fetchWithRetry();
+      } else {
+        // handle access token expired
+        const AuthServices = await import('../repo/auth.repo').then((rs) => rs.AuthServices);
+        const { removeCookie, setCookie } = await import('my-package');
+
+        return await AuthServices.refreshToken().then(async (rs) => {
+          if (rs.code === 'ERROR') {
+            console.log('🚀 ~ file: crud-axios.ts error', rs.error);
+            removeCookie('token');
+            removeCookie('refreshToken');
+            return Promise.reject(rs.error);
+          }
+
+          const { access_token: newToken } = rs.data;
+          setCookie('token', newToken);
+          instance.defaults.headers.Authorization = `Bearer ${newToken}`;
+
+          // call expired api again
+          return await request.then(
+            (res) => {
+              return res;
+            },
+            (error) => {
+              console.log('🚀 ~ file: crud-axios.ts error', error);
+              return Promise.reject(error);
+            }
+          );
+        });
+      }
     }
-  });
+  );
 
   return instance;
 };

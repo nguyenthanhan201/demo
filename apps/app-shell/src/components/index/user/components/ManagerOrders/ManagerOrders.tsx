@@ -1,15 +1,12 @@
-import { Box, useTheme } from '@mui/material';
+import { Box } from '@mui/material';
 import dynamic from 'next/dynamic';
-import { useEffect, useState } from 'react';
 
 import Img from '@/components/shared/Img/Img';
-import Loading from '@/components/shared/Loading/Loading';
 import { formatDate, getSalePrice, numberWithCommans } from '@/lib/helpers';
-import { OrderServices } from '@/lib/repo/order.repo';
+import useTheme from '@/lib/hooks/useTheme';
 import { tokens } from '@/lib/theme/theme';
-import { useAuthStore } from '@/lib/zustand/useAuthStore';
 
-const DataGrid = dynamic(() => import('nextjs-module-admin/DataGrid'), { ssr: false });
+const DataGrid = dynamic(() => import('nextjs-module-admin/DataGrid'));
 
 const columns: any = [
   {
@@ -85,78 +82,53 @@ const columns: any = [
   }
 ];
 
-const ManagerOrders = () => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
-  // const auth = useAppSelector((state) => state.auth.auth);
-  const { auth } = useAuthStore(['auth']);
-  const [orders, setOrders] = useState<any[]>([]);
-  // console.log("👌 ~ orders", orders);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+type ManagerOrdersProps = {
+  orders: any[];
+};
 
-  useEffect(() => {
-    setIsLoading(true);
-    if (!auth?._id) return;
-    OrderServices.getOrdersByIdAuth(auth._id).then((res) => {
-      if (res.code === 'ERROR') {
-        console.log(res.error);
-        setIsLoading(false);
-        return;
-      }
-
-      // console.log(res);
-      setOrders(res.data as any);
-      setIsLoading(false);
-    });
-  }, [auth?._id]);
+const ManagerOrders = ({ orders }: ManagerOrdersProps) => {
+  const { themeLocal } = useTheme();
+  const colors = tokens(themeLocal || 'dark');
 
   return (
-    <>
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <>
-          <Box
-            height='75vh'
-            m='40px 0 0 0'
-            sx={{
-              '& .MuiDataGrid-root': {
-                border: 'none'
-              },
-              '& .MuiDataGrid-cell': {
-                borderBottom: 'none'
-              },
-              '& .name-column--cell': {
-                color: colors.greenAccent[300],
-                textAlign: 'center'
-              },
-              '& .MuiDataGrid-columnHeaders': {
-                backgroundColor: colors.blueAccent[700],
-                borderBottom: 'none'
-              },
-              '& .MuiDataGrid-virtualScroller': {
-                backgroundColor: colors.primary[400]
-              },
-              '& .MuiDataGrid-footerContainer': {
-                borderTop: 'none',
-                backgroundColor: colors.blueAccent[700]
-              },
-              '& .MuiCheckbox-root': {
-                color: `${colors.greenAccent[200]} !important`
-              }
-            }}
-          >
-            <DataGrid
-              checkboxSelection
-              columns={columns}
-              getRowHeight={() => 'auto'}
-              getRowId={(row: any) => row._id!}
-              rows={orders}
-            />
-          </Box>
-        </>
-      )}
-    </>
+    <Box
+      height='75vh'
+      m='40px 0 0 0'
+      sx={{
+        '& .MuiDataGrid-root': {
+          border: 'none'
+        },
+        '& .MuiDataGrid-cell': {
+          borderBottom: 'none'
+        },
+        '& .name-column--cell': {
+          color: colors.greenAccent[300],
+          textAlign: 'center'
+        },
+        '& .MuiDataGrid-columnHeaders': {
+          backgroundColor: colors.blueAccent[700],
+          borderBottom: 'none'
+        },
+        '& .MuiDataGrid-virtualScroller': {
+          backgroundColor: colors.primary[400]
+        },
+        '& .MuiDataGrid-footerContainer': {
+          borderTop: 'none',
+          backgroundColor: colors.blueAccent[700]
+        },
+        '& .MuiCheckbox-root': {
+          color: `${colors.greenAccent[200]} !important`
+        }
+      }}
+    >
+      <DataGrid
+        checkboxSelection
+        columns={columns}
+        getRowHeight={() => 'auto'}
+        getRowId={(row: any) => row._id!}
+        rows={orders}
+      />
+    </Box>
   );
 };
 

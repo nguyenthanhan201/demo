@@ -11,18 +11,13 @@ import { useCartStore } from '@/lib/zustand/useCartStore';
 import { Product } from '@/types/product.type';
 import { Rating } from '@/types/rating.type';
 
-import Page404 from '../../../../pages/404';
 import Button from '../Button';
 import Img from '../Img/Img';
-import ImagePreview from './components/ImagePreview';
 
 const RatingMUI = dynamic(() => import('@mui/material/Rating'));
-const ModalSeeComments = dynamic(() => import('./components/ModalSeeComments'), {
-  ssr: false
-});
-const Modal = dynamic(() => import('../Modal/Modal'), {
-  ssr: false
-});
+const ModalSeeComments = dynamic(() => import('./components/ModalSeeComments'));
+const Modal = dynamic(() => import('../Modal/Modal'));
+const ImagePreview = dynamic(() => import('./components/ImagePreview'));
 
 type ProductViewProps = {
   product: Product;
@@ -37,10 +32,8 @@ type ChoosenItemType = {
 const ProductView = ({ product, ratings }: ProductViewProps) => {
   const { isMobile } = useDevice();
   const toast = useToast();
-  // const auth = useAppSelector((state) => state.auth.auth);
   const { auth } = useAuthStore(['auth']);
   const { setCart } = useCartStore(['setCart']);
-  // const dispatch = useAppDispatch();
   const router = useRouter();
   const [previewImg, setReviewImg] = useState<string>(product.image01 || '');
   const [descriptionExpand, setDescriptionExpand] = useState<boolean>(false);
@@ -114,7 +107,7 @@ const ProductView = ({ product, ratings }: ProductViewProps) => {
     setDescriptionExpand((prev) => !prev);
   }, []);
 
-  if (product === undefined) return <Page404 />;
+  if (product === undefined) return null;
   return (
     <>
       <div className='product'>
@@ -149,24 +142,6 @@ const ProductView = ({ product, ratings }: ProductViewProps) => {
         <div className='product_info'>
           <h1 className='product_info_title'>{product.title}</h1>
           <div className='flex items-start gap-2'>
-            {/* {isLoading ? (
-              <p className='animate-pulse'>Đang lấy thông tin đánh giá</p>
-            ) : (
-              <>
-                {ratings.length > 0 && ratings[0]?.rating !== 0 ? (
-                  <div
-                    className='flex cursor-pointer flex-col gap-1'
-                    onClick={() => setShowModal(true)}
-                    role='presentation'
-                  >
-                    <RatingMUI readOnly value={ratingValue} />
-                    <small className='text-[10px]'>Nhấn để xem đánh giá</small>
-                  </div>
-                ) : (
-                  'Chưa có đánh giá'
-                )}
-              </>
-            )} */}
             {ratings && ratings.length > 0 && ratings[0]?.rating !== 0 ? (
               <div
                 className='flex cursor-pointer flex-col gap-1'

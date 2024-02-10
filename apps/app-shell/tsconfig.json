@@ -29,12 +29,8 @@
       "@/components/*": ["components/*"],
       "@/layouts/*": ["layouts/*"],
       "@/lib/*": ["lib/*"],
-      "@/assets/*": ["assets/*"],
       "@/longProcesses/*": ["longProcesses/*"],
       "@/utils/*": ["utils/*"],
-      "@/api/*": ["api/*"],
-      "@/i18n/*": ["i18n/*"],
-      "@/dictionaries/*": ["dictionaries/*"],
       "@/types/*": ["types/*"]
     }
   },
