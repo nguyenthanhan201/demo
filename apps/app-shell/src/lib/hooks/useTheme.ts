@@ -1,6 +1,6 @@
 import { PaletteMode } from '@mui/material';
-import { useLocalStorage } from 'my-package';
-import { useEffect } from 'react';
+import { useLocalStorage } from 'my-package/dist/useLocalStorage';
+import { useCallback, useEffect } from 'react';
 
 const useTheme = () => {
   const [themeLocal, setThemeLocal] = useLocalStorage<PaletteMode>({
@@ -16,10 +16,10 @@ const useTheme = () => {
     root?.style.setProperty('--txt-second-color', isDarkTheme ? '#fff' : '#8d8d8d');
   }, [themeLocal]);
 
-  const toggleTheme = () => {
-    const newTheme = themeLocal === 'dark' ? 'light' : 'dark';
-    setThemeLocal(newTheme);
-  };
+  const toggleTheme = useCallback(
+    () => setThemeLocal((prevState) => (prevState === 'dark' ? 'light' : 'dark')),
+    []
+  );
 
   return { themeLocal, toggleTheme };
 };

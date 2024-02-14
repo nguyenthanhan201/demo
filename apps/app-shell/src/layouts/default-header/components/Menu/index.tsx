@@ -1,10 +1,10 @@
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
-import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
-import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
-import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
-import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
-import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
+import { AccountCircleOutlined as AccountCircleOutlinedIcon } from '@repo/icons/src/AccountCircleOutlined';
+import { AdminPanelSettingsOutlined as AdminPanelSettingsOutlinedIcon } from '@repo/icons/src/AdminPanelSettingsOutlined';
+import { ArrowBackIosNewOutlined as ArrowBackIosNewOutlinedIcon } from '@repo/icons/src/ArrowBackIosNewOutlined';
+import { DarkModeOutlined as DarkModeOutlinedIcon } from '@repo/icons/src/DarkModeOutlined';
+import { LanguageOutlined as LanguageOutlinedIcon } from '@repo/icons/src/LanguageOutlined';
+import { LogoutOutlined as LogoutOutlinedIcon } from '@repo/icons/src/LogoutOutlined';
+import { WbSunnyOutlined as WbSunnyOutlinedIcon } from '@repo/icons/src/WbSunnyOutlined';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -36,17 +36,17 @@ const Menu = ({ handleLogout }: MenuProps) => {
   const MENU_ITEMS: MenuItemsProps[] = useMemo(() => {
     return [
       {
-        icon: <AccountCircleOutlinedIcon sx={{ fontSize: '80% !important' }} />,
+        icon: <AccountCircleOutlinedIcon />,
         title: 'Tài khoản của tôi',
         to: '/user/account'
       },
       {
-        icon: <AdminPanelSettingsOutlinedIcon sx={{ fontSize: '80% !important' }} />,
+        icon: <AdminPanelSettingsOutlinedIcon />,
         title: 'Trang Admin',
         to: '/admin'
       },
       {
-        icon: <LanguageOutlinedIcon sx={{ fontSize: '80% !important' }} />,
+        icon: <LanguageOutlinedIcon />,
         title: 'Ngôn ngữ',
         func: () => setIsChangedDropdown(true),
         children: {
@@ -66,15 +66,15 @@ const Menu = ({ handleLogout }: MenuProps) => {
       {
         icon:
           themeLocal === 'dark' ? (
-            <DarkModeOutlinedIcon className='dark_toggle' sx={{ fontSize: '80% !important' }} />
+            <DarkModeOutlinedIcon className='dark_toggle' />
           ) : (
-            <WbSunnyOutlinedIcon className='dark_toggle' sx={{ fontSize: '80% !important' }} />
+            <WbSunnyOutlinedIcon className='dark_toggle' />
           ),
         title: 'Giao diện',
         func: toggleTheme
       },
       {
-        icon: <LogoutOutlinedIcon sx={{ fontSize: '80% !important' }} />,
+        icon: <LogoutOutlinedIcon />,
         title: 'Đăng xuất',
         func: () => handleLogout()
       }
@@ -111,14 +111,7 @@ const Menu = ({ handleLogout }: MenuProps) => {
                   <p className='dropdown_item' onClick={menu.func} role='presentation'>
                     {menu.icon}
                     <span>{menu.title}</span>
-                    {menu.children ? (
-                      <ArrowBackIosNewOutlinedIcon
-                        sx={{
-                          fontSize: '80% !important',
-                          transform: 'rotate(180deg)'
-                        }}
-                      />
-                    ) : null}
+                    {menu.children ? <ArrowBackIosNewOutlinedIcon className='rotate-180' /> : null}
                   </p>
                 )}
               </div>

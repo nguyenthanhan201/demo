@@ -3,8 +3,8 @@ import dynamic from 'next/dynamic';
 
 import { LiveStream } from '@/types/liveStream.type';
 
-const JoinRoom = dynamic(() => import('./components/JoinRoom'));
-const Room = dynamic(() => import('./components/Room'));
+const JoinRoom = dynamic(() => import('./components/JoinRoom'), { ssr: false });
+const Room = dynamic(() => import('./components/Room'), { ssr: false });
 
 const LiveStreamPage = ({ rooms }: { rooms: LiveStream[] }) => {
   const isConnected = useHMSStore(selectIsConnectedToRoom);

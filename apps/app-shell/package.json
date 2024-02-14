@@ -18,7 +18,6 @@
   },
   "dependencies": {
     "@100mslive/react-sdk": "^0.9.3",
-    "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.1",
     "@tanstack/react-virtual": "^3.0.0-alpha.0",
     "axios": "^1.2.1",
@@ -33,11 +32,11 @@
     "postcss-preset-env": "^9.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-query": "^3.39.3",
     "react-quill": "^2.0.0",
     "react-toastify": "^9.0.4",
     "typescript": "^4.9.4",
-    "zustand": "^4.5.0"
+    "zustand": "^4.5.0",
+    "@repo/icons": "workspace:*"
   },
   "browserslist": {
     "production": [

@@ -134,7 +134,7 @@ const nextConfig = {
     optimizeCss: true // enabling this will enable SSR for Tailwind
   },
   // transpilePackages: ['@mui/material'],
-  transpilePackages: ['my-package', 'firebase'],
+  transpilePackages: ['my-package', 'firebase', '@repo/icons'],
   modularizeImports: {
     // '@mui/material/?(((\\w*)?/?)*)': {
     //   transform: '@mui/material/{{ matches.[1] }}/{{member}}'
@@ -152,9 +152,9 @@ const nextConfig = {
   }
 };
 
-// const withBundleAnalyzer = require('@next/bundle-analyzer')({
-//   enabled: process.env.ANALYZE === 'true',
-// });
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true'
+});
 
-// module.exports = withBundleAnalyzer(nextConfig);
-module.exports = nextConfig;
+module.exports = withBundleAnalyzer(nextConfig);
+// module.exports = nextConfig;

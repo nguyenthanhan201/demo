@@ -1,31 +1,34 @@
-import { Box, Button, useTheme } from '@mui/material';
-import { NextPageContext } from 'next';
+import { useTheme } from '@mui/material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import { GetServerSidePropsContext } from 'next';
 import dynamic from 'next/dynamic';
 import { GridColumns } from 'nextjs-module-admin/DataGrid';
 import { useState } from 'react';
-import { dehydrate } from 'react-query';
 
 import Header from '@/components/index/admin/components/Header';
-import Modal from '@/components/shared/Modal/Modal';
 import AdminLayout from '@/layouts/admin-layout/AdminLayout';
-import { useSEO } from '@/lib/hooks/useSEO';
+import { setContext } from '@/lib/axios/requests';
 import { useToast } from '@/lib/providers/toast-provider';
-import { queryClient } from '@/lib/react-query/queryClient';
 import { ProductServices } from '@/lib/repo/product.repo';
 import { tokens } from '@/lib/theme/theme';
+import { NextPageWithLayout } from '@/types/index';
 import { Product } from '@/types/product.type';
 
 const DataGrid = dynamic(() => import('nextjs-module-admin/DataGrid'));
 
-const ModalAddProduct = dynamic(import('@/components/index/admin/products/ModalAddProduct'));
+const ModalAddProduct = dynamic(import('@/components/index/admin/products/ModalAddProduct'), {
+  ssr: false
+});
+const DynamicModal = dynamic(() => import('@/components/shared/Modal/Modal'), { ssr: false });
 
-const Page = (pageProps: PageProps<{ products: Product[] }>) => {
-  const { dehydratedState } = pageProps;
+const Page: NextPageWithLayout<{
+  products: Array<Product>;
+}> = ({ products }) => {
   const toast = useToast();
   // const dispatch = useAppDispatch();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const products = dehydratedState.queries.at(0)?.state.data;
   const [open, setOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | undefined>(undefined);
 
@@ -195,15 +198,18 @@ const Page = (pageProps: PageProps<{ products: Product[] }>) => {
           />
         </Box>
       </Box>
-      <Modal
-        handleClose={() => {
-          setOpen(!open);
-          setSelectedProduct(undefined);
-        }}
-        open={open}
-      >
-        {open ? <ModalAddProduct product={selectedProduct} /> : null}
-      </Modal>
+
+      {open ? (
+        <DynamicModal
+          handleClose={() => {
+            setOpen(!open);
+            setSelectedProduct(undefined);
+          }}
+          open={open}
+        >
+          <ModalAddProduct product={selectedProduct} />
+        </DynamicModal>
+      ) : null}
     </>
   );
 };
@@ -211,35 +217,14 @@ const Page = (pageProps: PageProps<{ products: Product[] }>) => {
 export default Page;
 Page.Layout = AdminLayout;
 
-export async function getServerSideProps(_ctx: NextPageContext) {
-  await queryClient.prefetchQuery('productsQuery', async () => await ProductServices.getAll());
+export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+  setContext(ctx);
 
-  // const products = await ProductServices.getAll(true)
-  //   .then((res) => {
-  //     // console.log("👌 ~ res", res);
-  //     return res;
-  //   })
-  //   .catch((err) => {
-  //     // console.log("🚀 ~ err", err);
-  //     return [];
-  //   });
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const seo = useSEO('Dịch vụ đặt sản phẩm trực tuyến và giao hàng tận nơi', {
-    description: 'Dịch vụ đặt sản phẩm trực tuyến và giao hàng tận nơi',
-    image: '/images/Logo-2.png',
-    keyword: 'yolo'
-  });
+  const products = await ProductServices.getAll();
 
   return {
-    props: JSON.parse(
-      JSON.stringify({
-        seo,
-        dehydratedState: dehydrate(queryClient)
-        // pageData: {
-        //   products,
-        // },
-      })
-    ) as PageProps<{ products: Product[] }>
+    props: {
+      products
+    }
   };
 }

@@ -1,0 +1,1 @@
+# generate component icon with command: `pnpm generate:component`

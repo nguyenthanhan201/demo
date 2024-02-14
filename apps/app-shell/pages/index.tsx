@@ -7,7 +7,7 @@ import { NextPageWithLayout } from '@/types/index';
 import { Product } from '@/types/product.type';
 
 const Page: NextPageWithLayout<{
-  products: Product[];
+  products: Array<Product>;
 }> = ({ products }) => {
   return <HomePage products={products} />;
 };
@@ -17,18 +17,7 @@ export async function getServerSideProps(_ctx: NextPageContext) {
   const ProductServices = await import('@/lib/repo/product.repo').then(
     (res) => res.ProductServices
   );
-  // await queryClient.prefetchQuery('productsQuery', async () => await ProductServices.getAll());
   const products = await ProductServices.getAll();
-
-  // const products = await ProductServices.getAll(true)
-  //   .then((res) => {
-  //     // console.log("👌 ~ res", res);
-  //     return res;
-  //   })
-  //   .catch((err) => {
-  //     // console.log("🚀 ~ err", err);
-  //     return [];
-  //   });
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const seo = useSEO('Dịch vụ đặt sản phẩm trực tuyến và giao hàng tận nơi', {
@@ -38,16 +27,10 @@ export async function getServerSideProps(_ctx: NextPageContext) {
   });
 
   return {
-    props: JSON.parse(
-      JSON.stringify({
-        seo,
-        products
-        // dehydratedState: dehydrate(queryClient)
-        // pageData: {
-        //   products,
-        // },
-      })
-    ) as PageProps<{ products: Product[] }>
+    props: {
+      products: products,
+      seo
+    }
   };
 }
 

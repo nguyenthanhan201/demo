@@ -1,6 +1,5 @@
-import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
+import { CheckOutOutlined } from '@repo/icons/src/CheckOutOutlined';
 import { ElementRef, useRef } from 'react';
-
 type CheckBoxProps = {
   label: string;
   checked: boolean;
@@ -18,9 +17,9 @@ const CheckBox = (props: CheckBoxProps) => {
   return (
     <label className='custom-checkbox'>
       <input checked={checked} onChange={onChange} ref={inputRef} type='checkbox' />
-      <span className='custom-checkbox_checkmark'>
-        <CheckOutlinedIcon fontSize='inherit' />
-      </span>
+      <div className='custom-checkbox_checkmark'>
+        <CheckOutOutlined size={15} />
+      </div>
       {label}
     </label>
   );

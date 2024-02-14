@@ -6,16 +6,14 @@ import {
   useHMSActions,
   useHMSStore
 } from '@100mslive/react-sdk';
-import {
-  LogoutOutlined,
-  MicNoneOutlined,
-  MicOffOutlined,
-  PodcastsOutlined,
-  StopCircleOutlined,
-  VideocamOffOutlined,
-  VideocamOutlined
-} from '@mui/icons-material';
 import { Button, IconButton } from '@mui/material';
+import { LogoutOutlined } from '@repo/icons/src/LogoutOutlined';
+import { MicNoneOutlined } from '@repo/icons/src/MicNoneOutlined';
+import { MicOffOutlined } from '@repo/icons/src/MicOffOutlined';
+import { PodcastsOutlined } from '@repo/icons/src/PodcastsOutlined';
+import { StopCircleOutlined } from '@repo/icons/src/StopCircleOutlined';
+import { VideocamOffOutlined } from '@repo/icons/src/VideocamOffOutlined';
+import { VideocamOutlined } from '@repo/icons/src/VideocamOutlined';
 
 const Controls = () => {
   const hmsActions = useHMSActions();

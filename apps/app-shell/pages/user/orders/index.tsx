@@ -2,9 +2,6 @@ import { GetServerSidePropsContext } from 'next';
 
 import ManagerOrders from '@/components/index/user/components/ManagerOrders/ManagerOrders';
 import UserPlayout from '@/layouts/user-layout/UserPlayout';
-import { setContext } from '@/lib/axios/requests';
-import { AuthServices } from '@/lib/repo/auth.repo';
-import { OrderServices } from '@/lib/repo/order.repo';
 import { NextPageWithLayout } from '@/types/index';
 
 const Page: NextPageWithLayout<{
@@ -17,8 +14,10 @@ export default Page;
 Page.Layout = UserPlayout;
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+  const { setContext } = await import('@/lib/axios/requests');
   setContext(ctx);
 
+  const { AuthServices } = await import('@/lib/repo/auth.repo');
   const userData = await AuthServices.getProfile();
   if (!userData) {
     return {
@@ -29,6 +28,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     };
   }
 
+  const { OrderServices } = await import('@/lib/repo/order.repo');
   const orders = await OrderServices.getOrdersByIdAuth(userData._id).then((res) => {
     if (res.code === 'ERROR') {
       return {

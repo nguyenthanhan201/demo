@@ -1,19 +1,17 @@
-import { Box, Button as ButtonMUI, useTheme } from '@mui/material';
-import { NextPageContext } from 'next';
+import Box from '@mui/material/Box';
+import { GetServerSidePropsContext } from 'next';
 import dynamic from 'next/dynamic';
-import { useMemo, useState } from 'react';
-import { dehydrate } from 'react-query';
 
 import Header from '@/components/index/admin/components/Header';
 import Img from '@/components/shared/Img/Img';
 import AdminLayout from '@/layouts/admin-layout/AdminLayout';
-import { formatDate, getSalePrice, numberWithCommans } from '@/lib/helpers';
-import { decodedToken, parseCookie } from '@/lib/helpers/cookie';
-import { useSEO } from '@/lib/hooks/useSEO';
-import { queryClient } from '@/lib/react-query/queryClient';
+import { setContext } from '@/lib/axios/requests';
+import { getSalePrice, numberWithCommans } from '@/lib/helpers/numbers';
+import { formatDate } from '@/lib/helpers/time';
+import useTheme from '@/lib/hooks/useTheme';
 import { OrderServices } from '@/lib/repo/order.repo';
 import { tokens } from '@/lib/theme/theme';
-// import { useExcelDownloder } from "react-xls";
+import { NextPageWithLayout } from '@/types/index';
 
 const DataGrid = dynamic(() => import('nextjs-module-admin/DataGrid'));
 
@@ -97,98 +95,22 @@ const columns: any = [
   }
 ];
 
-const Page = (pageProps: PageProps<{ orders: Array<any> }>) => {
-  const { dehydratedState } = pageProps;
-  // console.log('👌  dehydratedState:', dehydratedState.queries);
-  // const { ExcelDownloder } = useExcelDownloder();
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
-  const [orders] = useState(() => {
-    const findIndex = dehydratedState.queries.findIndex(
-      (item: any) => item.queryKey === 'ordersQuery'
-    );
-    return dehydratedState.queries.at(findIndex)?.state.data || [];
-  });
-  // console.log('👌  orders:', dehydratedState.queries.at(0)?.state.data);
-
-  const convertOrdersToExcel = () => {
-    if (orders.length <= 0) return;
-    const data = Object.values(orders).map((item: any) => {
-      const { idAuth, createdAt, order } = item;
-
-      if (!order) return;
-      // in cột order có nhiều sản phẩm nên phải map ra
-      const Purchaseorders = Object.values(order).map((item2: any) => item2[0].product.title);
-      // in cột price có nhiều sản phẩm nên phải map ra
-      const PurchasePrice = Object.values(order).map((item2: any) => item2[0].product.price);
-      return {
-        idAuth,
-        createdAt,
-        order: Purchaseorders.map((item3: any) => item3).join('; '),
-        price: PurchasePrice.map((item3: any) => item3).join('; ')
-      };
-    });
-    return { Data1: [...data] };
-  };
-
-  // useEffect(() => {
-  //   if (!auth?.email) return;
-  //   OrderServices.getAll()
-  //     .then((res) => {
-  //       // console.log("👌 ~ res", res);
-  //       setOrders(res);
-  //     })
-  //     .catch((err) => {
-  //       console.log('👌 ~ err', err);
-  //       if (err.response.data.error.name === 'TokenExpiredError' && auth?.email) {
-  //         toast.promise(
-  //           'Làm mới access token thành công. Làm mới trang để tiếp tục',
-  //           AuthServices.token(auth?.email)
-  //             .then((res) => {
-  //               localStorage.setItem('token', res.accessToken);
-  //             })
-  //             .catch((err) => {
-  //               Promise.reject(err);
-  //             }),
-  //           'Làm mới access token thất bại',
-  //         );
-  //       }
-  //     });
-  // }, [auth?.email]);
-
-  const ButtonExcel = useMemo(() => {
-    if (!convertOrdersToExcel()) return null;
-    return (
-      <Box>
-        <ButtonMUI
-          sx={{
-            backgroundColor: colors.blueAccent[700],
-            color: colors.grey[100],
-            fontSize: '14px',
-            fontWeight: 'bold',
-            padding: '10px 20px'
-          }}
-        >
-          {/* <ExcelDownloder
-            data={convertOrdersToExcel()}
-            filename="book"
-            type="link" // or type={'button'}
-            className="flex items-center"
-          >
-            <DownloadOutlinedIcon sx={{ mr: "10px" }} />
-            Xuất Excel
-          </ExcelDownloder> */}
-          Xuất Excel
-        </ButtonMUI>
-      </Box>
-    );
-  }, [convertOrdersToExcel]);
+const Page: NextPageWithLayout<{
+  orders: Array<any>;
+}> = ({ orders }) => {
+  const { themeLocal } = useTheme();
+  const colors = tokens(themeLocal || 'dark');
 
   return (
     <Box m='20px'>
-      <Box alignItems='center' display='flex' justifyContent='space-between'>
+      <Box
+        sx={{
+          justifyContent: 'space-between',
+          display: 'flex',
+          alignItems: 'center'
+        }}
+      >
         <Header subtitle='Welcome to orders dashboard' title='Orders' />
-        {ButtonExcel}
       </Box>
       <Box
         height='75vh'
@@ -235,47 +157,14 @@ const Page = (pageProps: PageProps<{ orders: Array<any> }>) => {
 export default Page;
 Page.Layout = AdminLayout;
 
-export async function getServerSideProps(ctx: NextPageContext) {
-  const cookies = ctx.req?.headers.cookie;
+export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+  setContext(ctx);
 
-  const parsedCookies = parseCookie(cookies || '');
-
-  await queryClient.prefetchQuery(
-    'ordersQuery',
-    async () =>
-      await OrderServices.getAll({
-        headers: {
-          Authorization: `Bearer ${decodedToken(parsedCookies.token)}`
-        }
-      })
-  );
-
-  // const products = await ProductServices.getAll(true)
-  //   .then((res) => {
-  //     // console.log("👌 ~ res", res);
-  //     return res;
-  //   })
-  //   .catch((err) => {
-  //     // console.log("🚀 ~ err", err);
-  //     return [];
-  //   });
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const seo = useSEO('Dịch vụ đặt sản phẩm trực tuyến và giao hàng tận nơi', {
-    description: 'Dịch vụ đặt sản phẩm trực tuyến và giao hàng tận nơi',
-    image: '/images/Logo-2.png',
-    keyword: 'yolo'
-  });
+  const orders = await OrderServices.getAll();
 
   return {
-    props: JSON.parse(
-      JSON.stringify({
-        seo,
-        dehydratedState: dehydrate(queryClient)
-        // pageData: {
-        //   products,
-        // },
-      })
-    ) as PageProps<{ orders: Array<any> }>
+    props: {
+      orders
+    }
   };
 }

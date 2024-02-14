@@ -1,10 +1,9 @@
-import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
-import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import { KeyboardArrowLeftOutlined as KeyboardArrowLeftOutlinedIcon } from '@repo/icons/src/KeyboardArrowLeftOutlined';
+import { KeyboardArrowRightOutlined as KeyboardArrowRightOutlinedIcon } from '@repo/icons/src/KeyboardArrowRightOutlined';
+import { ShoppingCartOutlined as ShoppingCartOutlinedIcon } from '@repo/icons/src/ShoppingCartOutlined';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 
-import { clsx } from '@/lib/helpers';
 import useTrans from '@/lib/hooks/useTrans';
 import { HeroSliderData } from '@/utils/fake-data/hero-slider';
 
@@ -68,7 +67,7 @@ const HeroSlider = ({ data, timeOut, auto, control }: HeroSliderProps) => {
 const HeroSliderItem = ({ item, active }: any) => {
   const tran = useTrans();
   return (
-    <div className={clsx('hero-slider_item', { active })}>
+    <div className={`hero-slider_item ${active && 'active'}`}>
       <div className='hero-slider_item_info'>
         <div className={`hero-slider_item_info_title color-${item.color}`}>
           {/* <span>{t(`HeroSlider.${index}.title`, '')}</span> */}
@@ -79,7 +78,7 @@ const HeroSliderItem = ({ item, active }: any) => {
           {item.description}
         </div>
         <div className='hero-slider_item_info_btn'>
-          <Link href={item.path as any}>
+          <Link href='/'>
             <Button
               animate={true}
               backgroundColor={item.color}

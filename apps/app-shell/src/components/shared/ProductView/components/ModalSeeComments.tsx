@@ -2,7 +2,7 @@ import { Avatar } from '@mui/material';
 import RatingMUI from '@mui/material/Rating';
 import { memo } from 'react';
 
-import { formatDate } from '@/lib/helpers';
+import { formatDate } from '@/lib/helpers/time';
 import { Rating } from '@/types/rating.type';
 
 type Props = {

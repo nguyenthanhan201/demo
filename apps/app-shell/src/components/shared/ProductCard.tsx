@@ -1,9 +1,9 @@
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import { ShoppingCartOutlined as ShoppingCartOutlinedIcon } from '@repo/icons/src/ShoppingCartOutlined';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useState } from 'react';
 
-import { getSalePrice, numberWithCommans } from '@/lib/helpers';
+import { getSalePrice, numberWithCommans } from '@/lib/helpers/numbers';
 import { ProductServices } from '@/lib/repo/product.repo';
 import { Product } from '@/types/product.type';
 

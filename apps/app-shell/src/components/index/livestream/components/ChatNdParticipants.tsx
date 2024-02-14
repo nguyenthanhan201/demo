@@ -1,7 +1,8 @@
 import { selectHMSMessages, selectPeers, useHMSActions, useHMSStore } from '@100mslive/react-sdk';
+import dynamic from 'next/dynamic';
 import { useState } from 'react';
 
-import Message from './Message';
+const DynamicMessage = dynamic(() => import('./Message'), { ssr: false });
 
 const ChatNdParticipants = () => {
   const messages = useHMSStore(selectHMSMessages);
@@ -38,9 +39,9 @@ const ChatNdParticipants = () => {
           <>
             <div className='rightBox__chats'>
               {/* Messages */}
-              {messages.map((msg) => (
-                <Message key={msg.id} message={msg} />
-              ))}
+              {messages.length >= 1
+                ? messages.map((msg) => <DynamicMessage key={msg.id} message={msg} />)
+                : null}
             </div>
             <form name='send-messge' onSubmit={handleSubmit}>
               <input

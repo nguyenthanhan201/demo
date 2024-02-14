@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { Fragment, useEffect } from 'react';
 
-import { isEmpty } from '@/lib/helpers';
+import { isEmpty } from '@/lib/helpers/assertion';
 import { getCookie } from '@/lib/hooks/useCookie';
 
 const RequiredAuth = ({ ...props }: any): JSX.Element => {

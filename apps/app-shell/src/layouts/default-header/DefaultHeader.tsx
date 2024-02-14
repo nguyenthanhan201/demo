@@ -1,11 +1,10 @@
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import LiveTvIcon from '@mui/icons-material/LiveTv';
-import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
-import LoginIcon from '@mui/icons-material/Login';
-import MenuIcon from '@mui/icons-material/Menu';
-import Avatar from '@mui/material/Avatar';
 import Badge from '@mui/material/Badge';
 import Tooltip from '@mui/material/Tooltip';
+import { KeyboardArrowLeft as KeyboardArrowLeftIcon } from '@repo/icons/src/KeyboardArrowLeft';
+import { LiveTv as LiveTvIcon } from '@repo/icons/src/LiveTv';
+import { LocalMallOutlined as LocalMallOutlinedIcon } from '@repo/icons/src/LocalMallOutlined';
+import { Login as LoginIcon } from '@repo/icons/src/Login';
+import { Menu as MenuIcon } from '@repo/icons/src/Menu';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -19,7 +18,8 @@ import { CartItem } from '@/types/cartItem.type';
 
 import { mainNav } from '../../utils/fake-data/header-navs';
 
-const Menu = dynamic(() => import('./components/Menu'), { ssr: false });
+const DynamicMenu = dynamic(() => import('./components/Menu'), { ssr: false });
+const DynamicAvatar = dynamic(() => import('@mui/material/Avatar'), { ssr: false });
 
 const DefaultHeader = () => {
   const { auth, setAuth } = useAuthStore(['auth', 'setAuth']);
@@ -55,7 +55,7 @@ const DefaultHeader = () => {
         router.push('/');
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         alert(err);
       });
   }, [auth?.email]);
@@ -101,7 +101,7 @@ const DefaultHeader = () => {
           </div>
           <div className='header_menu_left' ref={menuLeft}>
             <div className='header_menu_left_close' onClick={menuToggle} role='presentation'>
-              <KeyboardArrowLeftIcon fontSize='inherit' />
+              <KeyboardArrowLeftIcon />
             </div>
             {mainNav.map((item, index) => (
               <div
@@ -135,12 +135,14 @@ const DefaultHeader = () => {
               onClick={handleClickLiveStream}
             >
               <Tooltip title='Live Stream'>
-                <LiveTvIcon />
+                <div>
+                  <LiveTvIcon />
+                </div>
               </Tooltip>
             </div>
             <div className='header_menu_item header_menu_right_item'>
               <Tooltip title='Giỏ hàng'>
-                <Link href='/cart'>
+                <Link href='/cart' prefetch={false}>
                   <Badge badgeContent={Object.keys(cart).length} color='primary'>
                     <LocalMallOutlinedIcon />
                   </Badge>
@@ -150,12 +152,14 @@ const DefaultHeader = () => {
             <div className='header_menu_item header_menu_right_item'>
               {auth ? (
                 <>
-                  <Avatar sx={{ width: 27, height: 27 }}>{auth.name?.charAt(0)}</Avatar>
-                  <Menu handleLogout={handleLogout} />
+                  <DynamicAvatar sx={{ width: 27, height: 27 }}>
+                    {auth.name?.charAt(0)}
+                  </DynamicAvatar>
+                  <DynamicMenu handleLogout={handleLogout} />
                 </>
               ) : (
                 <Tooltip title='Đăng nhập'>
-                  <Link href='/login'>
+                  <Link href='/login' prefetch={false}>
                     <LoginIcon />
                   </Link>
                 </Tooltip>

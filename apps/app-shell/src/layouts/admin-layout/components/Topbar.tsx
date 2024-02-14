@@ -1,15 +1,12 @@
-import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
-import { Box, IconButton } from '@mui/material';
-import { useRouter } from 'next/router';
+import Box from '@mui/material/Box';
+import { DarkModeOutlined as DarkModeOutlinedIcon } from '@repo/icons/src/DarkModeOutlined';
+import { HomeOutlined as HomeOutlinedIcon } from '@repo/icons/src/HomeOutlined';
+import { LightModeOutlined as LightModeOutlinedIcon } from '@repo/icons/src/LightModeOutlined';
+import Link from 'next/link';
 
 import useTheme from '@/lib/hooks/useTheme';
 
 const Topbar = () => {
-  const router = useRouter();
-  // const theme = useTheme();
-  // const colorMode = useContext(ColorModeContext);
   const { themeLocal, toggleTheme } = useTheme();
 
   return (
@@ -23,12 +20,12 @@ const Topbar = () => {
       </Box> */}
       {/* ICONS */}
       <Box display='flex'>
-        <IconButton onClick={() => router.push('/')}>
+        <Link href='/' prefetch={false}>
           <HomeOutlinedIcon />
-        </IconButton>
-        <IconButton onClick={toggleTheme}>
+        </Link>
+        <div onClick={toggleTheme}>
           {themeLocal === 'dark' ? <DarkModeOutlinedIcon /> : <LightModeOutlinedIcon />}
-        </IconButton>
+        </div>
         {/* <IconButton
           onClick={() => {
             tosat.success("Hello");

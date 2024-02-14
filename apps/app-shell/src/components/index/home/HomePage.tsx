@@ -9,7 +9,8 @@ import HeroSlider from '@/components/shared/HeroSlider';
 import PolicyCard from '@/components/shared/PolicyCard';
 import Section, { SectionBody, SectionTitle } from '@/components/shared/Section';
 import { Product } from '@/types/product.type';
-import { heroSliderData, policy } from '@/utils/index';
+import heroSliderData from '@/utils/fake-data/hero-slider';
+import policy from '@/utils/fake-data/policy';
 
 const ProductCard = dynamic(import('@/components/shared/ProductCard'));
 const SlideBanner = dynamic(import('@/components/shared/SlideBanner'));

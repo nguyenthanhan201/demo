@@ -2,7 +2,7 @@ import Image from 'next/legacy/image';
 import { ComponentPropsWithoutRef } from 'react';
 
 declare const VALID_LAYOUT_VALUES: readonly ['fill', 'fixed', 'intrinsic', 'responsive', undefined];
-declare type LayoutValue = (typeof VALID_LAYOUT_VALUES)[number];
+type LayoutValue = (typeof VALID_LAYOUT_VALUES)[number];
 // declare type ImgElementStyle = NonNullable<
 //   JSX.IntrinsicElements["img"]["style"]
 // >;

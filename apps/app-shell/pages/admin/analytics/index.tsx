@@ -1,4 +1,5 @@
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
+import { GetServerSidePropsContext } from 'next';
 import Line, {
   CategoryScale,
   Chart as ChartJS,
@@ -10,83 +11,37 @@ import Line, {
   Title,
   Tooltip
 } from 'nextjs-module-admin/Line';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Header from '@/components/index/admin/components/Header';
 import AdminLayout from '@/layouts/admin-layout/AdminLayout';
-import { useToast } from '@/lib/providers/toast-provider';
+import { setContext } from '@/lib/axios/requests';
 import { ProductServices } from '@/lib/repo/product.repo';
+import { NextPageWithLayout } from '@/types/index';
 import { Product } from '@/types/product.type';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-const Page = () => {
-  const toast = useToast();
-  const [chartData, setChartData] = useState<any>();
-  // const getDataMostViewedProducts: Worker = useMemo(
-  //   () =>
-  //     new Worker(
-  //       new URL(
-  //         "../../../longProcesses/getDataMostViewProducts.ts",
-  //         import.meta.url
-  //       )
-  //     ),
-  //   []
-  // );
+const Page: NextPageWithLayout<{
+  mostViewProducts: Array<Product>;
+}> = ({ mostViewProducts }) => {
+  const [chartData] = useState<any>(() => {
+    const nameProducts = mostViewProducts.map((item: Product) => item.title);
+    const viewsProducts = mostViewProducts.map((item: Product) => item.views);
 
-  // useEffect(() => {
-  //   if (window.Worker) {
-  //     getDataMostViewedProducts.postMessage(
-  //       processList.getDataMostViewedProducts
-  //     );
-  //   }
-  // }, [getDataMostViewedProducts]);
-
-  // useEffect(() => {
-  //   if (window.Worker) {
-  //     getDataMostViewedProducts.onmessage = (e: MessageEvent) => {
-  //       const nameProducts = e.data.map((item: Product) => item.title);
-  //       const viewsProducts = e.data.map((item: Product) => item.views);
-  //       setChartData({
-  //         labels: nameProducts,
-  //         datasets: [
-  //           {
-  //             label: "",
-  //             data: viewsProducts,
-  //             backgroundColor: "rgba(255, 99, 132, 0.5)",
-  //             borderColor: "rgba(255, 99, 132, 0.5)",
-  //             borderWidth: 1,
-  //           },
-  //         ],
-  //       });
-  //     };
-  //   }
-  // }, [getDataMostViewedProducts]);
-  useEffect(() => {
-    ProductServices.getMostViewedProducts()
-      .then((res) => {
-        if (res.code === 'ERROR') return toast.error(String(res.error));
-
-        const nameProducts = res.data.map((item: Product) => item.title);
-        const viewsProducts = res.data.map((item: Product) => item.views);
-        setChartData({
-          labels: nameProducts,
-          datasets: [
-            {
-              label: '',
-              data: viewsProducts,
-              backgroundColor: 'rgba(255, 99, 132, 0.5)',
-              borderColor: 'rgba(255, 99, 132, 0.5)',
-              borderWidth: 1
-            }
-          ]
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error('Lỗi lấy dữ liệu thống kê');
-      });
-  }, []);
+    return {
+      labels: nameProducts,
+      datasets: [
+        {
+          label: '',
+          data: viewsProducts,
+          backgroundColor: 'rgba(255, 99, 132, 0.5)',
+          borderColor: 'rgba(255, 99, 132, 0.5)',
+          borderWidth: 1
+        }
+      ]
+    };
+  });
 
   const options: ChartOptions = {
     animation: false,
@@ -185,7 +140,6 @@ const Page = () => {
     // ],
   };
 
-  if (!chartData) return <div>Loading...</div>;
   return (
     <>
       <Box m='20px'>
@@ -202,3 +156,26 @@ const Page = () => {
 
 export default Page;
 Page.Layout = AdminLayout;
+
+export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+  setContext(ctx);
+
+  const mostViewProducts = await ProductServices.getMostViewedProducts().then((res) => {
+    if (res.code === 'ERROR') {
+      return {
+        redirect: {
+          permanent: false,
+          destination: '/'
+        }
+      };
+    }
+
+    return res.data;
+  });
+
+  return {
+    props: {
+      mostViewProducts
+    }
+  };
+}

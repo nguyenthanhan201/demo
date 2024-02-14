@@ -33,7 +33,7 @@
     color: $txt-white;
   }
 
-  input:checked~&_checkmark>svg {
+  input:checked~&_checkmark>*svg {
     transform: scale(1);
   }
 }

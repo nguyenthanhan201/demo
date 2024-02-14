@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { getCookie } from 'my-package';
 import { GetServerSidePropsContext } from 'next';
 
-import { isServer } from '../helpers';
+import { isServer } from '../helpers/assertion';
 import { decodedToken } from '../helpers/cookie';
 
 type SuccessResponse<V> = {

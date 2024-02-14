@@ -2,7 +2,8 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { useCallback, useMemo, useState } from 'react';
 
-import { getSalePrice, numberWithCommans, refetchCart } from '@/lib/helpers';
+import { refetchCart } from '@/lib/helpers/functions';
+import { getSalePrice, numberWithCommans } from '@/lib/helpers/numbers';
 import { useDevice } from '@/lib/hooks/useDevice';
 import { useToast } from '@/lib/providers/toast-provider';
 import { CartServices } from '@/lib/repo/cart.repo';

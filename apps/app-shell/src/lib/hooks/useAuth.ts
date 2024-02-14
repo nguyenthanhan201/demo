@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 
-import { isEmpty } from '../helpers';
+import { isEmpty } from '../helpers/assertion';
 import { useAuthStore } from '../zustand/useAuthStore';
 import { useCartStore } from '../zustand/useCartStore';
+import { getCookie, removeCookie } from './useCookie';
 
 function useAuth() {
   const { setAuth } = useAuthStore(['setAuth', 'auth']);
@@ -10,8 +11,6 @@ function useAuth() {
 
   useEffect(() => {
     (async function unsubscribe() {
-      const { removeCookie, getCookie } = await import('./useCookie');
-
       const isLogined = !isEmpty(getCookie('token'));
 
       if (!isLogined) {

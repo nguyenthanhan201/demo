@@ -1,8 +1,8 @@
-import AnalyticsIcon from '@mui/icons-material/Analytics';
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import ReceiptLongOutlinedIcon from '@mui/icons-material/ReceiptLongOutlined';
-import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
-import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import { AnalyticsOutlined as AnalyticsIcon } from '@repo/icons/src/AnalyticsOutlined';
+import { HomeOutlined as HomeOutlinedIcon } from '@repo/icons/src/HomeOutlined';
+import { ReceiptLong as ReceiptLongOutlinedIcon } from '@repo/icons/src/ReceiptLong';
+import { RemoveRedEyeOutlined as RemoveRedEyeOutlinedIcon } from '@repo/icons/src/RemoveRedEyeOutlined';
+import { VisibilityOffOutlined as VisibilityOffOutlinedIcon } from '@repo/icons/src/VisibilityOffOutlined';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -35,8 +35,6 @@ const sidebars = [
 ];
 
 const Sidebar = () => {
-  // const theme = useTheme();
-  // const colors = tokens(theme.palette.mode);
   const router = useRouter();
 
   return (
@@ -47,9 +45,8 @@ const Sidebar = () => {
             <div
               className={`${router.pathname === sidebar.to && 'pointer-events-none'}`}
               key={index}
-              role='presentation'
             >
-              <Link className='flex items-center gap-2' href={sidebar.to}>
+              <Link className='flex items-center gap-2' href={sidebar.to} prefetch={false}>
                 {sidebar.icon}
                 <span>{sidebar.name}</span>
               </Link>

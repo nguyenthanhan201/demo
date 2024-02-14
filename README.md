@@ -3,6 +3,9 @@ i18n: https://viblo.asia/p/nextjs-da-ngon-ngu-khong-can-thu-vien-ngoai-Eb85oe0OZ
 live steaming: https://blog.logrocket.com/build-react-live-streaming-app-100ms/
 optimizer bundle: https://knip.dev/
 zustand: https://codesandbox.io/p/devbox/nextjs-with-zustand-ku82o?file=%2Fpages%2F_app.js%3A5%2C17-5%2C27
+million: https://million.dev/docs/install
+config axios: https://gist.github.com/moogii/f4b3c35b22ca1b20fdcbc0fa770069ca
+docker: https://github.com/hoalongnatsu/Dockerfile?tab=readme-ov-file#dockerfile-for-react
 
 # Turborepo starter
 

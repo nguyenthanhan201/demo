@@ -1,6 +1,6 @@
 import { PaletteMode } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
-import { useLocalStorage } from 'my-package';
+import { useLocalStorage } from 'my-package/dist/useLocalStorage';
 import { createContext, useEffect, useMemo, useState } from 'react';
 
 // color design tokens export

@@ -1,36 +1,25 @@
-import { Box, useTheme } from '@mui/material';
+import Box from '@mui/material/Box';
 import dynamic from 'next/dynamic';
 import { GridCellParams, GridColDef } from 'nextjs-module-admin/DataGrid';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-import { formatDate } from '@/lib/helpers';
-import { RatingServices } from '@/lib/repo/rating.repo';
+import { formatDate } from '@/lib/helpers/time';
+import useTheme from '@/lib/hooks/useTheme';
 import { tokens } from '@/lib/theme/theme';
-import { useAuthStore } from '@/lib/zustand/useAuthStore';
 import { Rating } from '@/types/rating.type';
 
 const Modal = dynamic(() => import('@/components/shared/Modal/Modal'), { ssr: false });
 const ModalRating = dynamic(() => import('./ModalRating'), { ssr: false });
-const DataGrid = dynamic(() => import('nextjs-module-admin/DataGrid'), { ssr: false });
+const DataGrid = dynamic(() => import('nextjs-module-admin/DataGrid'));
 
-const ManagerRating = () => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
-  const { auth } = useAuthStore(['auth']);
-  const [ratings, setRatings] = useState<Rating[]>([]);
-  const [open, setOpen] = useState(false);
+type ManagerRatingProps = {
+  ratings: Rating[];
+};
+
+const ManagerRating = ({ ratings }: ManagerRatingProps) => {
+  const { themeLocal } = useTheme();
+  const colors = tokens(themeLocal || 'dark');
   const [selectedRating, setSelectedRating] = useState<Rating | null>(null);
-
-  useEffect(() => {
-    if (!auth?._id) return;
-    RatingServices.getRatingByIdAuth(auth?._id).then((res) => {
-      if (res.code === 'SUCCESS') {
-        return setRatings(res.data);
-      }
-
-      console.log('🚀 ~ file: ManagerRating.tsx ~ line 64 ~ res', res.error);
-    });
-  }, [auth?._id]);
 
   const columns: GridColDef[] = [
     {
@@ -80,10 +69,7 @@ const ManagerRating = () => {
             !row.row.comment ? 'bg-green-500' : 'bg-gray-500'
           } border-none outline-none`}
           disabled={row.row.comment ? true : false}
-          onClick={() => {
-            setOpen(true);
-            setSelectedRating(row.row);
-          }}
+          onClick={() => setSelectedRating(row.row)}
           type='button'
         >
           {row.row.comment ? 'Đã đánh giá' : 'Đánh giá'}
@@ -133,8 +119,8 @@ const ManagerRating = () => {
         />
       </Box>
 
-      {open && selectedRating ? (
-        <Modal handleClose={() => setOpen(false)} open={open}>
+      {selectedRating ? (
+        <Modal handleClose={() => setSelectedRating(null)} open={!!selectedRating}>
           <ModalRating selectedRating={selectedRating} />
         </Modal>
       ) : null}

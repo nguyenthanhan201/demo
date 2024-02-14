@@ -1,7 +1,7 @@
-import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
-import DiamondOutlinedIcon from '@mui/icons-material/DiamondOutlined';
-import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
-import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivismOutlined';
+import { CreditCardOutlined as CreditCardOutlinedIcon } from '@repo/icons/src/CreditCardOutlined';
+import { DiamondOutlined as DiamondOutlinedIcon } from '@repo/icons/src/DiamondOutlined';
+import { LocalMallOutlined as LocalMallOutlinedIcon } from '@repo/icons/src/LocalMallOutlined';
+import { VolunteerActivismOutlined as VolunteerActivismOutlinedIcon } from '@repo/icons/src/VolunteerActivismOutlined';
 
 const policy = [
   {

@@ -1,11 +1,13 @@
 import { selectLocalPeer, selectPeers, useHMSStore } from '@100mslive/react-sdk';
+import dynamic from 'next/dynamic';
 
-import HlsView from './HlsView';
 import VideoTile from './VideoTile';
 
 // type CustomHMSPeerType = HMSPeer & {
 //   roleName: RoleLiveStream;
 // };
+
+const DynamicHlsView = dynamic(() => import('./HlsView'), { ssr: false });
 
 const Stream = () => {
   const peers = useHMSStore(selectPeers);
@@ -13,7 +15,7 @@ const Stream = () => {
 
   return (
     <>
-      {localPeer?.roleName === 'viewer-realtime' ? <HlsView /> : null}
+      {localPeer?.roleName === 'viewer-realtime' ? <DynamicHlsView /> : null}
       <div className='stream'>
         {localPeer?.roleName === 'broadcaster'
           ? peers

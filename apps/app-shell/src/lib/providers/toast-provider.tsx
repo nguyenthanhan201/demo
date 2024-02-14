@@ -1,12 +1,15 @@
 /* eslint-disable simple-import-sort/imports */
-import { Cancel, CheckCircle, Info, WarningOutlined } from '@mui/icons-material';
-import { ReactNode, createContext, useContext } from 'react';
+import { Cancel } from '@repo/icons/src/Cancel';
+import { CheckCircle } from '@repo/icons/src/CheckCircle';
+import { Info } from '@repo/icons/src/Info';
+import { WarningOutlined } from '@repo/icons/src/WarningOutlined';
+import { createContext, ReactNode, useContext } from 'react';
 import {
   ToastContainer,
   ToastContent,
+  toast as toastify,
   ToastOptions,
-  Zoom,
-  toast as toastify
+  Zoom
 } from 'react-toastify';
 
 import Loading from '@/components/shared/Loading/Loading';
@@ -27,7 +30,7 @@ const ToastContext = createContext<{
 
 const icons = {
   info: <Info />,
-  success: <CheckCircle sx={{ fontSize: '60px', color: 'green' }} />,
+  success: <CheckCircle className='text-green-500' size={60} />,
   error: <Cancel className='text-red-500' />,
   warn: <WarningOutlined />,
   loading: <Loading />

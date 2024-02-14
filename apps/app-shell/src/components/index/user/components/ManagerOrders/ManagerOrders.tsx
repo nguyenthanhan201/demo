@@ -1,8 +1,9 @@
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 import dynamic from 'next/dynamic';
 
 import Img from '@/components/shared/Img/Img';
-import { formatDate, getSalePrice, numberWithCommans } from '@/lib/helpers';
+import { getSalePrice, numberWithCommans } from '@/lib/helpers/numbers';
+import { formatDate } from '@/lib/helpers/time';
 import useTheme from '@/lib/hooks/useTheme';
 import { tokens } from '@/lib/theme/theme';
 

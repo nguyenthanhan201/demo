@@ -1,6 +1,5 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
-import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
+import { ArrowBackOutlined as ArrowBackOutlinedIcon } from '@repo/icons/src/ArrowBackOutlined';
+import { ArrowForwardOutlined as ArrowForwardOutlinedIcon } from '@repo/icons/src/ArrowForwardOutlined';
 
 import Img from './Img/Img';
 

@@ -1,4 +1,4 @@
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import { KeyboardArrowLeft as KeyboardArrowLeftIcon } from '@repo/icons/src/KeyboardArrowLeft';
 import { Dispatch, SetStateAction, useCallback, useRef } from 'react';
 
 import Button from '@/components/shared/Button';

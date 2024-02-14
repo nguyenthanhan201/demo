@@ -1,9 +1,10 @@
-import PersonIcon from '@mui/icons-material/Person';
-import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
-import StarsOutlinedIcon from '@mui/icons-material/StarsOutlined';
+/* eslint-disable simple-import-sort/imports */
+import { Person as PersonIcon } from '@repo/icons/src/Person';
+import { ReceiptLong as ReceiptLongIcon } from '@repo/icons/src/ReceiptLong';
+import { StarsOutlined as StarsOutlinedIcon } from '@repo/icons/src/StarsOutlined';
+import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { NextSeo } from 'next-seo';
 
 const listSidebar = [
   {
@@ -33,7 +34,11 @@ const SiderBar = () => {
           const isSelect = router.pathname === item.path;
           return (
             <li key={item.path}>
-              <Link className={`side-bar__content__item ${isSelect && 'active'}`} href={item.path}>
+              <Link
+                className={`side-bar__content__item ${isSelect && 'active'}`}
+                href={item.path}
+                prefetch={false}
+              >
                 <NextSeo title={isSelect ? item.title : ''} />
                 {item.icon}
                 <p>{item.title}</p>

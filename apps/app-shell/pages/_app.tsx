@@ -1,10 +1,11 @@
 // eslint-disable-next-line simple-import-sort/imports
-import { buildProvidersTree } from '@/lib/helpers';
+import { buildProvidersTree } from '@/lib/helpers/functions';
 import '../src/sass/index.scss';
 
+import useAuth from '@/lib/hooks/useAuth';
 import useTheme from '@/lib/hooks/useTheme';
 import { ToastProvider } from '@/lib/providers/toast-provider';
-import { useNetwork } from 'my-package';
+import { useNetwork } from 'my-package/dist/useNetwork';
 import { DefaultSeo, NextSeo } from 'next-seo';
 import { Roboto } from 'next/font/google';
 import { Fragment } from 'react';
@@ -16,11 +17,11 @@ const roboto = Roboto({
 
 const MyApp = ({ Component, pageProps }: any) => {
   useTheme();
+  useAuth();
   const Layout = Component.Layout ? Component.Layout : Fragment;
   const layoutProps = Component.LayoutProps ? Component.LayoutProps : {};
-  // const [theme, colorMode] = useMode();
   const { online } = useNetwork();
-  // const [queryClient] = useState(() => new QueryClient());
+  // const [queryClient] = useState(() => new QueryClient(queryConfig));
 
   // const channel = new BroadcastChannel('notifications');
 
@@ -67,8 +68,8 @@ const MyApp = ({ Component, pageProps }: any) => {
   const ProvidersTree = buildProvidersTree([
     // [ColorModeContext.Provider, { value: colorMode }],
     // [ThemeProvider, { theme: theme }],
-    // [Provider, { store }],
-    // [QueryClientProvider, { client: QueryClient }],
+    // // [Provider, { store }],
+    // [QueryClientProvider, { client: queryClient }],
     // [Hydrate, { state: pageProps.dehydratedState }],
     [ToastProvider] as any
   ] as const);
