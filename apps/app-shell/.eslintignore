@@ -1,3 +1,3 @@
 node_modules
 *.js
-@mf-types
+@mf-types/*

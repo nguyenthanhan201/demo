@@ -1,5 +1,5 @@
-import { selectHLSState, useHMSStore } from '@100mslive/react-sdk';
-import Hls from 'hls.js';
+import { selectHLSState, useHMSStore } from 'nextjs-module-livestream/100mslive';
+import Hls from 'nextjs-module-livestream/Hls';
 import { ElementRef, useEffect, useRef } from 'react';
 
 const HlsView = () => {

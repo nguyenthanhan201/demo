@@ -1,5 +1,10 @@
-import { selectLocalPeer, selectPeers, useHMSStore } from '@100mslive/react-sdk';
 import dynamic from 'next/dynamic';
+import {
+  HMSPeer,
+  selectLocalPeer,
+  selectPeers,
+  useHMSStore
+} from 'nextjs-module-livestream/100mslive';
 
 import VideoTile from './VideoTile';
 
@@ -10,7 +15,7 @@ import VideoTile from './VideoTile';
 const DynamicHlsView = dynamic(() => import('./HlsView'), { ssr: false });
 
 const Stream = () => {
-  const peers = useHMSStore(selectPeers);
+  const peers: Array<HMSPeer> = useHMSStore(selectPeers);
   const localPeer = useHMSStore(selectLocalPeer);
 
   return (

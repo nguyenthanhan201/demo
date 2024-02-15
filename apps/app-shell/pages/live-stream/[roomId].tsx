@@ -1,5 +1,5 @@
-import { HMSRoomProvider } from '@100mslive/react-sdk';
 import { GetServerSidePropsContext } from 'next';
+import { HMSRoomProvider } from 'nextjs-module-livestream/100mslive';
 
 import LiveStreamPage from '@/components/index/livestream/LiveStreamPage';
 import DefaultLayout from '@/layouts/default-layout/DefaultLayout';

@@ -1,11 +1,13 @@
 const { dependencies } = require('../../package.json');
 
 const NEXTJS_MODULE_ADMIN_URL = process.env.NEXTJS_MODULE_ADMIN_URL;
+const NEXTJS_MODULE_LIVESTREAM_URL = process.env.NEXTJS_MODULE_LIVESTREAM_URL;
 
 const remotes = (isServer) => {
   const location = isServer ? 'ssr' : 'chunks';
   return {
-    'nextjs-module-admin': `nextjs-module-admin@${NEXTJS_MODULE_ADMIN_URL}/_next/static/${location}/remoteEntry.js`
+    'nextjs-module-admin': `nextjs-module-admin@${NEXTJS_MODULE_ADMIN_URL}/_next/static/${location}/remoteEntry.js`,
+    'nextjs-module-livestream': `nextjs-module-livestream@${NEXTJS_MODULE_LIVESTREAM_URL}/_next/static/${location}/remoteEntry.js`
   };
 };
 

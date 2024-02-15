@@ -34,4 +34,3 @@ export function isEmptyToken(): boolean {
 }
 
 export const isServer = () => typeof window === 'undefined';
-console.log('redundant log message');

@@ -1,4 +1,4 @@
-import { HMSPeer, useVideo } from '@100mslive/react-sdk';
+import { HMSPeer, useVideo } from 'nextjs-module-livestream/100mslive';
 
 const VideoTile = ({ peer, peers }: { peer: HMSPeer; peers: HMSPeer[] }) => {
   const { videoRef } = useVideo({

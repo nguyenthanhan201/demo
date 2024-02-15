@@ -1,5 +1,5 @@
-import { useHMSActions } from '@100mslive/react-sdk';
 import { useRouter } from 'next/router';
+import { useHMSActions } from 'nextjs-module-livestream/100mslive';
 
 import Button from '@/components/shared/Button';
 import { LiveStreamServices } from '@/lib/repo/live-stream';

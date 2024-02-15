@@ -1,4 +1,5 @@
-import { HMSMessage, selectLocalPeer, useHMSStore } from '@100mslive/react-sdk';
+import type { HMSMessage } from 'nextjs-module-livestream/100mslive';
+import { selectLocalPeer, useHMSStore } from 'nextjs-module-livestream/100mslive';
 
 const Message = ({ message }: { message: HMSMessage }) => {
   const localPeer = useHMSStore(selectLocalPeer);

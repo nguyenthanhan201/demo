@@ -1,5 +1,11 @@
-import { selectHMSMessages, selectPeers, useHMSActions, useHMSStore } from '@100mslive/react-sdk';
 import dynamic from 'next/dynamic';
+import {
+  HMSPeer,
+  selectHMSMessages,
+  selectPeers,
+  useHMSActions,
+  useHMSStore
+} from 'nextjs-module-livestream/100mslive';
 import { useState } from 'react';
 
 const DynamicMessage = dynamic(() => import('./Message'), { ssr: false });
@@ -7,7 +13,7 @@ const DynamicMessage = dynamic(() => import('./Message'), { ssr: false });
 const ChatNdParticipants = () => {
   const messages = useHMSStore(selectHMSMessages);
   const hmsActions = useHMSActions();
-  const peers = useHMSStore(selectPeers);
+  const peers: Array<HMSPeer> = useHMSStore(selectPeers);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,7 +46,7 @@ const ChatNdParticipants = () => {
             <div className='rightBox__chats'>
               {/* Messages */}
               {messages.length >= 1
-                ? messages.map((msg) => <DynamicMessage key={msg.id} message={msg} />)
+                ? messages.map((msg: any) => <DynamicMessage key={msg.id} message={msg} />)
                 : null}
             </div>
             <form name='send-messge' onSubmit={handleSubmit}>
