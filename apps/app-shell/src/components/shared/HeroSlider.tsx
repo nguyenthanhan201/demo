@@ -1,7 +1,6 @@
 import { KeyboardArrowLeftOutlined as KeyboardArrowLeftOutlinedIcon } from '@repo/icons/src/KeyboardArrowLeftOutlined';
 import { KeyboardArrowRightOutlined as KeyboardArrowRightOutlinedIcon } from '@repo/icons/src/KeyboardArrowRightOutlined';
 import { ShoppingCartOutlined as ShoppingCartOutlinedIcon } from '@repo/icons/src/ShoppingCartOutlined';
-import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 
 import useTrans from '@/lib/hooks/useTrans';
@@ -44,7 +43,7 @@ const HeroSlider = ({ data, timeOut, auto, control }: HeroSliderProps) => {
     <div className='hero-slider'>
       <div />
       {data.map((item, index: number) => (
-        <HeroSliderItem active={index === activeSlide} index={index} item={item} key={index} />
+        <HeroSliderItem active={index === activeSlide} item={item} key={index} />
       ))}
       {control ? (
         <div className='hero-slider_control'>
@@ -64,7 +63,7 @@ const HeroSlider = ({ data, timeOut, auto, control }: HeroSliderProps) => {
   );
 };
 // http://localhost:3000/images/slider/slide-1.webp?w=1920&q=70
-const HeroSliderItem = ({ item, active }: any) => {
+const HeroSliderItem = ({ item, active }: { item: HeroSliderData; active: boolean }) => {
   const tran = useTrans();
   return (
     <div className={`hero-slider_item ${active && 'active'}`}>
@@ -78,22 +77,20 @@ const HeroSliderItem = ({ item, active }: any) => {
           {item.description}
         </div>
         <div className='hero-slider_item_info_btn'>
-          <Link href='/'>
-            <Button
-              animate={true}
-              backgroundColor={item.color}
-              icon={<ShoppingCartOutlinedIcon fontSize='inherit' />}
-            >
-              {tran.header.home}
-            </Button>
-          </Link>
+          <Button
+            animate={true}
+            backgroundColor={item.color}
+            icon={<ShoppingCartOutlinedIcon fontSize='inherit' />}
+          >
+            {tran.header.home}
+          </Button>
         </div>
       </div>
       <div className='hero-slider_item_image'>
         <div className={`shape bg-${item.color}`} />
         {/* <img src={item.img} /> */}
         <Img
-          alt='oki'
+          alt={item.path}
           className='!max-h-[900px]'
           layout='fill'
           loading={item.path === '/catalog/ao-thun-dinosaur-01' ? 'eager' : undefined}

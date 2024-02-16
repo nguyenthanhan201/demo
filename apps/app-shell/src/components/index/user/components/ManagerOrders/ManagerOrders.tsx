@@ -1,13 +1,11 @@
 import Box from '@mui/material/Box';
-import dynamic from 'next/dynamic';
+import DataGrid from 'nextjs-module-admin/DataGrid';
 
 import Img from '@/components/shared/Img/Img';
 import { getSalePrice, numberWithCommans } from '@/lib/helpers/numbers';
 import { formatDate } from '@/lib/helpers/time';
 import useTheme from '@/lib/hooks/useTheme';
 import { tokens } from '@/lib/theme/theme';
-
-const DataGrid = dynamic(() => import('nextjs-module-admin/DataGrid'));
 
 const columns: any = [
   {

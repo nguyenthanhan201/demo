@@ -84,6 +84,7 @@ const MyApp = ({ Component, pageProps }: any) => {
             href: '/images/favicon.png'
           }
         ]}
+        description='A simple project starter to work with Next.js, TypeScript, Tailwind CSS, and ESLint.'
       />
       {pageProps.seo ? <NextSeo {...pageProps.seo} /> : null}
       <ProvidersTree>
@@ -97,3 +98,19 @@ const MyApp = ({ Component, pageProps }: any) => {
   );
 };
 export default MyApp;
+// MyApp.getInitialProps = async (appContext: AppContext): Promise<AppInitialProps> => {
+//   const pageProps = await App.getInitialProps(appContext);
+//   const { ctx } = appContext;
+//   let userData = null;
+//   setContext(ctx as any);
+
+//   const { isMobile } = checkServerSideDeviceDetection(ctx);
+//   const { AuthServices } = await import('../src/lib/repo/auth.repo');
+//   userData = await AuthServices.getProfile();
+
+//   return {
+//     pageProps: {
+//       ...pageProps.pageProps
+//     }
+//   };
+// };
