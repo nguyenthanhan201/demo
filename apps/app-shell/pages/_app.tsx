@@ -1,5 +1,4 @@
 // eslint-disable-next-line simple-import-sort/imports
-import { buildProvidersTree } from '@/lib/helpers/functions';
 import '../src/sass/index.scss';
 
 import useAuth from '@/lib/hooks/useAuth';
@@ -65,14 +64,14 @@ const MyApp = ({ Component, pageProps }: any) => {
   //   }
   // }, []);
 
-  const ProvidersTree = buildProvidersTree([
-    // [ColorModeContext.Provider, { value: colorMode }],
-    // [ThemeProvider, { theme: theme }],
-    // // [Provider, { store }],
-    // [QueryClientProvider, { client: queryClient }],
-    // [Hydrate, { state: pageProps.dehydratedState }],
-    [ToastProvider] as any
-  ] as const);
+  // const ProvidersTree = buildProvidersTree([
+  //   // [ColorModeContext.Provider, { value: colorMode }],
+  //   // [ThemeProvider, { theme: theme }],
+  //   // // [Provider, { store }],
+  //   // [QueryClientProvider, { client: queryClient }],
+  //   // [Hydrate, { state: pageProps.dehydratedState }],
+  //   [ToastProvider] as any
+  // ] as const);
 
   if (!online) return <>you offline</>;
   return (
@@ -87,13 +86,13 @@ const MyApp = ({ Component, pageProps }: any) => {
         description='A simple project starter to work with Next.js, TypeScript, Tailwind CSS, and ESLint.'
       />
       {pageProps.seo ? <NextSeo {...pageProps.seo} /> : null}
-      <ProvidersTree>
+      <ToastProvider>
         <main className={roboto.className}>
           <Layout {...layoutProps}>
             <Component {...pageProps} />
           </Layout>
         </main>
-      </ProvidersTree>
+      </ToastProvider>
     </>
   );
 };

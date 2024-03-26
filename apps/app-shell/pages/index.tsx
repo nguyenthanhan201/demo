@@ -1,5 +1,3 @@
-import { NextPageContext } from 'next';
-
 import HomePage from '@/components/index/home/HomePage';
 import DefaultLayout from '@/layouts/default-layout/DefaultLayout';
 import { useSEO } from '@/lib/hooks/useSEO';
@@ -13,7 +11,7 @@ const Page: NextPageWithLayout<{
 };
 Page.Layout = DefaultLayout;
 export default Page;
-export async function getServerSideProps(_ctx: NextPageContext) {
+export async function getServerSideProps() {
   const ProductServices = await import('@/lib/repo/product.repo').then(
     (res) => res.ProductServices
   );

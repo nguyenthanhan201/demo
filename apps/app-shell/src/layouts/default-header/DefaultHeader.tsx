@@ -130,16 +130,20 @@ const DefaultHeader = () => {
             />
           </Link>
           <div className='header_menu_right'>
-            <div
-              className='header_menu_item header_menu_right_item'
-              onClick={handleClickLiveStream}
-            >
+            <div className='header_menu_item header_menu_right_item'>
               <Tooltip title='Live Stream'>
-                <div>
+                <div onClick={handleClickLiveStream}>
                   <LiveTvIcon />
                 </div>
               </Tooltip>
             </div>
+            {/* <div className='header_menu_item header_menu_right_item'>
+              <Tooltip title='Bài post'>
+                <Link href='/post' prefetch={false}>
+                  <RssFeedOutlinedIcon />
+                </Link>
+              </Tooltip>
+            </div> */}
             <div className='header_menu_item header_menu_right_item'>
               <Tooltip title='Giỏ hàng'>
                 <Link href='/cart' prefetch={false}>

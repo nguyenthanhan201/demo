@@ -1,13 +1,14 @@
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useMemo } from 'react';
 
-import CartItem from '@/components/index/cart/components/CartItem';
 import Button from '@/components/shared/Button';
 import { getSalePrice, numberWithCommans } from '@/lib/helpers/numbers';
 import { useToast } from '@/lib/providers/toast-provider';
-import { OrderServices } from '@/lib/repo/order.repo';
 import { useCartStore } from '@/lib/zustand/useCartStore';
 import { CartItem as CartItemType } from '@/types/cartItem.type';
+
+const DynamicCartItem = dynamic(() => import('@/components/index/cart/components/CartItem'));
 
 const CartPage = () => {
   const toast = useToast();
@@ -42,7 +43,9 @@ const CartPage = () => {
     return total;
   }, [filteredCartItems]);
 
-  const handleCreateOrder = () => {
+  const handleCreateOrder = async () => {
+    const OrderServices = await import('@/lib/repo/order.repo').then((res) => res.OrderServices);
+
     if (filteredCartItems && filteredCartItems.length === 0)
       return toast.error('Giỏ hàng trống', { autoClose: 300 });
     return OrderServices.createOrder(totalPrice, cart)
@@ -79,7 +82,7 @@ const CartPage = () => {
           ? Object.values(cart).map((item, index) => {
               // console.log("👌 ~ item", item);
               return (
-                <CartItem
+                <DynamicCartItem
                   color={item[0].color}
                   key={index}
                   product={item[0].idProduct}

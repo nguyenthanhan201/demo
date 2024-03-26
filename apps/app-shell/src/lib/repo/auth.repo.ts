@@ -23,8 +23,10 @@ export class AuthRepository {
     return res;
   }
 
-  async refreshToken() {
-    const res = await get<{ access_token: string }>(`auth/refresh-token`);
+  async refreshToken(refreshToken: string): Promise<{ access_token: string }> {
+    const res = await post(`auth/refresh-token`, {
+      refreshToken
+    });
     return res;
   }
 

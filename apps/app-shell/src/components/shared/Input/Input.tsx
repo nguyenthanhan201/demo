@@ -2,7 +2,9 @@ import { FormControl, Select } from '@mui/material';
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+const TextEditor = dynamic(() => import('./TextEditor'), {
+  ssr: false
+});
 
 interface InputProps extends FormControlProps {
   type: 'text' | 'password' | 'email' | 'number' | 'tel' | 'editor' | 'select';
@@ -59,7 +61,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               </Select>
             </FormControl>
           ) : type === 'editor' ? (
-            <ReactQuill
+            <TextEditor
               onChange={onChange as any}
               placeholder={placeholder}
               theme='snow'

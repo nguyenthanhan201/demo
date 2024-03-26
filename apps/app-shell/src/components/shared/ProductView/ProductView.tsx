@@ -1,41 +1,34 @@
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/navigation';
 import { useCallback, useMemo, useState } from 'react';
 
-import { refetchCart } from '@/lib/helpers/functions';
 import { getSalePrice, numberWithCommans } from '@/lib/helpers/numbers';
-import { useDevice } from '@/lib/hooks/useDevice';
 import { useToast } from '@/lib/providers/toast-provider';
-import { CartServices } from '@/lib/repo/cart.repo';
-import { useAuthStore } from '@/lib/zustand/useAuthStore';
-import { useCartStore } from '@/lib/zustand/useCartStore';
 import { Product } from '@/types/product.type';
-import { Rating } from '@/types/rating.type';
+import { Rating as RatingType } from '@/types/rating.type';
 
 import Button from '../Button';
-import Img from '../Img/Img';
+import GalleryImage from './components/GalleryImage';
 
-const RatingMUI = dynamic(() => import('@mui/material/Rating'));
-const ModalSeeComments = dynamic(() => import('./components/ModalSeeComments'));
-const Modal = dynamic(() => import('../Modal/Modal'));
+const DynamicRating = dynamic(() => import('./components/Rating'));
+const ModalSeeComments = dynamic(() => import('./components/ModalSeeComments'), {
+  ssr: false
+});
 const ImagePreview = dynamic(() => import('./components/ImagePreview'));
+const DynamicQuantitySelection = dynamic(() => import('./components/QuantitySelection'));
+const DynamicAddToCart = dynamic(() => import('./components/AddToCart'));
 
 type ProductViewProps = {
   product: Product;
-  ratings?: Rating[];
+  ratings?: RatingType[];
 };
-type ChoosenItemType = {
+export type ChoosenItemType = {
   color: string | undefined;
   size: string | undefined;
   quantity: number;
 };
 
 const ProductView = ({ product, ratings }: ProductViewProps) => {
-  const { isMobile } = useDevice();
   const toast = useToast();
-  const { auth } = useAuthStore(['auth']);
-  const { setCart } = useCartStore(['setCart']);
-  const router = useRouter();
   const [previewImg, setReviewImg] = useState<string>(product.image01 || '');
   const [descriptionExpand, setDescriptionExpand] = useState<boolean>(false);
   const [choosenItems, setChoosenItems] = useState<ChoosenItemType>({
@@ -44,28 +37,13 @@ const ProductView = ({ product, ratings }: ProductViewProps) => {
     quantity: 1
   });
   const [showModal, setShowModal] = useState<boolean>(false);
-  const { color, size, quantity } = choosenItems;
+  const { color, size } = choosenItems;
 
   const ratingValue = useMemo(() => {
     if (!ratings || ratings.length === 0) return 0;
     const sum = ratings.reduce((acc, cur) => acc + cur.rating, 0);
     return sum / ratings.length;
   }, [ratings]);
-
-  const updateQuantity = (types: any) => {
-    if (types === 'plus') {
-      if (product.stock == quantity) return;
-      setChoosenItems({
-        ...choosenItems,
-        quantity: choosenItems.quantity + 1
-      });
-    } else {
-      setChoosenItems({
-        ...choosenItems,
-        quantity: choosenItems.quantity - 1 < 1 ? 1 : choosenItems.quantity - 1
-      });
-    }
-  };
 
   const check = () => {
     const toastErr = (msg: string) => toast.error(msg);
@@ -84,26 +62,6 @@ const ProductView = ({ product, ratings }: ProductViewProps) => {
     return true;
   };
 
-  const addToCart = () => {
-    if (!check()) return;
-    const { color, size, quantity } = choosenItems;
-    CartServices.createCartItem(auth!._id, product._id, size!, color!, quantity)
-      .then((res) => {
-        if (res) {
-          // dispatch({ type: GET_CART_ITEMS, payload: auth!._id });
-          refetchCart(auth!._id, (cartItems) => setCart(cartItems));
-          toast.success('Thêm giỏ hàng thành công');
-        }
-      })
-      .catch(() => {
-        toast.error('Thêm giỏ hàng thất bại');
-      });
-  };
-
-  const gotoCart = () => {
-    if (check()) router.push('/cart');
-  };
-
   const handleExpand = useCallback(() => {
     setDescriptionExpand((prev) => !prev);
   }, []);
@@ -113,18 +71,7 @@ const ProductView = ({ product, ratings }: ProductViewProps) => {
     <>
       <div className='product'>
         <div className='product_image'>
-          <div className='product_image_list'>
-            {[product.image01, product.image02].map((child, index) => (
-              <div
-                className='product_image_list_item'
-                key={index}
-                onClick={() => setReviewImg(child)}
-                role='presentation'
-              >
-                <Img alt={child} layout='fill' src={child} />
-              </div>
-            ))}
-          </div>
+          <GalleryImage product={product} setReviewImg={setReviewImg} />
           {previewImg ? <ImagePreview previewImg={previewImg} /> : null}
           <div className={`product-description ${descriptionExpand ? 'expand' : ''}`}>
             <div className='product-description_title'>Chi tiết sản phẩm</div>
@@ -149,7 +96,7 @@ const ProductView = ({ product, ratings }: ProductViewProps) => {
                 onClick={() => setShowModal(true)}
                 role='presentation'
               >
-                <RatingMUI readOnly value={ratingValue} />
+                <DynamicRating readOnly value={ratingValue} />
                 <small className='text-[10px]'>Nhấn để xem đánh giá</small>
               </div>
             ) : (
@@ -207,49 +154,18 @@ const ProductView = ({ product, ratings }: ProductViewProps) => {
           </div>
           {product.stock > 0 ? (
             <>
-              <div className='product_info_item'>
-                <div className='product_info_item_title'>
-                  {/* {t('quantity')} */}
-                  Quantity
-                </div>
-                <div className='product_info_item_quantity'>
-                  <div
-                    className='product_info_item_quantity_btn'
-                    onClick={() => updateQuantity('minus')}
-                    role='presentation'
-                  >
-                    -
-                  </div>
-                  <div className='product_info_item_quantity_input'>{quantity}</div>
-                  <div
-                    className='product_info_item_quantity_btn'
-                    onClick={() => updateQuantity('plus')}
-                    role='presentation'
-                  >
-                    +
-                  </div>
-                  <p className='stock'>
-                    {/* {t('available')} */}
-                    {product.stock}
-                  </p>
-                </div>
-              </div>
-              <div className='product_info_item'>
-                <Button animate={false} icon='' onClick={addToCart}>
-                  {/* {t('add_to_cart')} */}
-                  Add to cart
-                </Button>
-                <Button animate={false} icon='' onClick={gotoCart}>
-                  {/* {t('buy_now')} */}
-                  Buy now
-                </Button>
-              </div>
+              <DynamicQuantitySelection
+                choosenItems={choosenItems}
+                product={product}
+                setChoosenItems={setChoosenItems}
+              />
+              <DynamicAddToCart check={check()} choosenItems={choosenItems} product={product} />
             </>
           ) : (
             <p className='text-32 mt-6 text-red-500'>Hết hàng</p>
           )}
         </div>
-        {isMobile ? (
+        {/* {isMobile ? (
           <div className={`product-description mobile ${descriptionExpand ? 'expand' : ''}`}>
             <div className='product-description_title'>Chi tiết sản phẩm</div>
             <div
@@ -263,12 +179,14 @@ const ProductView = ({ product, ratings }: ProductViewProps) => {
               </Button>
             </div>
           </div>
-        ) : null}
+        ) : null} */}
       </div>
       {showModal ? (
-        <Modal handleClose={() => setShowModal(false)} open={showModal}>
-          <ModalSeeComments ratings={ratings || []} />
-        </Modal>
+        <ModalSeeComments
+          onClose={() => setShowModal(false)}
+          open={showModal}
+          ratings={ratings || []}
+        />
       ) : null}
     </>
   );

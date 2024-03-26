@@ -1,4 +1,5 @@
-import { Box, Button, useTheme } from '@mui/material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import { GetServerSidePropsContext } from 'next';
 import dynamic from 'next/dynamic';
 import { GridColumns } from 'nextjs-module-admin/DataGrid';
@@ -9,7 +10,7 @@ import AdminLayout from '@/layouts/admin-layout/AdminLayout';
 import { setContext } from '@/lib/axios/requests';
 import { useToast } from '@/lib/providers/toast-provider';
 import { ProductServices } from '@/lib/repo/product.repo';
-import { tokens } from '@/lib/theme/theme';
+import { colors } from '@/lib/theme/theme';
 import { NextPageWithLayout } from '@/types/index';
 import { Product } from '@/types/product.type';
 
@@ -19,8 +20,6 @@ const Page: NextPageWithLayout<{
   hideProducts: Array<Product>;
 }> = ({ hideProducts }) => {
   const toast = useToast();
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
 
   const columns: GridColumns<Product> = useMemo(() => {
     return [

@@ -1,4 +1,4 @@
 {
-  "./apps/**/*.{ts,tsx}": ["pnpm run lint --"],
+  "./apps/**/*.{ts,tsx}": ["pnpm run lint -- --fix"],
   "./packages/**/*.{ts,tsx}": ["pnpm run lint --"]
 }

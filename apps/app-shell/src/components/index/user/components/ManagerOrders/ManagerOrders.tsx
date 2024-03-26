@@ -1,13 +1,12 @@
 import Box from '@mui/material/Box';
-import DataGrid from 'nextjs-module-admin/DataGrid';
+import DataGrid, { GridColDef } from 'nextjs-module-admin/DataGrid';
 
 import Img from '@/components/shared/Img/Img';
 import { getSalePrice, numberWithCommans } from '@/lib/helpers/numbers';
 import { formatDate } from '@/lib/helpers/time';
-import useTheme from '@/lib/hooks/useTheme';
-import { tokens } from '@/lib/theme/theme';
+import { colors } from '@/lib/theme/theme';
 
-const columns: any = [
+const columns: GridColDef[] = [
   {
     field: 'actions1',
     headerName: 'Title',
@@ -86,9 +85,6 @@ type ManagerOrdersProps = {
 };
 
 const ManagerOrders = ({ orders }: ManagerOrdersProps) => {
-  const { themeLocal } = useTheme();
-  const colors = tokens(themeLocal || 'dark');
-
   return (
     <Box
       height='75vh'

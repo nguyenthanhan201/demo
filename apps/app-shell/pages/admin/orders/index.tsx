@@ -8,9 +8,8 @@ import AdminLayout from '@/layouts/admin-layout/AdminLayout';
 import { setContext } from '@/lib/axios/requests';
 import { getSalePrice, numberWithCommans } from '@/lib/helpers/numbers';
 import { formatDate } from '@/lib/helpers/time';
-import useTheme from '@/lib/hooks/useTheme';
 import { OrderServices } from '@/lib/repo/order.repo';
-import { tokens } from '@/lib/theme/theme';
+import { colors } from '@/lib/theme/theme';
 import { NextPageWithLayout } from '@/types/index';
 
 const DataGrid = dynamic(() => import('nextjs-module-admin/DataGrid'));
@@ -98,9 +97,6 @@ const columns: any = [
 const Page: NextPageWithLayout<{
   orders: Array<any>;
 }> = ({ orders }) => {
-  const { themeLocal } = useTheme();
-  const colors = tokens(themeLocal || 'dark');
-
   return (
     <Box m='20px'>
       <Box

@@ -4,11 +4,9 @@ import { GridCellParams, GridColDef } from 'nextjs-module-admin/DataGrid';
 import { useState } from 'react';
 
 import { formatDate } from '@/lib/helpers/time';
-import useTheme from '@/lib/hooks/useTheme';
-import { tokens } from '@/lib/theme/theme';
+import { colors } from '@/lib/theme/theme';
 import { Rating } from '@/types/rating.type';
 
-const Modal = dynamic(() => import('@/components/shared/Modal/Modal'), { ssr: false });
 const ModalRating = dynamic(() => import('./ModalRating'), { ssr: false });
 const DataGrid = dynamic(() => import('nextjs-module-admin/DataGrid'));
 
@@ -17,8 +15,6 @@ type ManagerRatingProps = {
 };
 
 const ManagerRating = ({ ratings }: ManagerRatingProps) => {
-  const { themeLocal } = useTheme();
-  const colors = tokens(themeLocal || 'dark');
   const [selectedRating, setSelectedRating] = useState<Rating | null>(null);
 
   const columns: GridColDef[] = [
@@ -120,9 +116,11 @@ const ManagerRating = ({ ratings }: ManagerRatingProps) => {
       </Box>
 
       {selectedRating ? (
-        <Modal handleClose={() => setSelectedRating(null)} open={!!selectedRating}>
-          <ModalRating selectedRating={selectedRating} />
-        </Modal>
+        <ModalRating
+          onClose={() => setSelectedRating(null)}
+          open={!!selectedRating}
+          selectedRating={selectedRating}
+        />
       ) : null}
     </>
   );

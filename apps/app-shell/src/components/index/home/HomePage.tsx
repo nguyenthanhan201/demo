@@ -2,7 +2,6 @@
 // import React from 'https://unpkg.com/browse/react@18.2.0';
 // import { isEmpty } from 'https://cdn.skypack.dev/lodash';
 import dynamic from 'next/dynamic';
-import { memo } from 'react';
 
 import Grid from '@/components/shared/Grid';
 import HeroSlider from '@/components/shared/HeroSlider';
@@ -53,4 +52,4 @@ const HomePage = ({ products }: { products: Product[] }) => {
     </>
   );
 };
-export default memo(HomePage);
+export default HomePage;

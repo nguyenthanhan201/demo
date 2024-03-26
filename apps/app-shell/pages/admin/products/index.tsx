@@ -1,4 +1,3 @@
-import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { GetServerSidePropsContext } from 'next';
@@ -11,7 +10,7 @@ import AdminLayout from '@/layouts/admin-layout/AdminLayout';
 import { setContext } from '@/lib/axios/requests';
 import { useToast } from '@/lib/providers/toast-provider';
 import { ProductServices } from '@/lib/repo/product.repo';
-import { tokens } from '@/lib/theme/theme';
+import { colors } from '@/lib/theme/theme';
 import { NextPageWithLayout } from '@/types/index';
 import { Product } from '@/types/product.type';
 
@@ -27,8 +26,6 @@ const Page: NextPageWithLayout<{
 }> = ({ products }) => {
   const toast = useToast();
   // const dispatch = useAppDispatch();
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
   const [open, setOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | undefined>(undefined);
 

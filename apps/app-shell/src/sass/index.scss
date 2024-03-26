@@ -1,10 +1,11 @@
-/*! purgecss start ignore */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/*! purgecss start ignore */
 @import "./variables";
 @import "./mixins";
 @import "./base";
+/*! purgecss end ignore */
 
 // components styles
 @import "./components/footer";
@@ -35,6 +36,5 @@
 @import './layouts/index.scss';
 
 // lib styles
-@import "react-toastify/dist/ReactToastify.css";
-@import 'react-quill/dist/quill.snow.css';
-/*! purgecss end ignore */
+// @import "react-toastify/dist/ReactToastify.css";
+// @import 'react-quill/dist/quill.snow.css';

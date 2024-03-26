@@ -1,4 +1,4 @@
-import { Modal as ModalMUI } from '@mui/material';
+import ModalMUI from '@mui/material/Modal';
 import React from 'react';
 
 type ModalProps = {

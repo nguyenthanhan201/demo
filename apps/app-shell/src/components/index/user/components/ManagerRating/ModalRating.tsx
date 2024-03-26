@@ -2,15 +2,18 @@ import { Rating as RatingMUI } from '@mui/material';
 import { useState } from 'react';
 
 import Input from '@/components/shared/Input/Input';
+import Modal from '@/components/shared/Modal/Modal';
 import { useToast } from '@/lib/providers/toast-provider';
 import { RatingServices } from '@/lib/repo/rating.repo';
 import { Rating } from '@/types/rating.type';
 
 type ModalRatingProps = {
   selectedRating: Rating | null;
+  open: boolean;
+  onClose: () => void;
 };
 
-const ModalRating = ({ selectedRating }: ModalRatingProps) => {
+const ModalRating = ({ selectedRating, open, onClose }: ModalRatingProps) => {
   const toast = useToast();
   const [rating, setRating] = useState<number | null>(1);
   const [comment, setComment] = useState<string>('');
@@ -31,7 +34,7 @@ const ModalRating = ({ selectedRating }: ModalRatingProps) => {
   };
 
   return (
-    <>
+    <Modal handleClose={onClose} open={open}>
       <p>{selectedRating?.idProduct.title}</p>
       <RatingMUI
         name='simple-controlled'
@@ -54,7 +57,7 @@ const ModalRating = ({ selectedRating }: ModalRatingProps) => {
       >
         Gửi đánh giá
       </button>
-    </>
+    </Modal>
   );
 };
 

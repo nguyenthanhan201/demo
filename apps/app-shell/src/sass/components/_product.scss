@@ -188,17 +188,17 @@
   overflow: hidden;
   position: relative;
 
-  @include mobile {
-    display: none;
-  }
+  // @include mobile {
+  //   display: none;
+  // }
 
-  &.mobile {
-    display: none;
+  // &.mobile {
+  //   display: none;
 
-    @include mobile {
-      display: block;
-    }
-  }
+  //   @include mobile {
+  //     display: block;
+  //   }
+  // }
 
   &.expand {
     height: max-content;

@@ -1,5 +1,5 @@
 import { StoreApi, UseBoundStore } from 'zustand';
-import shallow from 'zustand/shallow';
+import { shallow } from 'zustand/shallow';
 
 type GenericState = Record<string, any>;
 

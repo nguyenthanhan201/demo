@@ -3,6 +3,7 @@
 const NextFederationPlugin = require('@module-federation/nextjs-mf');
 const { FederatedTypesPlugin } = require('@module-federation/typescript');
 const federationConfig = require('./src/configs/federationConfig');
+const million = require('million/compiler');
 // const CompressionPlugin = require('compression-webpack-plugin');
 
 /** @type {import('next').NextConfig} */
@@ -152,9 +153,9 @@ const nextConfig = {
   }
 };
 
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true'
-});
+// const withBundleAnalyzer = require('@next/bundle-analyzer')({
+//   enabled: process.env.ANALYZE === 'true'
+// });
 
-module.exports = withBundleAnalyzer(nextConfig);
-// module.exports = nextConfig;
+// module.exports = withBundleAnalyzer(nextConfig);
+module.exports = million.next(nextConfig);

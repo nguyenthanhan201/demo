@@ -6,12 +6,13 @@ import { useCartStore } from '../zustand/useCartStore';
 import { getCookie, removeCookie } from './useCookie';
 
 function useAuth() {
-  const { setAuth } = useAuthStore(['setAuth', 'auth']);
+  const { setAuth } = useAuthStore(['setAuth']);
   const { setCart } = useCartStore(['setCart']);
 
   useEffect(() => {
     (async function unsubscribe() {
       const isLogined = !isEmpty(getCookie('token'));
+      console.log('👌  isLogined:', isLogined);
 
       if (!isLogined) {
         removeCookie('token');
@@ -24,6 +25,7 @@ function useAuth() {
         const { CartServices } = await import('../repo/cart.repo');
 
         const userData = await AuthServices.getProfile();
+        console.log('👌  userData:', userData);
 
         if (!userData) return;
 

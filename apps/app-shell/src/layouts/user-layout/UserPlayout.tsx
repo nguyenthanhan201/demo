@@ -1,10 +1,9 @@
 import dynamic from 'next/dynamic';
 
-import DefaultHeader from '@/layouts/default-header/DefaultHeader';
-
 import SiderBar from './components/SiderBar';
 
 const DefaultFooter = dynamic(() => import('@/layouts/default-footer/DefaultFooter'));
+const DefaultHeader = dynamic(() => import('../default-header/DefaultHeader'));
 
 const UserPlayout = ({ ...props }: any) => {
   return (

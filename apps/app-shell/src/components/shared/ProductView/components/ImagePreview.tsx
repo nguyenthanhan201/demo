@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 
 type ImagePreviewProps = {
   previewImg: string;
@@ -117,4 +117,4 @@ const ImagePreview = ({ previewImg }: ImagePreviewProps) => {
   );
 };
 
-export default ImagePreview;
+export default memo(ImagePreview);

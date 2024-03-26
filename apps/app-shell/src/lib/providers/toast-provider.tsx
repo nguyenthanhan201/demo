@@ -14,7 +14,8 @@ import {
 
 import Loading from '@/components/shared/Loading/Loading';
 
-import useTheme from '../hooks/useTheme';
+import 'react-toastify/dist/ReactToastify.css';
+import { getThemeFromLS } from '../helpers/localStorage';
 
 const ToastContext = createContext<{
   default: (content: ToastContent, options?: ToastOptions | undefined) => void;
@@ -36,85 +37,84 @@ const icons = {
   loading: <Loading />
 };
 
-export const ToastProvider = ({ children }: { children: ReactNode }) => {
-  const { themeLocal } = useTheme();
-  const defaultOptions: ToastOptions = {
-    autoClose: 1000,
-    hideProgressBar: true,
-    closeOnClick: false,
-    pauseOnHover: false,
-    draggable: false,
-    pauseOnFocusLoss: false,
-    bodyClassName: 'font-medium',
-    closeButton: false,
-    icon: false,
-    toastId: 'toast',
-    theme: themeLocal === 'dark' ? 'dark' : 'light'
-  };
+const createToastContent = (
+  type: 'info' | 'success' | 'error' | 'warn' | 'loading',
+  content?: ToastContent
+) => (
+  <div className='flex flex-col items-center p-4'>
+    <i>{icons[type]}</i>
+    {content !== '' ? <div className='mt-5'>{content as ReactNode}</div> : <></>}
+  </div>
+);
 
-  const createToastContent = (
-    type: 'info' | 'success' | 'error' | 'warn' | 'loading',
-    content?: ToastContent
-  ) => (
-    <div className='flex flex-col items-center p-4'>
-      <i>{icons[type]}</i>
-      {content !== '' ? <div className='mt-5'>{content as ReactNode}</div> : <></>}
-    </div>
-  );
+const defaultOptions: ToastOptions = {
+  autoClose: 1000,
+  hideProgressBar: true,
+  closeOnClick: false,
+  pauseOnHover: false,
+  draggable: false,
+  pauseOnFocusLoss: false,
+  bodyClassName: 'font-medium',
+  closeButton: false,
+  icon: false,
+  toastId: 'toast',
+  theme: getThemeFromLS()
+};
 
-  const toast = {
-    default: (content: ToastContent, options?: ToastOptions) =>
-      toastify(content, { ...defaultOptions, ...options }),
-    success: (content: ToastContent, options?: ToastOptions) =>
-      toastify.success(createToastContent('success', content), {
-        className: '',
-        ...defaultOptions,
-        ...options
-      }),
-    error: (content: ToastContent, options?: ToastOptions) =>
-      toastify.error(createToastContent('error', content), {
-        className: 'text-red-500',
-        ...defaultOptions,
-        ...options
-      }),
-    promise: (
-      content: ToastContent,
-      func: Promise<any>,
-      contentError?: ToastContent,
-      options?: ToastOptions
-    ) =>
-      toastify.promise(
-        func,
-        {
-          pending: {
-            render() {
-              return createToastContent('loading', 'Đang tải...');
-            },
-            icon: false
+const toast = {
+  default: (content: ToastContent, options?: ToastOptions) =>
+    toastify(content, { ...defaultOptions, ...options }),
+  success: (content: ToastContent, options?: ToastOptions) =>
+    toastify.success(createToastContent('success', content), {
+      className: '',
+      ...defaultOptions,
+      ...options
+    }),
+  error: (content: ToastContent, options?: ToastOptions) =>
+    toastify.error(createToastContent('error', content), {
+      className: 'text-red-500',
+      ...defaultOptions,
+      ...options
+    }),
+  promise: (
+    content: ToastContent,
+    func: Promise<any>,
+    contentError?: ToastContent,
+    options?: ToastOptions
+  ) =>
+    toastify.promise(
+      func,
+      {
+        pending: {
+          render() {
+            return createToastContent('loading', 'Đang tải...');
           },
-          success: {
-            render() {
-              return createToastContent('success', content);
-            },
-            icon: false
-          },
-          error: {
-            render({ data }: any) {
-              // console.log("👌 ~ data", data);
-              // When the promise reject, data will contains the error
-              return createToastContent('error', data?.message || contentError || 'Tải thất bại');
-            },
-            icon: false
-          }
+          icon: false
         },
-        {
-          ...defaultOptions,
-
-          ...options
+        success: {
+          render() {
+            return createToastContent('success', content);
+          },
+          icon: false
+        },
+        error: {
+          render({ data }: any) {
+            // console.log("👌 ~ data", data);
+            // When the promise reject, data will contains the error
+            return createToastContent('error', data?.message || contentError || 'Tải thất bại');
+          },
+          icon: false
         }
-      )
-  };
+      },
+      {
+        ...defaultOptions,
 
+        ...options
+      }
+    )
+};
+
+export const ToastProvider = ({ children }: { children: ReactNode }) => {
   return (
     <ToastContext.Provider value={toast}>
       {children}

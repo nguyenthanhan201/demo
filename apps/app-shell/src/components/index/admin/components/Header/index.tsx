@@ -1,15 +1,13 @@
-import { Typography, useTheme } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import { memo } from 'react';
 
-import { tokens } from '@/lib/theme/theme';
+import { colors } from '@/lib/theme/theme';
 
 type HeaderProps = {
   title: string;
   subtitle: string;
 };
 const Header = ({ title, subtitle }: HeaderProps) => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
-
   return (
     <div className='mb-[30px]'>
       <Typography color={colors.grey[100]} fontWeight='bold' sx={{ m: '0 0 5px 0' }} variant='h2'>
@@ -22,4 +20,4 @@ const Header = ({ title, subtitle }: HeaderProps) => {
   );
 };
 
-export default Header;
+export default memo(Header);

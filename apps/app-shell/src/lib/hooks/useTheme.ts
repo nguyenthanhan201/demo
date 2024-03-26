@@ -1,6 +1,7 @@
-import { PaletteMode } from '@mui/material';
 import { useLocalStorage } from 'my-package/dist/useLocalStorage';
 import { useCallback, useEffect } from 'react';
+
+export type PaletteMode = 'light' | 'dark';
 
 const useTheme = () => {
   const [themeLocal, setThemeLocal] = useLocalStorage<PaletteMode>({

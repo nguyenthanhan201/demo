@@ -1,3 +1,5 @@
+import { CustomAxiosError } from '@/types/utils.type';
+
 import { getCookie } from '../hooks/useCookie';
 
 export type Dict<T = any> = Record<string, T>;
@@ -33,3 +35,6 @@ export function isEmptyToken(): boolean {
 }
 
 export const isServer = () => typeof window === 'undefined';
+
+export const isAxiosExpiredTokenError = (error: CustomAxiosError) =>
+  error.response?.data?.message === 'EXPIRED_TOKEN';

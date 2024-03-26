@@ -30,6 +30,7 @@ export * from './Person';
 export * from './PodcastsOutlined';
 export * from './ReceiptLong';
 export * from './RemoveRedEyeOutlined';
+export * from './RssFeedOutlined';
 export * from './ShoppingCartOutlined';
 export * from './StarsOutlined';
 export * from './StopCircleOutlined';
