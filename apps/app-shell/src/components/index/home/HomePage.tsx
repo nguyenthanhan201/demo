@@ -14,6 +14,7 @@ import policy from '@/utils/fake-data/policy';
 const ProductCard = dynamic(import('@/components/shared/ProductCard'));
 const SlideBanner = dynamic(import('@/components/shared/SlideBanner'));
 const HomePage = ({ products }: { products: Product[] }) => {
+  console.log('HomePage');
   return (
     <>
       <HeroSlider auto={false} control={true} data={heroSliderData} timeOut={1000} />
