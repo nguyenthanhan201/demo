@@ -45,7 +45,7 @@ const ProductView = ({ product, ratings }: ProductViewProps) => {
     return sum / ratings.length;
   }, [ratings]);
 
-  const check = () => {
+  const check = (): boolean => {
     const toastErr = (msg: string) => toast.error(msg);
     if (color === undefined) {
       toastErr('Vui lòng chọn màu!');
@@ -159,7 +159,7 @@ const ProductView = ({ product, ratings }: ProductViewProps) => {
                 product={product}
                 setChoosenItems={setChoosenItems}
               />
-              <DynamicAddToCart check={check()} choosenItems={choosenItems} product={product} />
+              <DynamicAddToCart check={check} choosenItems={choosenItems} product={product} />
             </>
           ) : (
             <p className='text-32 mt-6 text-red-500'>Hết hàng</p>

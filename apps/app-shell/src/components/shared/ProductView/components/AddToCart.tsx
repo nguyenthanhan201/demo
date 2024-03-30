@@ -12,7 +12,7 @@ import { ChoosenItemType } from '../ProductView';
 type AddToCartProps = {
   choosenItems: ChoosenItemType;
   product: Product;
-  check: boolean;
+  check: () => boolean;
 };
 
 const AddToCart = (props: AddToCartProps) => {
@@ -23,7 +23,7 @@ const AddToCart = (props: AddToCartProps) => {
   const { setCart } = useCartStore(['setCart']);
 
   const addToCart = async () => {
-    if (!check) return;
+    if (!check()) return;
 
     const CartServices = await import('@/lib/repo/cart.repo').then((res) => res.CartServices);
 
@@ -42,11 +42,11 @@ const AddToCart = (props: AddToCartProps) => {
   };
 
   const gotoCart = () => {
-    if (check) router.push('/cart');
+    if (check()) router.push('/cart');
   };
   return (
     <div className='product_info_item'>
-      <Button animate={false} icon='' onClick={addToCart}>
+      <Button animate={false} icon='' onClick={addToCart} type='button'>
         {/* {t('add_to_cart')} */}
         Add to cart
       </Button>

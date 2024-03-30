@@ -12,7 +12,7 @@ function useAuth() {
   useEffect(() => {
     (async function unsubscribe() {
       const isLogined = !isEmpty(getCookie('token'));
-      console.log('👌  isLogined:', isLogined);
+      // console.log('👌  isLogined:', isLogined);
 
       if (!isLogined) {
         removeCookie('token');

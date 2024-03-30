@@ -90,3 +90,4 @@ Learn more about the power of Turborepo:
 - [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
 - [Polymorphism in Javascript](https://dev.to/m__mdy__m/polymorphism-in-javascript-3l84?ref=dailydev)
 - [Zustand Prevent Re-renders](https://dev.to/eraywebdev/optimizing-zustand-how-to-prevent-unnecessary-re-renders-in-your-react-app-59do)
+- [Biome-Format, lint, and more in a fraction of a second.](https://biomejs.dev/)
