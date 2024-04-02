@@ -6,14 +6,19 @@ pipeline {
     }
 
     stages {
+        stage("install pnpm"){
+            steps {
+                sh 'npm install -g pnpm'
+            }
+        }
         stage("install") {
             steps {
-                sh 'npm install'
+                sh 'pnpm install'
             }
         }
         stage("build") {
             steps {
-                sh 'npm run build'
+                sh 'pnpm run build'
             }
         }
     } 
