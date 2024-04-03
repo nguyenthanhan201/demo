@@ -3,7 +3,7 @@ import { GetServerSidePropsContext } from 'next';
 
 import { BaseResponse, CustomAxiosError } from '@/types/utils.type';
 
-import { isAxiosExpiredTokenError, isServer } from '../helpers/assertion';
+import { isAxiosExpiredTokenError, isEmpty, isServer } from '../helpers/assertion';
 import {
   clearCookie,
   getAccessTokenFromCookie,
@@ -43,7 +43,7 @@ class Http {
     });
 
     this.instance.interceptors.request.use((config) => {
-      if (this.accessToken) {
+      if (!isEmpty(this.accessToken)) {
         config.headers.Authorization = `Bearer ${this.accessToken}`;
         return config;
       }

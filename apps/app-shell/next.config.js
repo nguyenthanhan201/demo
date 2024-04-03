@@ -53,7 +53,7 @@ const nextConfig = {
   // cant-access-my-pages-by-url-with-nextjs
   trailingSlash: true,
   // Faster minification with SWC
-  // swcMinify: true,
+  swcMinify: true,
   // Adding policies:
   // https://blog.logrocket.com/using-next-js-security-headers/
 

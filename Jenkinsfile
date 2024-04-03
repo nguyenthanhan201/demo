@@ -6,11 +6,11 @@ pipeline {
     }
 
     stages {
-        stage("install pnpm"){
-            steps {
-                sh 'npm install -g pnpm'
-            }
-        }
+        // stage("install pnpm"){
+        //     steps {
+        //         sh 'npm install -g pnpm'
+        //     }
+        // }
         stage("install") {
             steps {
                 sh 'pnpm install'
