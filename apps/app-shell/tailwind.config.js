@@ -68,7 +68,17 @@ module.exports = {
         },
         blue: {
           42: '#1829BD'
-        }
+        },
+        // Custom colors
+        myPrimaryBrandColor: '#000000',
+        myPrimaryLinkColor: '#2563eb',
+
+        myPrimaryLightGrayColor: '#e2e8f0',
+        myPrimaryMediumGrayColor: '#9ca3af',
+        myPrimaryDarkGrayColor: '#111827',
+
+        myPrimaryErrorColor: '#d60000',
+        myPrimarySuccesColor: '#16a34a'
       },
       gridTemplateColumns: {},
       fontSize: {

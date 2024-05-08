@@ -6,6 +6,15 @@ zustand: https://codesandbox.io/p/devbox/nextjs-with-zustand-ku82o?file=%2Fpages
 million: https://million.dev/docs/install </br>
 config axios: https://gist.github.com/moogii/f4b3c35b22ca1b20fdcbc0fa770069ca </br>
 docker: https://github.com/hoalongnatsu/Dockerfile?tab=readme-ov-file#dockerfile-for-react </br>
+ffmpeg: https://www.youtube.com/watch?v=ypYw6Cm6cUk </br>
+clean-architecture: https://dev.to/rubemfsv/clean-architecture-applying-with-react-40h6 <br/>
+
+Note: microfrontends run in the following address:
+
+- app-shell: localhost:3002
+- nextjs-module-admin: localhost:3000
+- nextjs-module-livestream: localhost:3001
+- vue-app: localhost:3003
 
 # Turborepo starter
 

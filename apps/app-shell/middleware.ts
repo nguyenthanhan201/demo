@@ -4,7 +4,7 @@ const authPaths = ['/admin', '/cart', '/login', '/user'];
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  const token = request.cookies.get('token');
+  const token = request.cookies.get('90s_access_token');
 
   if (authPaths.some((path) => pathname.includes(path))) {
     const isRequiredAuthPath =

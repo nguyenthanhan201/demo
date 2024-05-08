@@ -1,0 +1,15 @@
+{
+  "name": "@repo/shared-types",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/types.ts",
+  "scripts": {
+    "start": "echo started"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@tanstack/vue-table": "^8.15.3"
+  }
+}

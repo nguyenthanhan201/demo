@@ -47,7 +47,7 @@ module.exports = {
     'no-console': 'warn',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
-    'simple-import-sort/imports': 'error',
+    'simple-import-sort/imports': 'warn',
     'simple-import-sort/exports': 'error',
     'prettier/prettier': [
       'error',

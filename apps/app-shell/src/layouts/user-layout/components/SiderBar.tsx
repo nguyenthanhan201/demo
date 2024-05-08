@@ -1,4 +1,5 @@
 /* eslint-disable simple-import-sort/imports */
+import { ArticleOutlined as ArticleOutlinedIcon } from '@repo/icons/src/ArticleOutlined';
 import { Person as PersonIcon } from '@repo/icons/src/Person';
 import { ReceiptLong as ReceiptLongIcon } from '@repo/icons/src/ReceiptLong';
 import { StarsOutlined as StarsOutlinedIcon } from '@repo/icons/src/StarsOutlined';
@@ -21,6 +22,11 @@ const listSidebar = [
     icon: <StarsOutlinedIcon />,
     title: 'Quản lí đánh giá',
     path: '/user/rating'
+  },
+  {
+    icon: <ArticleOutlinedIcon />,
+    title: 'Quản lí nhãn hiệu',
+    path: '/user/brands'
   }
 ];
 

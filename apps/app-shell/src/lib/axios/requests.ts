@@ -50,7 +50,10 @@ class Http {
 
       if (isServer() && context?.req?.headers.cookie) {
         const token = decodedToken(
-          context.req.headers.cookie?.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1')
+          context.req.headers.cookie?.replace(
+            /(?:(?:^|.*;\s*)90s_access_token\s*=\s*([^;]*).*$)|^.*$/,
+            '$1'
+          )
         );
 
         config.headers.Authorization = `Bearer ${token}`;

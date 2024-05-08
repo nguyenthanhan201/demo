@@ -4,6 +4,7 @@ export * from './AnalyticsOutlined';
 export * from './ArrowBackIosNewOutlined';
 export * from './ArrowBackOutlined';
 export * from './ArrowForwardOutlined';
+export * from './ArticleOutlined';
 export * from './Cancel';
 export * from './CheckBoxOutlined';
 export * from './CheckCircle';

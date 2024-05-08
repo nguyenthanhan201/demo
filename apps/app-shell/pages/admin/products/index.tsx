@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { GetServerSidePropsContext } from 'next';
 import dynamic from 'next/dynamic';
-import { GridColumns } from 'nextjs-module-admin/DataGrid';
+import DataGrid, { GridColumns } from 'nextjs-module-admin/DataGrid';
 import { useState } from 'react';
 
 import Header from '@/components/index/admin/components/Header';
@@ -13,8 +13,6 @@ import { ProductServices } from '@/lib/repo/product.repo';
 import { colors } from '@/lib/theme/theme';
 import { NextPageWithLayout } from '@/types/index';
 import { Product } from '@/types/product.type';
-
-const DataGrid = dynamic(() => import('nextjs-module-admin/DataGrid'));
 
 const ModalAddProduct = dynamic(import('@/components/index/admin/products/ModalAddProduct'), {
   ssr: false

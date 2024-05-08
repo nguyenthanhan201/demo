@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 
 import { isEmpty } from '../helpers/assertion';
+import { clearCookie, getAccessTokenFromCookie } from '../helpers/auth';
 import { useAuthStore } from '../zustand/useAuthStore';
 import { useCartStore } from '../zustand/useCartStore';
-import { getCookie, removeCookie } from './useCookie';
 
 function useAuth() {
   const { setAuth } = useAuthStore(['setAuth']);
@@ -11,12 +11,11 @@ function useAuth() {
 
   useEffect(() => {
     (async function unsubscribe() {
-      const isLogined = !isEmpty(getCookie('token'));
-      // console.log('👌  isLogined:', isLogined);
+      const isLogined = !isEmpty(getAccessTokenFromCookie());
+      console.log('👌  isLogined:', isLogined);
 
       if (!isLogined) {
-        removeCookie('token');
-        removeCookie('refreshToken');
+        clearCookie();
         return;
       }
 

@@ -1,6 +1,8 @@
 import * as yup from 'yup';
 
-export const registerSchema = yup.object().shape({
+import { SightengineServices } from '../repo/sightengine.repo';
+
+export const createProductSchema = yup.object().shape({
   title: yup.string().required('Tên không được để trống'),
   description: yup
     .string()
@@ -8,8 +10,20 @@ export const registerSchema = yup.object().shape({
     .required('Mô tả không được để trống'),
   price: yup.string().required('Giá không được để trống'),
   categorySlug: yup.string().required('Danh mục không được để trống'),
-  image01: yup.string().required('Ảnh không được để trống'),
-  image02: yup.string().required('Ảnh không được để trống'),
+  image01: yup
+    .string()
+    .required('Ảnh không được để trống')
+    .test('checkModerator', 'Hình ảnh vị phạm nội quy', async (value): Promise<boolean> => {
+      if (!value) return false;
+      return SightengineServices.validateImage(value);
+    }),
+  image02: yup
+    .string()
+    .required('Ảnh không được để trống')
+    .test('checkModerator', 'Hình ảnh vị phạm nội quy', async (value): Promise<boolean> => {
+      if (!value) return false;
+      return SightengineServices.validateImage(value);
+    }),
   size: yup.array().required('Kích thước không được để trống'),
   colors: yup.array().required('Màu sắc không được để trống'),
   stock: yup
@@ -25,6 +39,11 @@ export const registerSchema = yup.object().shape({
     .typeError('Giảm giá phải là số')
     .transform((value, originalValue) => (originalValue === '' ? null : value))
     .nullable(true)
+});
+
+export const registerBrandSchema = yup.object().shape({
+  name: yup.string().required('Tên không được để trống'),
+  logo: yup.string().required('Logo không được để trống').url('Logo không hợp lệ')
 });
 
 // export const registerSchema = yup.object().shape({

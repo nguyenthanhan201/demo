@@ -8,7 +8,7 @@ import Input from '@/components/shared/Input/Input';
 import Select from '@/components/shared/Select/Select';
 import { useToast } from '@/lib/providers/toast-provider';
 import { ProductServices } from '@/lib/repo/product.repo';
-import { registerSchema } from '@/lib/schema/formSchema';
+import { createProductSchema } from '@/lib/schema/formSchema';
 import { Product } from '@/types/product.type';
 import { category, colors, size } from '@/utils/index';
 
@@ -24,7 +24,7 @@ const ModalAddProduct = ({ product }: ModalAddProductProps) => {
     handleSubmit,
     formState: { errors }
   } = useForm<Product>({
-    resolver: yupResolver(registerSchema),
+    resolver: yupResolver(createProductSchema),
     defaultValues: {
       title: product?.title,
       image01: product?.image01,
@@ -39,6 +39,7 @@ const ModalAddProduct = ({ product }: ModalAddProductProps) => {
       discount: product?.discount
     }
   });
+
   const toast = useToast();
   const [img1, setImg1] = useState(product?.image01 || '');
   const [img2, setImg2] = useState(product?.image02 || '');

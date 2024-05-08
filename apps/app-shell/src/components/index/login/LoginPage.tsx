@@ -1,3 +1,5 @@
+import { setAccessTokenToCookie, setRefreshTokenToCookie } from '@/lib/helpers/auth';
+
 const LoginPage = () => {
   const googleSignIn = async () => {
     const authentication = await import('../../../configs/firebase.config').then(
@@ -5,18 +7,17 @@ const LoginPage = () => {
     );
     const { signInWithPopup, GoogleAuthProvider } = await import('firebase/auth');
     const AuthServices = await import('@/lib/repo/auth.repo').then((res) => res.AuthServices);
-    const setCookie = await import('@/lib/hooks/useCookie').then((res) => res.setCookie);
 
     await signInWithPopup(authentication, new GoogleAuthProvider())
       .then(async (result) => {
         await AuthServices.login(result.user.email!, result.user.displayName!)
           .then(async (res) => {
-            setCookie('token', res.access_token, {
+            setAccessTokenToCookie(res.access_token, {
               // 2 day
               expires: new Date(Date.now() + 2 + 24 * 60 * 60 * 1000)
               // sameSite: 'None'
             });
-            setCookie('refreshToken', res.refresh_token, {
+            setRefreshTokenToCookie(res.refresh_token, {
               // 7 days
               expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
             });
