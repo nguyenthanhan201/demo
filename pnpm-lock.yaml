@@ -334,7 +334,7 @@ importers:
         specifier: ^3.3.4
         version: 3.4.21(typescript@5.3.3)
 
-  apps/vuejs-app:
+  apps/vuejs-module-builder:
     dependencies:
       '@babel/plugin-transform-react-jsx':
         specifier: ^7.23.4
@@ -1474,17 +1474,6 @@ packages:
     dependencies:
       '@babel/core': 7.23.9
       '@babel/helper-plugin-utils': 7.24.0
-
-  /@babel/plugin-transform-private-methods@7.23.3(@babel/core@7.23.9):
-    resolution: {integrity: sha512-UzqRcRtWsDMTLrRWFvUBDwmw06tCQH9Rl1uAjfh6ijMSmGYQ+fpdB+cnqRC8EMh5tuuxSv0/TejGL+7vyj+50g==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/core': 7.23.9
-      '@babel/helper-create-class-features-plugin': 7.24.4(@babel/core@7.23.9)
-      '@babel/helper-plugin-utils': 7.24.0
-    dev: false
 
   /@babel/plugin-transform-private-methods@7.24.1(@babel/core@7.23.9):
     resolution: {integrity: sha512-tGvisebwBO5em4PaYNqt4fkw56K2VALsAbAakY0FjTYqJp7gfdrgr7YX76Or8/cpik0W6+tj3rZ0uHU9Oil4tw==}
@@ -3711,7 +3700,7 @@ packages:
       vue: ^3.2.0
     dependencies:
       '@tanstack/vue-virtual': 3.4.0(vue@3.4.21)
-      vue: 3.4.21(typescript@4.5.5)
+      vue: 3.4.21(typescript@5.3.3)
     dev: false
 
   /@heroicons/vue@2.1.3(vue@3.4.21):
@@ -3719,7 +3708,7 @@ packages:
     peerDependencies:
       vue: '>= 3'
     dependencies:
-      vue: 3.4.21(typescript@4.5.5)
+      vue: 3.4.21(typescript@5.3.3)
     dev: false
 
   /@hookform/resolvers@2.9.11(react-hook-form@7.50.1):
@@ -6444,7 +6433,7 @@ packages:
       vue: ^2.7.0 || ^3.0.0
     dependencies:
       '@tanstack/virtual-core': 3.4.0
-      vue: 3.4.21(typescript@4.5.5)
+      vue: 3.4.21(typescript@5.3.3)
     dev: false
 
   /@testing-library/dom@9.3.4:
@@ -7352,7 +7341,7 @@ packages:
       vue: ^3.2.25
     dependencies:
       vite: 4.5.2(@types/node@20.11.17)
-      vue: 3.4.21(typescript@4.5.5)
+      vue: 3.4.21(typescript@5.3.3)
     dev: true
 
   /@volar/language-core@1.11.1:
@@ -7396,7 +7385,7 @@ packages:
       '@babel/plugin-syntax-jsx': 7.23.3(@babel/core@7.23.9)
       '@babel/template': 7.23.9
       '@babel/traverse': 7.23.9
-      '@babel/types': 7.23.9
+      '@babel/types': 7.24.0
       '@vue/babel-helper-vue-transform-on': 1.2.2
       '@vue/babel-plugin-resolve-type': 1.2.2(@babel/core@7.23.9)
       camelcase: 6.3.0
@@ -8002,7 +7991,7 @@ packages:
     dependencies:
       '@vue/compiler-ssr': 3.4.21
       '@vue/shared': 3.4.21
-      vue: 3.4.21(typescript@4.5.5)
+      vue: 3.4.21(typescript@5.3.3)
 
   /@vue/shared@3.4.21:
     resolution: {integrity: sha512-PuJe7vDIi6VYSinuEbUIQgMIRZGgM8e4R+G+/dQTk0X1NEdvgvvgv7m+rfmDH1gZzyA1OjjoWskvHlfRNfQf3g==}
@@ -8605,7 +8594,7 @@ packages:
     peerDependencies:
       postcss: ^8.1.0
     dependencies:
-      browserslist: 4.22.3
+      browserslist: 4.23.0
       caniuse-lite: 1.0.30001587
       fraction.js: 4.3.7
       normalize-range: 0.1.2
@@ -8727,7 +8716,7 @@ packages:
     dependencies:
       '@babel/core': 7.23.9
       '@babel/helper-define-polyfill-provider': 0.5.0(@babel/core@7.23.9)
-      core-js-compat: 3.35.1
+      core-js-compat: 3.36.1
     transitivePeerDependencies:
       - supports-color
 
@@ -9735,11 +9724,6 @@ packages:
       serialize-javascript: 6.0.2
       webpack: 5.80.0
     dev: true
-
-  /core-js-compat@3.35.1:
-    resolution: {integrity: sha512-sftHa5qUJY3rs9Zht1WEnmkvXputCyDBczPnr7QDgL8n3qrF3CMXY4VPSYtOLLiOUJcah2WNXREd48iOl6mQIw==}
-    dependencies:
-      browserslist: 4.23.0
 
   /core-js-compat@3.36.1:
     resolution: {integrity: sha512-Dk997v9ZCt3X/npqzyGdTlq6t7lDBhZwGvV94PKzDArjp7BTRm7WlDAXYd/OWdeFHO8OChQYRJNJvUCqCbrtKA==}
@@ -13441,7 +13425,7 @@ packages:
       '@babel/plugin-transform-modules-commonjs': 7.23.3(@babel/core@7.23.9)
       '@babel/plugin-transform-nullish-coalescing-operator': 7.23.4(@babel/core@7.23.9)
       '@babel/plugin-transform-optional-chaining': 7.23.4(@babel/core@7.23.9)
-      '@babel/plugin-transform-private-methods': 7.23.3(@babel/core@7.23.9)
+      '@babel/plugin-transform-private-methods': 7.24.1(@babel/core@7.23.9)
       '@babel/preset-env': 7.23.9(@babel/core@7.23.9)
       '@babel/preset-flow': 7.23.3(@babel/core@7.23.9)
       '@babel/preset-typescript': 7.23.3(@babel/core@7.23.9)
@@ -19512,7 +19496,6 @@ packages:
       '@vue/server-renderer': 3.4.21(vue@3.4.21)
       '@vue/shared': 3.4.21
       typescript: 5.3.3
-    dev: true
 
   /vuedraggable@4.1.0(vue@3.4.21):
     resolution: {integrity: sha512-FU5HCWBmsf20GpP3eudURW3WdWTKIbEIQxh9/8GE806hydR9qZqRRxRE3RjqX7PkuLuMQG/A7n3cfj9rCEchww==}
@@ -19520,7 +19503,7 @@ packages:
       vue: ^3.0.1
     dependencies:
       sortablejs: 1.14.0
-      vue: 3.4.21(typescript@4.5.5)
+      vue: 3.4.21(typescript@5.3.3)
     dev: false
 
   /vuex@4.1.0(vue@3.4.21):
@@ -19529,7 +19512,7 @@ packages:
       vue: ^3.2.0
     dependencies:
       '@vue/devtools-api': 6.6.1
-      vue: 3.4.21(typescript@4.5.5)
+      vue: 3.4.21(typescript@5.3.3)
     dev: false
 
   /walker@1.0.8:
