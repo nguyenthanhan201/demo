@@ -1,25 +1,26 @@
-<script setup>
+<script setup lang="ts">
+import { defineEmits, defineProps } from 'vue';
 import SmallUniversalSpinner from '../../components/loaders/SmallUniversalSpinner.vue';
 
 defineProps({
   type: {
     type: String,
-    default: 'submit',
+    default: 'submit'
   },
   buttonText: {
     type: String,
-    required: true,
+    required: true
   },
   disabled: {
     type: Boolean,
-    required: true,
+    required: true
   },
   ButtonStyleDelete: {
-    type: Boolean,
+    type: Boolean
   },
   TableStyle: {
-    type: Boolean,
-  },
+    type: Boolean
+  }
 });
 
 const emit = defineEmits(['firstButtonClick']);
@@ -33,18 +34,18 @@ const firstButtonClick = function () {
   <div
     :class="{
       'flex flex-col items-end justify-end gap-2': !TableStyle,
-      'items-center': TableStyle,
+      'items-center': TableStyle
     }"
   >
     <div
       :class="{
         'flex items-center gap-3': !TableStyle,
-        '': TableStyle,
+        '': TableStyle
       }"
     >
       <button
         @click="firstButtonClick"
-        :type="type"
+        :type="type as any"
         :disabled="disabled"
         class="myPrimaryButton"
         :class="{
@@ -55,7 +56,7 @@ const firstButtonClick = function () {
           'py-1 px-1 bg-transparent  shadow-none border-0 hover:bg-transparent focus:outline-none focus:ring-0  focus:ring-offset-0':
             TableStyle,
           'text-myPrimaryErrorColor': TableStyle && ButtonStyleDelete,
-          'text-myPrimaryBrandColor': TableStyle && !ButtonStyleDelete,
+          'text-myPrimaryBrandColor': TableStyle && !ButtonStyleDelete
         }"
       >
         <span v-show="!disabled">

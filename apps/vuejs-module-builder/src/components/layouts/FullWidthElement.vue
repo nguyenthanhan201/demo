@@ -1,10 +1,12 @@
-<script setup>
+<script setup lang="ts">
+import { defineProps } from 'vue';
+
 defineProps({
   descriptionArea: {
     Type: Boolean,
     required: true,
-    default: true,
-  },
+    default: true
+  }
 });
 </script>
 

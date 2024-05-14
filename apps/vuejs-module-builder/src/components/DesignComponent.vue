@@ -7,7 +7,7 @@ import {
   Squares2X2Icon,
   XMarkIcon
 } from '@heroicons/vue/24/outline';
-import { computed, onBeforeMount, onMounted, ref, watch } from 'vue';
+import { computed, defineEmits, onBeforeMount, onMounted, ref, watch } from 'vue';
 import Draggable from 'vuedraggable';
 import { useStore } from 'vuex';
 import RightSidebarEditor from '../../components/designer/editor-menu/RightSidebarEditor.vue';
@@ -37,10 +37,10 @@ const getMenuRight = computed(() => {
 const getMenuPreview = computed(() => {
   return store.getters['designer/getMenuPreview'];
 });
-console.log('👌  getMenuPreview:', getMenuPreview);
+
 // handle slideover window
 const handleSettingsSlideOver = function () {
-  titleSettingsSlideOverRight.value = 'Settings';
+  titleSettingsSlideOverRight.value = 'Settings' as any;
   showSettingsSlideOverRight.value = true;
 };
 // handle slideover window
@@ -49,7 +49,7 @@ const settingsSlideOverButton = function () {
 };
 
 const categories = ref(null);
-categories.value = ['forms', 'teams', 'posts', 'features', 'headers', 'testimonials'];
+categories.value = ['forms', 'teams', 'posts', 'features', 'headers', 'testimonials'] as any;
 const activeLibrary = ref('forms');
 
 const previewCurrentDesign = function () {
@@ -134,7 +134,8 @@ onMounted(async () => {
 });
 </script>
 
-<template xmlns="http://www.w3.org/1999/html">
+<!-- <template xmlns="http://www.w3.org/1999/html"> -->
+<template>
   <DesignerPreviewModal
     :show="openDesignerPreviewModal"
     @firstDesignerPreviewModalButtonFunction="firstDesignerPreviewModalButtonFunction"

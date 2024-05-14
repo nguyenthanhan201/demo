@@ -1,21 +1,13 @@
-<script setup>
-import Modal from '../modal/Modal.vue';
-import { CheckIcon, BellIcon } from '@heroicons/vue/24/outline';
-import {
-  Dialog,
-  DialogOverlay,
-  DialogTitle,
-  TransitionChild,
-  TransitionRoot,
-} from '@headlessui/vue';
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
+<script setup lang="ts">
+import { Dialog, DialogOverlay, TransitionChild, TransitionRoot } from '@headlessui/vue';
+import { defineEmits, defineProps } from 'vue';
 
 defineProps({
   show: {
     type: Boolean,
     default: false,
-    required: true,
-  },
+    required: true
+  }
 });
 
 const emit = defineEmits(['firstDesignerModalButtonFunction']);
@@ -28,19 +20,9 @@ const firstButton = function () {
 
 <template>
   <teleport to="body">
-    <TransitionRoot
-      :show="show"
-      as="template"
-    >
-      <Dialog
-        as="div"
-        class="fixed z-30 inset-0 overflow-y-auto"
-        @close="firstButton"
-        tabindex="0"
-      >
-        <div
-          class="flex items-end justify-center pb-20 text-center sm:block sm:p-0 bg-white"
-        >
+    <TransitionRoot :show="show" as="template">
+      <Dialog as="div" class="fixed z-30 inset-0 overflow-y-auto" @close="firstButton" tabindex="0">
+        <div class="flex items-end justify-center pb-20 text-center sm:block sm:p-0 bg-white">
           <TransitionChild
             as="template"
             enter="ease-out duration-300"
@@ -50,15 +32,11 @@ const firstButton = function () {
             leave-from="opacity-100"
             leave-to="opacity-0"
           >
-            <DialogOverlay
-              class="fixed inset-0 bg-white bg-opacity-75 transition-opacity"
-            />
+            <DialogOverlay class="fixed inset-0 bg-white bg-opacity-75 transition-opacity" />
           </TransitionChild>
 
           <!-- This element is to trick the browser into centering the modal contents. -->
-          <span
-            aria-hidden="true"
-            class="hidden sm:inline-block sm:align-middle sm:h-screen"
+          <span aria-hidden="true" class="hidden sm:inline-block sm:align-middle sm:h-screen"
             >&#8203;</span
           >
           <TransitionChild
@@ -73,21 +51,13 @@ const firstButton = function () {
             <div
               class="inline-block align-bottom text-left transform transition-all sm:align-middle w-full overflow-hidden h-[100vh] top-0 left-0 right-0 absolute"
             >
-              <div
-                class="px-6 h-[6vh] flex items-center justify-between bg-gray-50"
-              >
-                <img
-                  class="h-6"
-                  src="/logo-myissue.svg"
-                  alt="Logo"
-                />
+              <div class="px-6 h-[6vh] flex items-center justify-between bg-gray-50">
+                <img class="h-6" src="/logo-myissue.svg" alt="Logo" />
                 <div
                   @click="firstButton"
                   class="flex items-center justify-center gap-1 cursor-pointer hover:underline"
                 >
-                  <span class="myPrimaryParagraph font-medium">
-                    Close Builder
-                  </span>
+                  <span class="myPrimaryParagraph font-medium"> Close Builder </span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

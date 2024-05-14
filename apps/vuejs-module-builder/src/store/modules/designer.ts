@@ -14,6 +14,8 @@ const {
   isSuccess: isSuccessComponents
 } = vueFetch();
 
+const publicPath = process.env.VUEJS_PUBLIC_PATH || 'http://localhost:3003/';
+
 export type DesignerStateType = {
   menuPreview: boolean;
   menuLeft: boolean;
@@ -467,7 +469,7 @@ const designerStore: Module<DesignerStateType, any> = {
     // load products
     loadComponents(context, payload) {
       handlegetElements(
-        'http://localhost:3003/components.json',
+        `${publicPath}components.json`,
         {},
         {
           additionalCallTime: 300,
