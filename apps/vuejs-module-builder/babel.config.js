@@ -1,14 +1,14 @@
 module.exports = {
   presets: ['@vue/cli-plugin-babel/preset'],
   plugins: [
-    '@babel/plugin-transform-private-methods',
-    [
-      '@babel/plugin-transform-react-jsx',
-      {
-        throwIfNamespace: false,
-        runtime: 'automatic',
-        importSource: 'vue-jsx-runtime'
-      }
-    ]
+    '@babel/plugin-transform-private-methods'
+    // [
+    //   '@babel/plugin-transform-react-jsx',
+    //   {
+    //     throwIfNamespace: false,
+    //     runtime: 'automatic',
+    //     importSource: 'vue-jsx-runtime'
+    //   }
+    // ]
   ]
 };

@@ -1,9 +1,8 @@
-<script setup>
+<script setup lang="ts">
+import { BellIcon, CheckIcon, XMarkIcon } from '@heroicons/vue/24/outline';
 import Modal from '../modal/Modal.vue';
-import { CheckIcon, XMarkIcon, BellIcon } from '@heroicons/vue/24/outline';
 
-import {} from '@headlessui/vue';
-import { defineProps, defineEmits } from 'vue';
+import { defineEmits, defineProps } from 'vue';
 
 defineProps({
   show: {
@@ -82,7 +81,7 @@ const thirdButton = function () {
     >
       <div class="flex items-center border-b border-gray-200 pb-2 mb-2">
         <div class="flex-1">
-          <div v-if="type === 'default'"></div>
+          <div v-if="type === 'default'" />
 
           <div class="flex gap-2 justify-start items-center">
             <div

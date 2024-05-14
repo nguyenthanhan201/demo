@@ -8,6 +8,7 @@ config axios: https://gist.github.com/moogii/f4b3c35b22ca1b20fdcbc0fa770069ca </
 docker: https://github.com/hoalongnatsu/Dockerfile?tab=readme-ov-file#dockerfile-for-react </br>
 ffmpeg: https://www.youtube.com/watch?v=ypYw6Cm6cUk </br>
 clean-architecture: https://dev.to/rubemfsv/clean-architecture-applying-with-react-40h6 <br/>
+intergate momo: https://www.youtube.com/watch?v=ZlvwqtfCEUM
 
 Note: microfrontends run in the following address:
 

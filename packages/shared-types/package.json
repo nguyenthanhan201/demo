@@ -9,7 +9,5 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@tanstack/vue-table": "^8.15.3"
-  }
+  "dependencies": {}
 }
