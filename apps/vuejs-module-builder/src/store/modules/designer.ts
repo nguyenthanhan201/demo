@@ -14,7 +14,7 @@ const {
   isSuccess: isSuccessComponents
 } = vueFetch();
 
-const publicPath = process.env.VUEJS_PUBLIC_PATH || 'http://localhost:3003/';
+const publicPath = process.env.BASE_URL;
 
 export type DesignerStateType = {
   menuPreview: boolean;
