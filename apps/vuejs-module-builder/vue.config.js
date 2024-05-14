@@ -4,7 +4,7 @@ const path = require('path');
 const webpack = require('webpack');
 // const { FederatedTypesPlugin } = require('@module-federation/typescript');
 
-const publicPath = process.env.BASE_URL;
+const publicPath = process.env.VUEJS_PUBLIC_PATH;
 
 module.exports = defineConfig({
   transpileDependencies: true,
