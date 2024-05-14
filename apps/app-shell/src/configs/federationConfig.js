@@ -1,4 +1,4 @@
-const { dependencies } = require('../../package.json');
+// const { dependencies } = require('../../package.json');
 
 const NEXTJS_MODULE_ADMIN_URL = process.env.NEXTJS_MODULE_ADMIN_URL;
 const NEXTJS_MODULE_LIVESTREAM_URL = process.env.NEXTJS_MODULE_LIVESTREAM_URL;

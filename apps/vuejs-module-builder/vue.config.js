@@ -4,13 +4,16 @@ const path = require('path');
 const webpack = require('webpack');
 // const { FederatedTypesPlugin } = require('@module-federation/typescript');
 
+const publicPath = process.env.VUEJS_PUBLIC_PATH || 'http://localhost:3003/';
+console.log('👌  publicPath:', publicPath);
+
 module.exports = defineConfig({
   transpileDependencies: true,
   chainWebpack: (config) => {
     config.optimization.delete('splitChunks');
   },
   filenameHashing: false,
-  publicPath: 'http://localhost:3003/',
+  publicPath: publicPath,
   configureWebpack: {
     devServer: {
       allowedHosts: 'all',
@@ -30,7 +33,7 @@ module.exports = defineConfig({
       }
     },
     output: {
-      publicPath: 'http://localhost:3003/'
+      publicPath: publicPath
     },
     plugins: [
       new ModuleFederationPlugin({
