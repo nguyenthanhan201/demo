@@ -12,6 +12,7 @@ const Page: NextPageWithLayout<{
   brand: Brand;
 }> = ({ brand }) => {
   const ref = useRef(null);
+  console.log('👌  ref:', ref);
 
   useEffect(() => {
     if (!brand.preview) return;
