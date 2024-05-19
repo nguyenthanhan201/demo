@@ -1,6 +1,6 @@
 import { App, createApp } from 'vue';
 import store from './store';
-// import './style.css';
+import './style.css';
 import Designer from './views/designer/Designer.vue';
 
 // Mount function to start up the app

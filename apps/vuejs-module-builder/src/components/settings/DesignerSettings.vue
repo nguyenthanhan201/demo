@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
-import fullHTMLContent from '../../utils/html-doc-declaration-with-components';
+// import fullHTMLContent from '../../utils/html-doc-declaration-with-components';
 import SlideOverRightParent from '../slidebars/SlideOverRightParent.vue';
 import AdvancedDesignerSettings from './AdvancedDesignerSettings.vue';
 
@@ -28,10 +28,10 @@ const getComponents = computed(() => {
 // generate HTML
 const generateHTML = function (filename, HTML) {
   const element = document.createElement('a');
-  element.setAttribute(
-    'href',
-    'data:text/html;charset=utf-8,' + encodeURIComponent(fullHTMLContent(HTML))
-  );
+  // element.setAttribute(
+  //   'href',
+  //   'data:text/html;charset=utf-8,' + encodeURIComponent(fullHTMLContent(HTML))
+  // );
   element.setAttribute('download', filename);
 
   element.style.display = 'none';

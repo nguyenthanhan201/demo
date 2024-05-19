@@ -122,7 +122,6 @@ const handleUpdateDataBrand = async function () {
 
   // stringify added html components
   currentPreview.value = JSON.stringify(currentPreview.value);
-  console.log('👌  currentPreview:', JSON.parse(currentPreview.value));
 
   if (!design) return;
 
@@ -401,7 +400,15 @@ onUpdated(() => {
   </div>
 </template>
 
-<style scoped>
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
 #pagebuilder a {
   cursor: default;
 }

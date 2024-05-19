@@ -713,6 +713,7 @@ class Designer {
   }
 
   areComponentsStoredInLocalStorage(initData?: string) {
+    console.log('👌  initData:', initData);
     if (initData) {
       this.store.commit('designer/setComponents', JSON.parse(initData));
     }

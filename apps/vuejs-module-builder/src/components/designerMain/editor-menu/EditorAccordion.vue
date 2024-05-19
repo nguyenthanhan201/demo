@@ -28,7 +28,7 @@ import { ChevronRightIcon } from '@heroicons/vue/24/outline';
 
 export default {
   components: {
-    ChevronRightIcon,
+    ChevronRightIcon
   },
 
   setup() {
@@ -36,8 +36,8 @@ export default {
 
     return {
       ChevronRightIcon,
-      expanded,
+      expanded
     };
-  },
+  }
 };
 </script>

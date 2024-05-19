@@ -34,7 +34,7 @@ const Page: NextPageWithLayout<{
 
   return (
     <>
-      <div ref={ref} />
+      <div id='app' ref={ref} />
     </>
   );
 };
