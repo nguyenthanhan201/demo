@@ -21,7 +21,7 @@ const Page: NextPageWithLayout<{
     } as PreviewProps);
   }, []);
 
-  return <div id='preview' ref={ref} />;
+  return <div id='app' ref={ref} />;
 };
 
 export default Page;
