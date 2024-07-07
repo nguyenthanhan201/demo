@@ -9,6 +9,7 @@ docker: https://github.com/hoalongnatsu/Dockerfile?tab=readme-ov-file#dockerfile
 ffmpeg: https://www.youtube.com/watch?v=ypYw6Cm6cUk </br>
 clean-architecture: https://dev.to/rubemfsv/clean-architecture-applying-with-react-40h6 <br/>
 intergate momo: https://www.youtube.com/watch?v=ZlvwqtfCEUM
+Deploy server lưu trữ và resize ảnh như Viblo trên Kubernetes: https://viblo.asia/p/deploy-server-luu-tru-va-resize-anh-nhu-viblo-tren-kubernetes-AZoJjnd3JY7#_clone-source-3
 
 Note: microfrontends run in the following address:
 
@@ -17,9 +18,15 @@ Note: microfrontends run in the following address:
 - nextjs-module-livestream: localhost:3001
 - vue-app: localhost:3003
 
-# Turborepo starter
+## Todos
 
-This is an official starter Turborepo.
+- [Todos](./docs/todo.md)
+
+## Command check unsed dependencies
+
+```sh
+npx depcheck
+```
 
 ## Using this example
 

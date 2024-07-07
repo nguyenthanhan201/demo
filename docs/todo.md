@@ -1,0 +1,5 @@
+- tạo vercel pull request cho git
+- thêm momo và payos
+- thêm giao diện blog
+- thêm giao diện comment
+- xử lí video m3u8

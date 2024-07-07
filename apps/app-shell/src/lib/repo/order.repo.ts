@@ -6,17 +6,17 @@ export class OrderRepository extends CrudRepository<any> {
   displayName = 'Order';
 
   async createOrder(amount: number, cartItems: any) {
-    const res = await post(`/order/create_payment_url`, { amount, cartItems });
+    const res = await post(`api/v1/order/create_payment_url`, { amount, cartItems });
     return res;
   }
 
   async addOrder(idAuth: string) {
-    const res = await post(`/order/add-order`, { idAuth });
+    const res = await post(`api/v1/order/add-order`, { idAuth });
     return res;
   }
 
   async getOrdersByIdAuth(idAuth: string) {
-    const res = await get(`/order/show/${idAuth}`);
+    const res = await get(`api/v1/order/show/${idAuth}`);
     return res;
   }
 }

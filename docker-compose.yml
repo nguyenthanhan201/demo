@@ -1,22 +1,31 @@
-version: '2'
+# version: '2'
+# services:
+#   # turborepo
+#   turbo:
+#     container_name: turborepo-starter
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#     ports:
+#       - '3000:3000'
+#       - '3001:3001'
+#       - '3002:3002'
+#       - '6006:6006'
+#     volumes:
+#       - ./:/app/
+#         # Just specify a path and let the Engine create a volume
+#       - /app/node_modules/
+#     restart: on-failure
+
+# networks:
+#   turbo-network:
+#     driver: bridge
+version: '3.8'
 services:
-  # turborepo
-  turbo:
-    container_name: turborepo-starter
+  nginx:
     build:
       context: .
-      dockerfile: Dockerfile
     ports:
-      - '3000:3000'
-      - '3001:3001'
-      - '3002:3002'
-      - '6006:6006'
-    volumes:
-      - ./:/app/
-        # Just specify a path and let the Engine create a volume
-      - /app/node_modules/
-    restart: on-failure
-
-networks:
-  turbo-network:
-    driver: bridge
+      - '3002:80'
+    # volumes:
+    #   - apps/app-shell/.next:/usr/share/nginx/html

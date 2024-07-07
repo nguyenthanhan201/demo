@@ -8,7 +8,7 @@ export class CartRepository {
     color: string,
     quantity: number
   ) {
-    const res = await post(`/cart-item/create`, {
+    const res = await post(`api/v1/cart-item/create`, {
       idAuth,
       idProduct,
       size,
@@ -19,7 +19,7 @@ export class CartRepository {
   }
 
   async deleteCartItem(idAuth: string, idProduct: string, size: string, color: string) {
-    const res = await post(`/cart-item/delete`, {
+    const res = await post(`api/v1/cart-item/delete`, {
       idAuth,
       idProduct,
       size,
@@ -29,12 +29,12 @@ export class CartRepository {
   }
 
   async getCartItemsByIdAuth(idAuth: string) {
-    const res: any = await get(`/cart-item/${idAuth}`);
+    const res: any = await get(`api/v1/cart-item/${idAuth}`);
     return res.data;
   }
 
   async clearCartByIdAuth(idAuth: string) {
-    const res = await post(`/cart-item/clear-cart`, { idAuth });
+    const res = await post(`api/v1/cart-item/clear-cart`, { idAuth });
     return res;
   }
 }

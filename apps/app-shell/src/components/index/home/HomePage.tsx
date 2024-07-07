@@ -8,6 +8,7 @@ import Grid from '@/components/shared/Grid';
 import HeroSlider from '@/components/shared/HeroSlider';
 import Img from '@/components/shared/Img/Img';
 import PolicyCard from '@/components/shared/PolicyCard';
+import ProductCard from '@/components/shared/ProductCard';
 import Section, { SectionBody, SectionTitle } from '@/components/shared/Section';
 import { Brand } from '@/types/brand.type';
 import { Product } from '@/types/product.type';
@@ -15,14 +16,12 @@ import heroSliderData from '@/utils/fake-data/hero-slider';
 import policy from '@/utils/fake-data/policy';
 import Link from 'next/link';
 
-const ProductCard = dynamic(import('@/components/shared/ProductCard'));
 const SlideBanner = dynamic(import('@/components/shared/SlideBanner'));
 
-const HomePage = ({ products, brands }: { products: Product[]; brands: Brand[] }) => {
+const HomePage = ({ brands, products }: { brands: Brand[]; products: Product[] }) => {
   return (
     <>
       <HeroSlider auto={false} control={true} data={heroSliderData} timeOut={1000} />
-
       <Section>
         <SectionTitle>các thương hiệu hợp tác</SectionTitle>
         <SectionBody>

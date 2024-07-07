@@ -24,7 +24,7 @@ function useAuth() {
         const { CartServices } = await import('../repo/cart.repo');
 
         const userData = await AuthServices.getProfile();
-        console.log('👌  userData:', userData);
+        // console.log('👌  userData:', userData);
 
         if (!userData) return;
 
