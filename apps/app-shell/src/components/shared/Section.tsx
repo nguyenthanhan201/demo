@@ -1,6 +1,14 @@
-// Tạo Catalog Filter
-const Section = ({ children }: any) => {
-  return <div className='section'>{children}</div>;
+import { ComponentPropsWithRef, ElementRef, forwardRef, ForwardRefRenderFunction } from 'react';
+
+const Section: ForwardRefRenderFunction<ElementRef<'div'>, ComponentPropsWithRef<'div'>> = (
+  { children },
+  ref
+) => {
+  return (
+    <div className='section' ref={ref}>
+      {children}
+    </div>
+  );
 };
 
 export const SectionTitle = ({ children }: any) => {
@@ -11,4 +19,4 @@ export const SectionBody = ({ children }: any) => {
   return <div className='section_body'>{children}</div>;
 };
 
-export default Section;
+export default forwardRef(Section);

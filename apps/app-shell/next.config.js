@@ -6,6 +6,12 @@ const federationConfig = require('./src/configs/federationConfig');
 const million = require('million/compiler');
 // const CompressionPlugin = require('compression-webpack-plugin');
 
+const env = process.env.NODE_ENV || 'development';
+const isProd = env === 'production';
+const beUrl = isProd
+  ? process.env.NEXT_PUBLIC_BE
+  : process.env.NEXT_PUBLIC_BE.replace('localhost', 'api');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   compress: true,
@@ -29,14 +35,15 @@ const nextConfig = {
       'gudlogo.com',
       'bizweb.dktcdn.net',
       'fakestoreapi.com',
-      'www.godrejinterio.com'
+      'www.godrejinterio.com',
+      'localhost'
     ],
     // path prefix for Image Optimization API, useful with `loader`
-    path: '/_next/image',
+    // path: '/_next/image',
     // loader can be 'default', 'imgix', 'cloudinary', 'akamai', or 'custom'
-    loader: 'default',
+    // loader: 'default',
     // disable static imports for image files
-    disableStaticImages: false,
+    // disableStaticImages: false,
     // minimumCacheTTL is in seconds, must be integer 0 or more
     minimumCacheTTL: 60,
     // ordered list of acceptable optimized image formats (mime types)
@@ -150,6 +157,66 @@ const nextConfig = {
     '@mui/icons-material/?(((\\w*)?/?)*)': {
       transform: '@mui/icons-material/{{ matches.[1] }}/{{member}}'
     }
+  },
+  async rewrites() {
+    // console.log('Rewrites configuration applied');
+    // return {
+    //   afterFiles: [
+    //     {
+    //       basePath: false,
+    //       // source: '/:localhost:8080/api/v1/upload/image/1718509662888-80932055.jpeg',
+    //       // source: '/api/v1/upload/image/:path*', // :path* will match zero or more path segments
+    //       source: '/api/v1/upload/image/:path*', // :path* will match zero or more path segments
+    //       destination:
+    //         'http://localhost:8081/insecure/resize:fit:25:0:no:0/plain/http://api:8080/api/v1/upload/image/1718509662888-80932055.jpeg'
+    //     },
+    //     {
+    //       source: '/images/slider/:path*',
+    //       destination: 'http://new-destination-url/:path*'
+    //     }
+    //   ]
+    // };
+
+    return {
+      beforeFiles: [
+        // {
+        //   source: '/login',
+        //   destination: 'https://www.youtube.com/'
+        // }
+        // {
+        //   source: '/images/slider/:path*',
+        //   destination: 'https://picsum.photos/id/237/200/300',
+        //   basePath: false
+        // },
+        // {
+        //   source: '/api/v1/upload/image/:path*',
+        //   destination: `http://localhost:8081/insecure/resize:fit:825:0:no:0/plain/${beUrl}upload/image/1718509662888-80932055.jpeg`,
+        //   basePath: false
+        // },
+        // {
+        //   source: '/_next/image/:path*',
+        //   destination: `http://localhost:8081/insecure/resize:fit:825:0:no:0/plain/${beUrl}upload/image/1718509662888-80932055.jpeg`,
+        //   basePath: false
+        // },
+        // {
+        //   // http://localhost:8081/insecure/resize:fit:825:0:no:0/plain/http://api:8080/api/v1/upload/image/1718509078056-80932055.jpeg
+        //   source: '/_next/image/:path*',
+        //   // destination: 'http://localhost:8080/api/v1/upload/image/1718523210791-images.jpeg',
+        //   destination:
+        //     'http://localhost:8081/insecure/resize:fit:825:0:no:0/plain/https://picsum.photos/id/237/200/300',
+        //   basePath: false
+        // }
+        {
+          source: '/_next/image/:path*',
+          destination:
+            '/_next/image/?url=https://imgproxy-1-0-0.onrender.com/insecure/resize:fit:825:0:no:0/plain/https://picsum.photos/id/237/200/300'
+          // basePath: false
+        }
+        // {
+        //   source: ''
+        // }
+      ]
+    };
   }
 };
 

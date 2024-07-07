@@ -3,7 +3,7 @@ import { get } from '../axios/requests';
 
 export class LiveStreamRepository {
   async getRoomData() {
-    const res = await get<LiveStream>(`/live-stream`);
+    const res = await get<LiveStream>(`api/v1/live-stream`);
 
     if (res.code === 'SUCCESS') {
       return res.data;
@@ -13,7 +13,7 @@ export class LiveStreamRepository {
   }
 
   async getAllRooms() {
-    const res = await get<LiveStream[]>(`/live-stream/all`);
+    const res = await get<LiveStream[]>(`api/v1/live-stream/all`);
 
     if (res.code === 'SUCCESS') {
       return res.data;

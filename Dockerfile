@@ -1,25 +1,25 @@
-FROM node:18.12 as build
+# FROM node:18.12 as build
 
-RUN npm install -g pnpm
+# RUN npm install -g pnpm
 
-WORKDIR /usr/src/app
+# WORKDIR /usr/src/app
 
-# Copy root package.json and lockfile
-COPY package.json ./
-COPY pnpm-lock.yaml ./
+# # Copy root package.json and lockfile
+# COPY package.json ./
+# COPY pnpm-lock.yaml ./
 
-# Copy the app-shell package.json
-COPY apps/app-shell/package.json ./apps/app-shell/package.json
+# # Copy the app-shell package.json
+# COPY apps/app-shell/package.json ./apps/app-shell/package.json
 
-RUN pnpm install
+# RUN pnpm install
 
-RUN pnpm run build --filter app-shell
+# RUN pnpm run build --filter app-shell
 
-COPY . .
+# COPY . .
 
-EXPOSE 3002
+# EXPOSE 3002
 
-CMD pnpm run dev --filter app-shell
+# CMD pnpm run dev --filter app-shell
 
 # FROM node:18.12
 
@@ -47,3 +47,5 @@ CMD pnpm run dev --filter app-shell
 # EXPOSE 3000 3001 3002 6006
 
 # CMD ["yarn", "dev"]
+
+FROM nginx:1.23.3

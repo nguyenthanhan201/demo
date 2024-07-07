@@ -4,15 +4,15 @@ import { get, put } from '../axios/requests';
 
 export class RatingRepository {
   async getRatingByIdAuth(idAuth: string) {
-    const res = await get<Rating[]>(`/rating/getRatingByIdAuth/${idAuth}`);
+    const res = await get<Rating[]>(`api/v1/rating/getRatingByIdAuth/${idAuth}`);
     return res;
   }
   async getRatingByIdProduct(idProduct: string) {
-    const res = await get(`/rating/getRatingByIdProduct/${idProduct}`);
+    const res = await get(`api/v1/rating/getRatingByIdProduct/${idProduct}`);
     return res;
   }
   async updateRatingById(idRating: string, rating: number, comment: string) {
-    const res = await put(`/rating/updateRatingById/${idRating}`, {
+    const res = await put(`api/v1/rating/updateRatingById/${idRating}`, {
       rating,
       comment
     });

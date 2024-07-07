@@ -4,24 +4,24 @@ import { get, post, put } from '../axios/requests';
 
 export class BrandRepository {
   async getAllBrands<T>() {
-    const res = await get<T>(`/brand/getAllBrands`);
+    const res = await get<T>(`api/v1/brand/getAllBrands`);
     return res;
   }
 
   async createBrand(data: Brand) {
-    const res = await post(`/brand/create`, data);
+    const res = await post(`api/v1/brand/create`, data);
     return res;
   }
 
   async getBrandsByUserId() {
-    const res = await get(`/brand/getBrandsByUserId`);
+    const res = await get(`api/v1/brand/getBrandsByUserId`);
     return res;
   }
 
   async updateBrand(data: { brandId: string; design: string; preview: never[] }) {
     const { brandId, design, preview } = data;
     console.log('👌  brandId:', brandId);
-    const res = await put(`/brand/updateDesign`, {
+    const res = await put(`api/v1/brand/updateDesign`, {
       brandId,
       design,
       preview
@@ -30,7 +30,7 @@ export class BrandRepository {
   }
 
   async getOneBrand(brandId: string) {
-    const res = await get<Brand>(`/brand/getOneBrand/${brandId}`);
+    const res = await get<Brand>(`api/v1/brand/getOneBrand/${brandId}`);
     return res;
   }
 }
