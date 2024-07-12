@@ -1,37 +1,27 @@
-import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter } from 'next/router';
-import { useForm } from 'react-hook-form';
 
 import Button from '@/components/shared/Button';
 import Input from '@/components/shared/Input/Input';
 import DefaultLayout from '@/layouts/default-layout/DefaultLayout';
-import { BrandServices } from '@/lib/repo/brand.repo';
-import { registerBrandSchema } from '@/lib/schema/formSchema';
 import { useAuthStore } from '@/lib/zustand/useAuthStore';
-import { Brand, ICreateBrandResponse } from '@/types/brand.type';
+import { ICreateBrandResponse } from '@/types/brand.type';
 
 const Page = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = useForm<Brand>({
-    resolver: yupResolver(registerBrandSchema),
-    defaultValues: {
-      logo: '',
-      name: ''
-    }
-  });
   const router = useRouter();
 
   const { auth } = useAuthStore(['auth']);
 
-  const formSubmit = async (data: Brand) => {
+  const formSubmit = async (e: any) => {
+    e.preventDefault();
+    const { name, logo } = e.target;
     if (!auth?._id) return;
 
     try {
+      const BrandServices = await import('@/lib/repo/brand.repo').then((res) => res.BrandServices);
+
       const newBrand: ICreateBrandResponse = await BrandServices.createBrand({
-        ...data,
+        name: name.value,
+        logo: logo.value,
         createdByUserId: auth._id
       });
 
@@ -43,22 +33,16 @@ const Page = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(formSubmit)}>
-      <Input
-        {...register('name')}
-        error={errors.name?.message}
-        label='name'
-        name='name'
-        placeholder='Tên thương hiệu'
-        type='text'
-      />
+    <form onSubmit={formSubmit}>
+      <Input label='name' name='name' placeholder='Tên thương hiệu' required type='text' />
 
       <Input
-        {...register('logo')}
-        error={errors.logo?.message}
         label='logo'
         name='logo'
-        placeholder='logo'
+        pattern='https?://.+'
+        placeholder='Nhập url logo'
+        required
+        title='Nhập đúng định dạng url'
         type='text'
       />
       <Button style={{ width: '100%', marginTop: '20px' }} type='submit'>

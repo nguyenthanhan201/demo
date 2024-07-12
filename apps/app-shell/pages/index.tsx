@@ -19,7 +19,7 @@ export async function getServerSideProps() {
     (res) => res.ProductServices
   );
 
-  const res = await Promise.all([BrandServices.getAllBrands<Brand[]>(), ProductServices.getAll()]);
+  const res = await Promise.all([BrandServices.getAll(), ProductServices.getAll()]);
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const seo = useSEO('Dịch vụ đặt sản phẩm trực tuyến và giao hàng tận nơi', {
@@ -30,7 +30,7 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      brands: res[0].code === 'SUCCESS' && res[0].data !== undefined ? res[0].data : [],
+      brands: res[0],
       products: res[1],
       seo
     }

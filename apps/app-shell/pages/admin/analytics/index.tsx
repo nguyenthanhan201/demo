@@ -170,7 +170,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
       };
     }
 
-    return res.data;
+    return res.data.metadata;
   });
 
   return {

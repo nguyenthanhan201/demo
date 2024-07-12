@@ -1,6 +1,8 @@
 import { CartItem } from '@/types/cartItem.type';
+import { Comment } from '@/types/comment.type';
 
 import { CartServices } from '../repo/cart.repo';
+import { CommentServices } from '../repo/comment.repo';
 
 export function getUniqueID(prefix: string) {
   return `${prefix}-${Math.floor(Math.random() * 1000000)}`;
@@ -62,4 +64,45 @@ export const withCSR = (next: any) => async (ctx: any) => {
 export const refetchCart = async (authId: string, CbSuccess: (cartItems: CartItem) => void) => {
   const cartItems = await CartServices.getCartItemsByIdAuth(authId);
   CbSuccess(cartItems);
+};
+
+export type CommentTree = Comment & { childComments: CommentTree[] };
+
+export function buildCommentTree(comments: Comment[]): CommentTree[] {
+  const map: any = {};
+
+  // Initialize the map with each comment
+  comments.forEach((comment) => {
+    map[comment.slug] = { ...comment, childComments: [] };
+  });
+
+  // console.log('👌  map:', map);
+
+  const roots: CommentTree[] = [];
+
+  comments.forEach((comment) => {
+    const parts = comment.slug.split('/');
+    if (parts.length === 1) {
+      // Root comment
+      roots.push(map[comment.slug]);
+    } else {
+      // Child comment
+      const parentSlug = parts.slice(0, -1).join('/');
+      // console.log('👌  parentSlug:', parentSlug);
+      if (map[parentSlug]) {
+        // console.log('👌  map[parentSlug]:', map[parentSlug]);
+        map[parentSlug].childComments.push(map[comment.slug]);
+      }
+    }
+  });
+
+  return roots;
+}
+
+export const handleFetchComments = async ({ blogId }: { blogId: string }): Promise<Comment[]> => {
+  const res = await CommentServices.getAllComments({
+    discuss_id: blogId
+  });
+
+  return res;
 };

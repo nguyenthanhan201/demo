@@ -1,14 +1,18 @@
 // eslint-disable-next-line simple-import-sort/imports
-import { Brand } from '@/types/brand.type';
+import { Brand, ICreateBrandResponse } from '@/types/brand.type';
 import { get, post, put } from '../axios/requests';
+import { CrudRepository } from './crud.repo';
 
-export class BrandRepository {
-  async getAllBrands<T>() {
-    const res = await get<T>(`api/v1/brand/getAllBrands`);
-    return res;
-  }
+export class BrandRepository extends CrudRepository<Brand> {
+  apiName = 'brand';
+  displayName = 'Brands';
 
-  async createBrand(data: Brand) {
+  // async getAllBrands<T>() {
+  //   const res = await get<T>(`api/v1/brand/getAllBrands`);
+  //   return res;
+  // }
+
+  async createBrand(data: ICreateBrandResponse) {
     const res = await post(`api/v1/brand/create`, data);
     return res;
   }

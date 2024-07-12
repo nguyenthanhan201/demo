@@ -5,22 +5,17 @@ export class LiveStreamRepository {
   async getRoomData() {
     const res = await get<LiveStream>(`api/v1/live-stream`);
 
-    if (res.code === 'SUCCESS') {
-      return res.data;
-    }
+    if (res.code === 'ERROR') throw new Error(res.error.message);
 
-    return undefined;
+    return res.data;
   }
 
   async getAllRooms() {
     const res = await get<LiveStream[]>(`api/v1/live-stream/all`);
 
-    if (res.code === 'SUCCESS') {
-      return res.data;
-    }
+    if (res.code === 'ERROR') throw new Error(res.error.message);
 
-    console.log('Error fetching all rooms', res.error);
-    return undefined;
+    return res.data;
   }
 }
 export const LiveStreamServices = new LiveStreamRepository();

@@ -19,6 +19,7 @@
   "dependencies": {
     "@mui/material": "^5.11.1",
     "@repo/icons": "workspace:*",
+    "@supabase/supabase-js": "^2.44.3",
     "axios": "^1.2.1",
     "date-fns": "^2.28.0",
     "firebase": "^9.15.0",

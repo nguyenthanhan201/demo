@@ -1,12 +1,19 @@
-import { FormControl, Select } from '@mui/material';
 import dynamic from 'next/dynamic';
-import React from 'react';
+import React, { ComponentPropsWithoutRef } from 'react';
 
 const TextEditor = dynamic(() => import('./TextEditor'), {
   ssr: false
 });
+const FormControlDynamic = dynamic(() => import('@mui/material/FormControl'), {
+  ssr: false
+});
+const SelectDynamic = dynamic(() => import('@mui/material/Select'), {
+  ssr: false
+});
 
-interface InputProps extends FormControlProps {
+interface InputProps
+  extends FormControlProps,
+    Omit<ComponentPropsWithoutRef<'input'>, 'children' | 'key'> {
   type: 'text' | 'password' | 'email' | 'number' | 'tel' | 'editor' | 'select';
   name?: string;
   label?: string;
@@ -55,11 +62,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             </label>
           ) : null}
           {type === 'select' ? (
-            <FormControl fullWidth>
-              <Select {...props} defaultValue={defaultValue} multiple={multiple}>
+            <FormControlDynamic fullWidth>
+              <SelectDynamic {...(props as any)} defaultValue={defaultValue} multiple={multiple}>
                 {children}
-              </Select>
-            </FormControl>
+              </SelectDynamic>
+            </FormControlDynamic>
           ) : type === 'editor' ? (
             <TextEditor
               onChange={onChange as any}

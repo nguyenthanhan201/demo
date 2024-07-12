@@ -89,7 +89,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           </div>
           <Button
             animate={true}
-            icon={<ShoppingCartOutlinedIcon fontSize='inherit' />}
+            icon={<ShoppingCartOutlinedIcon className='h-6' fontSize='inherit' />}
             onClick={() => setOpen(true)}
             size='sm'
           >

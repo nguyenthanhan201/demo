@@ -20,7 +20,7 @@ const JoinRoom = ({ rooms }: { rooms: LiveStream[] }) => {
         roomData = await LiveStreamServices.getRoomData();
       }
 
-      const isBroadcaster = auth ? roomData?.userId === auth?._id : false;
+      const isBroadcaster = auth ? roomData?.metadata.userId === auth?._id : false;
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_100MS_TOKEN_ENDPOINT}api/token`, {
         method: 'POST',

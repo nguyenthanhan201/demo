@@ -34,13 +34,12 @@ export class ProductRepository extends CrudRepository<Product> {
   }
 
   async getHideProducts(config?: AxiosRequestConfig<any> | undefined) {
-    const res = await get(`api/v1/product/hide`, config);
-    // console.log('👌  res:', res);
+    const res = await get<Product[]>(`api/v1/product/hide`, config);
     return res;
   }
 
   async getMostViewedProducts() {
-    const res = await get<any>(`api/v1/product/most-viewed`, {});
+    const res = await get<Product[]>(`api/v1/product/most-viewed`, {});
     return res;
   }
 

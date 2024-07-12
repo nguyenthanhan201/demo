@@ -85,30 +85,28 @@ const Page: NextPageWithLayout<{
         flex: 1,
         headerAlign: 'center',
         align: 'center',
-        renderCell: (row: any) => {
-          return (
-            <Box display='flex' justifyContent='center'>
-              <Button
-                onClick={() => {
-                  handleShowProduct(row.row._id);
-                }}
-                style={{ backgroundColor: '#70d8bd' }}
-                variant='contained'
-              >
-                Hiện
-              </Button>
-              <Button
-                onClick={() => {
-                  ProductServices.deleteProduct(row.row._id);
-                }}
-                style={{ backgroundColor: '#70d8bd' }}
-                variant='contained'
-              >
-                Xóa
-              </Button>
-            </Box>
-          );
-        }
+        renderCell: (row: any) => (
+          <Box display='flex' justifyContent='center'>
+            <Button
+              onClick={() => {
+                handleShowProduct(row.row._id);
+              }}
+              style={{ backgroundColor: '#70d8bd' }}
+              variant='contained'
+            >
+              Hiện
+            </Button>
+            <Button
+              onClick={() => {
+                ProductServices.deleteProduct(row.row._id);
+              }}
+              style={{ backgroundColor: '#70d8bd' }}
+              variant='contained'
+            >
+              Xóa
+            </Button>
+          </Box>
+        )
       }
     ];
   }, []);
@@ -189,7 +187,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
       };
     }
 
-    return res.data;
+    return res.data.metadata;
   });
 
   return {

@@ -30,7 +30,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     };
   }
 
-  const ratings = await RatingServices.getRatingByIdAuth(userData._id).then((res) => {
+  const ratings = await RatingServices.getRatingByIdAuth(userData.metadata._id).then((res) => {
     if (res.code === 'ERROR') {
       return {
         redirect: {

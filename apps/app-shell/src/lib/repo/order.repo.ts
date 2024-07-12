@@ -1,3 +1,5 @@
+import { PaymentTypes } from '@/types/order.type';
+
 import { get, post } from '../axios/requests';
 import { CrudRepository } from './crud.repo';
 
@@ -5,8 +7,12 @@ export class OrderRepository extends CrudRepository<any> {
   apiName = 'order';
   displayName = 'Order';
 
-  async createOrder(amount: number, cartItems: any) {
-    const res = await post(`api/v1/order/create_payment_url`, { amount, cartItems });
+  async createOrder(amount: number, cartItems: any, paymentType: PaymentTypes) {
+    const res = await post(`api/v1/order/payment-url`, {
+      amount,
+      cartItems,
+      paymentType
+    });
     return res;
   }
 

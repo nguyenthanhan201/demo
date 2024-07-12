@@ -23,14 +23,14 @@ function useAuth() {
         const { AuthServices } = await import('../repo/auth.repo');
         const { CartServices } = await import('../repo/cart.repo');
 
-        const userData = await AuthServices.getProfile();
+        const { metadata } = await AuthServices.getProfile();
         // console.log('👌  userData:', userData);
 
-        if (!userData) return;
+        if (!metadata) return;
 
-        const cartItems = await CartServices.getCartItemsByIdAuth(userData._id);
+        const cartItems = await CartServices.getCartItemsByIdAuth(metadata._id);
 
-        setAuth(userData);
+        setAuth(metadata);
         setCart(cartItems);
       } catch (error) {
         console.log('🚀 ~ file: useAuth.ts ~ line 57 ~ onAuthStateChanged ~ error', error);

@@ -29,7 +29,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   }
 
   const { OrderServices } = await import('@/lib/repo/order.repo');
-  const orders = await OrderServices.getOrdersByIdAuth(userData._id).then((res) => {
+  const orders = await OrderServices.getOrdersByIdAuth(userData.metadata._id).then((res) => {
     if (res.code === 'ERROR') {
       return {
         redirect: {

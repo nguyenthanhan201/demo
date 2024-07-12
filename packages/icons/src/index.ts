@@ -32,6 +32,7 @@ export * from './PodcastsOutlined';
 export * from './ReceiptLong';
 export * from './RemoveRedEyeOutlined';
 export * from './RssFeedOutlined';
+export * from './SendFilled';
 export * from './ShoppingCartOutlined';
 export * from './StarsOutlined';
 export * from './StopCircleOutlined';

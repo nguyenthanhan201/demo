@@ -7,7 +7,7 @@ export abstract class CrudRepository<T> {
   abstract displayName: string;
 
   async getAll(config?: AxiosRequestConfig): Promise<T[]> {
-    const res = await get<{ fromCache: boolean; data: T[] }>(
+    const res = await get<T[]>(
       `api/v1/${this.apiName}/getAll${this.displayName}/${this.apiName}s`,
       config
     );
@@ -17,8 +17,6 @@ export abstract class CrudRepository<T> {
       throw new Error(res.error.message);
     }
 
-    if (res.data.fromCache) return res.data.data;
-
-    return res.data as any;
+    return res.data.metadata;
   }
 }

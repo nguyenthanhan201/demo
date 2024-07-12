@@ -5,6 +5,7 @@ import { LiveTv as LiveTvIcon } from '@repo/icons/src/LiveTv';
 import { LocalMallOutlined as LocalMallOutlinedIcon } from '@repo/icons/src/LocalMallOutlined';
 import { Login as LoginIcon } from '@repo/icons/src/Login';
 import { Menu as MenuIcon } from '@repo/icons/src/Menu';
+import { RssFeedOutlined } from '@repo/icons/src/RssFeedOutlined';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -40,7 +41,9 @@ const DefaultHeader = () => {
     );
     const { signOut } = await import('firebase/auth');
     const AuthServices = await import('@/lib/repo/auth.repo').then((res) => res.AuthServices);
-    const removeCookie = await import('@/lib/hooks/useCookie').then((res) => res.removeCookie);
+    const { removeAccessTokenFromCookie, removeRefreshTokenFromCookie } = await import(
+      '@/lib/helpers/auth'
+    );
 
     // const promise1 = await signOut(authentication);
     const promise2 = await AuthServices.logout(auth.email);
@@ -48,8 +51,8 @@ const DefaultHeader = () => {
     await Promise.all([promise2])
       .then(async () => {
         await signOut(authentication);
-        removeCookie('token');
-        removeCookie('refreshToken');
+        removeAccessTokenFromCookie();
+        removeRefreshTokenFromCookie();
         setAuth(null);
         setCart({} as CartItem);
         router.push('/');
@@ -72,7 +75,7 @@ const DefaultHeader = () => {
       const roomData = await LiveStreamServices.getRoomData();
       return router.push({
         pathname: '/live-stream/[roomId]',
-        query: { roomId: roomData?.roomId }
+        query: { roomId: roomData.metadata._id }
       });
     }
 
@@ -137,13 +140,13 @@ const DefaultHeader = () => {
                 </div>
               </Tooltip>
             </div>
-            {/* <div className='header_menu_item header_menu_right_item'>
+            <div className='header_menu_item header_menu_right_item'>
               <Tooltip title='Bài post'>
-                <Link href='/post' prefetch={false}>
-                  <RssFeedOutlinedIcon />
+                <Link href='/blog' prefetch={false}>
+                  <RssFeedOutlined />
                 </Link>
               </Tooltip>
-            </div> */}
+            </div>
             <div className='header_menu_item header_menu_right_item'>
               <Tooltip title='Giỏ hàng'>
                 <Link href='/cart' prefetch={false}>

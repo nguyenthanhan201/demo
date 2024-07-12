@@ -29,7 +29,9 @@
       "@/lib/*": ["lib/*"],
       "@/longProcesses/*": ["longProcesses/*"],
       "@/utils/*": ["utils/*"],
-      "@/types/*": ["types/*"]
+      "@/types/*": ["types/*"],
+      "@/constants/*": ["constants/*"],
+      "@/configs/*": ["configs/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.d.ts", "src/@types/*"],

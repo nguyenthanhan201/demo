@@ -12,8 +12,4 @@ export interface ICreateBrandResponse {
   name: string;
   createdByUserId: string;
   logo: string;
-  _id: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
 }

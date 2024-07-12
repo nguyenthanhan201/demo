@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { GetServerSidePropsContext } from 'next';
 
-import { BaseResponse, CustomAxiosError } from '@/types/utils.type';
+import { BaseResponse, BaseResponseBE, CustomAxiosError } from '@/types/utils.type';
 
 import { isAxiosExpiredTokenError, isEmpty, isServer } from '../helpers/assertion';
 import {
@@ -167,7 +167,7 @@ const http = new Http().instance;
 export const get = async <V, E = AxiosError>(
   path: string,
   config?: AxiosRequestConfig
-): BaseResponse<V, E> => {
+): BaseResponse<BaseResponseBE<V>, E> => {
   try {
     const response = await http.get(path, config);
     return {

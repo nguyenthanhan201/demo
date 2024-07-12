@@ -8,8 +8,14 @@ export class AuthRepository {
     return res;
   }
 
-  async login(email: string, name: string) {
-    const res = await post(`api/v1/auth/login`, { email, name });
+  async login({
+    providerToken,
+    providerType
+  }: {
+    providerToken: string;
+    providerType: 'firebase' | 'supabase';
+  }) {
+    const res = await post(`api/v1/auth/login`, { providerToken, providerType });
     return res;
   }
 
@@ -33,11 +39,11 @@ export class AuthRepository {
   async getProfile() {
     const res = await get<Auth>(`api/v1/auth/profile`);
 
-    if (res.code === 'SUCCESS') {
-      return res.data;
+    if (res.code === 'ERROR') {
+      throw new Error(res.error.message);
     }
 
-    return null;
+    return res.data;
   }
 }
 export const AuthServices = new AuthRepository();

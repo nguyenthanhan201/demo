@@ -38,3 +38,6 @@ export const isServer = () => typeof window === 'undefined';
 
 export const isAxiosExpiredTokenError = (error: CustomAxiosError) =>
   error.response?.data?.message === 'EXPIRED_TOKEN';
+
+export const isAxiosRevokedTokenError = (error: CustomAxiosError) =>
+  error.response?.data?.message === 'Token revoked';

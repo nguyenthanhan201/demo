@@ -18,3 +18,9 @@ export type NoUndefinedField<T> = {
 };
 
 export type CustomAxiosError = AxiosError<{ message: string }>;
+
+export type BaseResponseBE<T> = {
+  message: string;
+  statusCode: number;
+  metadata: T;
+};

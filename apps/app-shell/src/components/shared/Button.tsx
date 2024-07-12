@@ -19,7 +19,7 @@ const Button = (props: ButtonProps) => {
   return (
     <button
       {...restProps}
-      className={`btn ${bg} ${size} ${_animate} ${className}`}
+      className={`btn ${bg} ${size} ${_animate} ${className} disabled:bg-slate-500 disabled:cursor-not-allowed`}
       onClick={props.onClick ? props.onClick : undefined}
       // eslint-disable-next-line react/button-has-type
       type={type}

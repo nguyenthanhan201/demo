@@ -1,8 +1,8 @@
-import VNPayReturnPage from '@/components/index/order/vnpay_return/VNPayReturn';
+import PaymentUrlReturnPage from '@/components/index/payment-url-return/PaymentUrlReturnPage';
 import DefaultLayout from '@/layouts/default-layout/DefaultLayout';
 
 const Page = () => {
-  return <VNPayReturnPage />;
+  return <PaymentUrlReturnPage />;
 };
 
 export default Page;

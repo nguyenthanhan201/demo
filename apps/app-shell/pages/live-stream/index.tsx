@@ -34,7 +34,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const rooms = await LiveStreamServices.getAllRooms();
   return {
     props: {
-      rooms
+      rooms: rooms.metadata || []
     }
   };
 }

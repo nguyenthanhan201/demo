@@ -1,19 +1,23 @@
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
-import Button from '@/components/shared/Button';
+import { TEST_PAYMENT_LINKS } from '@/constants/index';
 import { getSalePrice, numberWithCommans } from '@/lib/helpers/numbers';
 import { useToast } from '@/lib/providers/toast-provider';
 import { useCartStore } from '@/lib/zustand/useCartStore';
 import { CartItem as CartItemType } from '@/types/cartItem.type';
+import { PaymentTypes } from '@/types/order.type';
+
+import SelectPayment from './components/SelectPayment';
 
 const DynamicCartItem = dynamic(() => import('@/components/index/cart/components/CartItem'));
 
 const CartPage = () => {
   const toast = useToast();
-  // const cartItems = useAppSelector((state) => state.cartItems.value);
   const { cart } = useCartStore(['cart']);
+  const [paymentMethod, setPaymentMethod] = useState<PaymentTypes>('vnpay');
+
   const filteredCartItems = useMemo(() => {
     if (!cart) return [];
 
@@ -46,10 +50,11 @@ const CartPage = () => {
   const handleCreateOrder = async () => {
     const OrderServices = await import('@/lib/repo/order.repo').then((res) => res.OrderServices);
 
-    if (filteredCartItems && filteredCartItems.length === 0)
-      return toast.error('Giỏ hàng trống', { autoClose: 300 });
-    return OrderServices.createOrder(totalPrice, cart)
-      .then((res) => (window.location.href = res.data))
+    return OrderServices.createOrder(totalPrice, cart, paymentMethod)
+      .then((res) => {
+        console.log('👌  res:', res);
+        window.location.href = res.data;
+      })
       .catch((err) => {
         toast.error(err.response.data.message);
       });
@@ -69,39 +74,36 @@ const CartPage = () => {
           </div>
         </div>
         <div className='cart_info_btn'>
-          <Button onClick={handleCreateOrder} size='block'>
-            đặt hàng
-          </Button>
-          <Link href='/'>
-            <Button size='block'>tiếp tục mua hàng</Button>
-          </Link>
+          <SelectPayment
+            btnOrderProps={{
+              onClick: handleCreateOrder,
+              disabled: filteredCartItems.length === 0
+            }}
+            setValue={setPaymentMethod}
+            value={paymentMethod}
+          />
         </div>
       </div>
       <div className='cart_list'>
         {cart
-          ? Object.values(cart).map((item, index) => {
-              // console.log("👌 ~ item", item);
-              return (
-                <DynamicCartItem
-                  color={item[0].color}
-                  key={index}
-                  product={item[0].idProduct}
-                  quantity={item[0].quantity}
-                  size={item[0].size}
-                />
-              );
-            })
+          ? Object.values(cart).map((item, index) => (
+              <DynamicCartItem
+                color={item[0].color}
+                key={index}
+                product={item[0].idProduct}
+                quantity={item[0].quantity}
+                size={item[0].size}
+              />
+            ))
           : null}
-        <p className='text-red-500'>
-          Lưu ý: vào link sau để lấy thông tin thanh toán&nbsp;
-          <Link
-            className='text-blue-500'
-            href='https://sandbox.vnpayment.vn/apis/vnpay-demo/'
-            target='_blank'
-          >
-            https://sandbox.vnpayment.vn/apis/vnpay-demo/
-          </Link>
-        </p>
+        {TEST_PAYMENT_LINKS.map((item: any, index: number) => (
+          <p className='text-red-500' key={index}>
+            Lưu ý: vào link sau để lấy thông tin thanh toán {item.title}&nbsp;
+            <Link className='text-blue-500' href={item.link} target='_blank'>
+              {item.link} {item.note}
+            </Link>
+          </p>
+        ))}
       </div>
     </div>
   );
