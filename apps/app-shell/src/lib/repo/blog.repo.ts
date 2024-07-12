@@ -13,9 +13,7 @@ export class BlogRepository extends CrudRepository<any> {
   // }
 
   async getBlogs() {
-    const res = await get<Blog[]>(`blog/v1`, {
-      baseURL: 'http://localhost:8082/'
-    });
+    const res = await get<Blog[]>(`blog/v1`);
 
     if (res.code === 'ERROR') {
       throw res.error;
@@ -25,9 +23,7 @@ export class BlogRepository extends CrudRepository<any> {
   }
 
   async getDetailBlog(id: string) {
-    const res = await get<Blog>(`blog/v1/${id}`, {
-      baseURL: 'http://localhost:8082/'
-    });
+    const res = await get<Blog>(`blog/v1/${id}`);
 
     if (res.code === 'ERROR') {
       throw res.error;
