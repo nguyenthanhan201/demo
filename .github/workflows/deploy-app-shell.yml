@@ -5,7 +5,8 @@ env:
 on:
   push:
     branches:
-      - main
+      # - main
+      - '*'
     paths:
       - 'apps/app-shell/**'
 jobs:

@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import * as https from 'https';
 import { GetServerSidePropsContext } from 'next';
 
 import { BaseResponse, BaseResponseBE, CustomAxiosError } from '@/types/utils.type';
@@ -34,6 +35,9 @@ class Http {
     //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGIyNmI1MDE4YzYwZjMyNjdjMzk3MTgiLCJlbWFpbCI6ImZ4YW5uZ3V5ZW4yMDFAZ21haWwuY29tIiwibmFtZSI6InRow6BuaCBhbiBuZ3V54buFbiIsImNyZWF0ZWRBdCI6IjIwMjMtMDctMTVUMDk6NDg6MDAuMTkzWiIsInVwZGF0ZWRBdCI6IjIwMjMtMDctMTVUMDk6NDg6MDAuMTkzWiIsIl9fdiI6MCwicmVmZXNoVG9rZW4iOiIiLCJpYXQiOjE3MTE0MzkxMzIsImV4cCI6MTcxMTQzOTE0Mn0.xCae6UXrsnPB8EMU-MkC6fBJbrzS_8jYQtJeGxLRICw';
     this.refreshTokenRequest = null;
     this.instance = axios.create({
+      httpsAgent: new https.Agent({
+        rejectUnauthorized: false
+      }),
       baseURL: process.env.NEXT_PUBLIC_BE,
       withCredentials: true,
       timeout: 60000, // 60s
