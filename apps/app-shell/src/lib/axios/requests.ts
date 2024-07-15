@@ -42,8 +42,7 @@ class Http {
       withCredentials: true,
       timeout: 60000, // 60s
       headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': 'http://localhost:3000'
+        'Content-Type': 'application/json'
       }
     });
 
