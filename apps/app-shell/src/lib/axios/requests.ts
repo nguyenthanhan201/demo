@@ -42,7 +42,8 @@ class Http {
       withCredentials: true,
       timeout: 60000, // 60s
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
       }
     });
 
