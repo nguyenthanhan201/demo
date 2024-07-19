@@ -40,7 +40,7 @@ const LoginPage = () => {
     await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: 'http://localhost:3002/return-url/supabase/'
+        redirectTo: `${window.location.origin}/return-url/supabase/`
       }
     });
   };
