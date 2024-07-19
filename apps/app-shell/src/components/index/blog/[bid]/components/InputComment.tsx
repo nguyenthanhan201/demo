@@ -29,7 +29,7 @@ const InputComment = (props: InputCommentProps) => {
       discuss_id: blogId,
       text: commentValue,
       parent_slug: comment?.slug || '',
-      slug: comment?.slug || generateRandom8DigitNumber().toString(),
+      slug: generateRandom8DigitNumber().toString(),
       author: auth?.name || 'anonymous'
     }).then(() => {
       setCommentValue('');
