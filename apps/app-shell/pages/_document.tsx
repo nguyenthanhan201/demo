@@ -20,7 +20,6 @@ export default class MyDocument extends Document {
             name="facebook-domain-verification"
             content="royonyss9hk9g42foa16ribx3weler"
           /> */}
-          <meta content='upgrade-insecure-requests' http-equiv='Content-Security-Policy' />
         </Head>
         <body>
           <Main />
