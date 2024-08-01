@@ -18,9 +18,10 @@ Note: microfrontends run in the following address:
 - nextjs-module-livestream: localhost:3001
 - vue-app: localhost:3003
 
-## Todos
+## Documents
 
 - [Todos](./docs/todo.md)
+- [Env](./docs/env.md)
 
 ## Command check unsed dependencies
 
