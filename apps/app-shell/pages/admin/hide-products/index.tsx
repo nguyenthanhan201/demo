@@ -19,6 +19,7 @@ const DataGrid = dynamic(() => import('nextjs-module-admin/DataGrid'));
 const Page: NextPageWithLayout<{
   hideProducts: Array<Product>;
 }> = ({ hideProducts }) => {
+  console.log('👌  hideProducts:', hideProducts);
   const toast = useToast();
 
   const columns: GridColumns<Product> = useMemo(() => {
@@ -189,6 +190,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 
     return res.data.metadata;
   });
+  console.log('👌  hideProducts:', hideProducts);
 
   return {
     props: {

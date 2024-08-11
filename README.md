@@ -22,6 +22,7 @@ Note: microfrontends run in the following address:
 
 - [Todos](./docs/todo.md)
 - [Env](./docs/env.md)
+- [Testing](./docs/testing.md)
 
 ## Command check unsed dependencies
 

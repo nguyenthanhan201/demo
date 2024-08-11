@@ -2,15 +2,40 @@ import { AxiosRequestConfig } from 'axios';
 
 import { get } from '../axios/requests';
 
+enum SortOrder {
+  ASC = 'ASC',
+  DESC = 'DESC'
+}
+
+type BaseResponseList<T> = {
+  data: T[];
+  page: number;
+  pageSize: number;
+  totalPages: number;
+  total: number;
+};
+
+type GenericFilter = {
+  page: number;
+
+  pageSize: number;
+
+  orderBy?: string;
+
+  sortOrder?: SortOrder;
+};
+
 export abstract class CrudRepository<T> {
   abstract apiName: string;
   abstract displayName: string;
 
-  async getAll(config?: AxiosRequestConfig): Promise<T[]> {
-    const res = await get<T[]>(
-      `api/v1/${this.apiName}/getAll${this.displayName}/${this.apiName}s`,
-      config
-    );
+  async getAll(filter?: GenericFilter, config?: AxiosRequestConfig): Promise<BaseResponseList<T>> {
+    const res = await get<BaseResponseList<T>>(`api/v1/${this.apiName}`, {
+      params: {
+        ...filter
+      },
+      ...config
+    });
 
     if (res.code === 'ERROR') {
       console.log(`Lấy danh sách ${this.apiName} thất  bại.`);

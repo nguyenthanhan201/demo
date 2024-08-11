@@ -34,14 +34,12 @@ const InfiniteScroll = forwardRef<InfiniteScrollRef, InfinityListProps>(function
   );
 
   const loadMoreItems = useCallback(() => {
-    if (!hasMore || isLoading) {
+    if (isLoading || !hasMore) return;
+
+    setIsLoading(true);
+    next().finally(() => {
       setIsLoading(false);
-    } else {
-      setIsLoading(true);
-      next().then(() => {
-        setIsLoading(false);
-      });
-    }
+    });
   }, [hasMore, isLoading, next]);
 
   useEffect(() => {

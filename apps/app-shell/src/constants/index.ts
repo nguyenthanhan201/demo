@@ -18,4 +18,9 @@ const TEST_PAYMENT_LINKS: {
   }
 ];
 
-export { TEST_PAYMENT_LINKS };
+const UNLIMITED_PAGE_SIZE = {
+  page: 1,
+  pageSize: 99999999
+};
+
+export { TEST_PAYMENT_LINKS, UNLIMITED_PAGE_SIZE };

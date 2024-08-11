@@ -19,7 +19,14 @@ const DataGrid = (props: DataGridProps) => {
       checkboxSelection={checkboxSelection}
       columns={columns}
       getRowId={(row) => row._id}
+      initialState={{
+        pagination: {
+          page: 0,
+          pageSize: 5
+        }
+      }}
       rows={rows}
+      rowsPerPageOptions={[5, 10]}
     />
   );
 };

@@ -6,12 +6,6 @@ const federationConfig = require('./src/configs/federationConfig');
 const million = require('million/compiler');
 // const CompressionPlugin = require('compression-webpack-plugin');
 
-const env = process.env.NODE_ENV || 'development';
-const isProd = env === 'production';
-const beUrl = isProd
-  ? process.env.NEXT_PUBLIC_BE
-  : process.env.NEXT_PUBLIC_BE.replace('localhost', 'api');
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   compress: true,
@@ -91,7 +85,7 @@ const nextConfig = {
    * @returns {import('webpack').Configuration}
    */
   webpack(config, options) {
-    const { isServer, dev } = options;
+    const { isServer } = options;
 
     // config.optimization.sideEffects = true;
 
@@ -101,7 +95,6 @@ const nextConfig = {
     // };
 
     config.plugins.push(new NextFederationPlugin(federationConfig(isServer)));
-
     if (!isServer) {
       config.plugins.push(
         new FederatedTypesPlugin({

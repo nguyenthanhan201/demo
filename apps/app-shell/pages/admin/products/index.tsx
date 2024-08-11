@@ -6,6 +6,7 @@ import DataGrid, { GridColumns } from 'nextjs-module-admin/DataGrid';
 import { useState } from 'react';
 
 import Header from '@/components/index/admin/components/Header';
+import { UNLIMITED_PAGE_SIZE } from '@/constants/index';
 import AdminLayout from '@/layouts/admin-layout/AdminLayout';
 import { setContext } from '@/lib/axios/requests';
 import { useToast } from '@/lib/providers/toast-provider';
@@ -215,11 +216,11 @@ Page.Layout = AdminLayout;
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   setContext(ctx);
 
-  const products = await ProductServices.getAll();
+  const products = await ProductServices.getAll(UNLIMITED_PAGE_SIZE);
 
   return {
     props: {
-      products
+      products: products.data
     }
   };
 }
