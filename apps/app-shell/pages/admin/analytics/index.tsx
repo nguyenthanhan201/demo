@@ -15,7 +15,7 @@ import { useState } from 'react';
 
 import Header from '@/components/index/admin/components/Header';
 import AdminLayout from '@/layouts/admin-layout/AdminLayout';
-import { setContext } from '@/lib/axios/requests';
+import { setContext } from '@/lib/axios/http';
 import { ProductServices } from '@/lib/repo/product.repo';
 import { NextPageWithLayout } from '@/types/index';
 import { Product } from '@/types/product.type';

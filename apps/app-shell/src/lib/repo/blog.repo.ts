@@ -1,6 +1,6 @@
 import { Blog } from '@/types/blog.type';
 
-import { get } from '../axios/requests';
+import { get } from '../axios/http';
 import { CrudRepository } from './crud.repo';
 
 export class BlogRepository extends CrudRepository<any> {

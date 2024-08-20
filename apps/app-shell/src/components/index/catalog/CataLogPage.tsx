@@ -2,6 +2,7 @@ import { memo, useEffect, useState } from 'react';
 
 import Grid from '@/components/shared/Grid';
 import ProductCard from '@/components/shared/ProductCard';
+import { Product } from '@/types/product.type';
 import { productData } from '@/utils/index';
 
 import CatalogFilter from './components/CatalogFilter';
@@ -66,8 +67,8 @@ const CatalogPage = () => {
   //   }
   // );
 
-  const [productList, _setProductList] = useState<Array<any>>(productData.getAllProducts());
-  const [_products, setProducts] = useState<Array<any>>([]);
+  const [productList] = useState<Array<Product>>(productData.getAllProducts() as Product[]);
+  const [products, setProducts] = useState<Array<Product>>([]);
   const [filter, setFilter] = useState<FilterType>(initFilter);
   // const listRef = useRef(null);
 
@@ -122,14 +123,14 @@ const CatalogPage = () => {
     <div className='catalog'>
       <CatalogFilter filter={filter} setFilter={setFilter} />
       <div className='catalog_content'>
-        <Grid col={3} gap={20} mdCol={2} smCol={1}>
+        <Grid col={3} gap={20} id='catalog-list-products' mdCol={2} smCol={1}>
           {/* {rowVirtualizer.virtualItems.map((virtualRow: any) => (
                   <div key={virtualRow.index} ref={rowVirtualizer.measure}>
                     <ProductCard product={products[virtualRow.index]} />
                   </div>
                 ))} */}
-          {productList.map((product) => (
-            <ProductCard key={product._id} product={product} />
+          {products.map((product, index) => (
+            <ProductCard key={index} product={product} />
           ))}
         </Grid>
       </div>

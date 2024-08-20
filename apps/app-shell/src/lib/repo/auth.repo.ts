@@ -1,6 +1,6 @@
 import { Auth } from '@/types/auth.type';
 
-import { get, post } from '../axios/requests';
+import { get, post } from '../axios/http';
 
 export class AuthRepository {
   async getUserByEmail(name: string, email: string) {

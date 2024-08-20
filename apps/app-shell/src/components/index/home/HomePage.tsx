@@ -43,6 +43,7 @@ const HomePage = ({ brands }: { brands: Brand[] }) => {
       setPage((prev) => prev + 1);
     } catch (error) {
       console.log(error);
+      setHasNextPage(false);
     }
   };
 
@@ -52,7 +53,7 @@ const HomePage = ({ brands }: { brands: Brand[] }) => {
       <Section>
         <SectionTitle>các thương hiệu hợp tác</SectionTitle>
         <SectionBody>
-          <Grid col={6} gap={20} mdCol={2} smCol={1}>
+          <Grid col={6} gap={20} id='list-brands' mdCol={2} smCol={1}>
             {brands.map((item) => {
               return (
                 <Link href={`brand/${item._id}`} key={item._id} prefetch={false}>

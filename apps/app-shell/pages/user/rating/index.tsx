@@ -16,7 +16,7 @@ export default Page;
 Page.Layout = UserPlayout;
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-  const { setContext } = await import('@/lib/axios/requests');
+  const { setContext } = await import('@/lib/axios/http');
   setContext(ctx);
 
   const { AuthServices } = await import('@/lib/repo/auth.repo');

@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
+import { ComponentPropsWithoutRef, ReactNode } from 'react';
 
-type GridProps = {
+type GridProps = ComponentPropsWithoutRef<'div'> & {
   children: ReactNode;
   col: number;
   mdCol?: number;
@@ -9,7 +9,7 @@ type GridProps = {
 };
 
 const Grid = (props: GridProps) => {
-  const { children, gap, col, mdCol, smCol } = props;
+  const { children, gap, col, mdCol, smCol, ...restProps } = props;
 
   const style = {
     gap: gap ? `${gap}px` : '0'
@@ -20,7 +20,7 @@ const Grid = (props: GridProps) => {
   const finalSmCol = col ? `grid-col-sm-${smCol}` : '';
 
   return (
-    <div className={`grid ${finalCol} ${finalMdCol} ${finalSmCol}`} style={style}>
+    <div {...restProps} className={`grid ${finalCol} ${finalMdCol} ${finalSmCol}`} style={style}>
       {children}
     </div>
   );

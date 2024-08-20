@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Button from '@/components/shared/Button';
 import Img from '@/components/shared/Img/Img';
 import UserPlayout from '@/layouts/user-layout/UserPlayout';
-import { setContext } from '@/lib/axios/requests';
+import { setContext } from '@/lib/axios/http';
 import { BrandServices } from '@/lib/repo/brand.repo';
 import { Brand } from '@/types/brand.type';
 import { NextPageWithLayout } from '@/types/index';

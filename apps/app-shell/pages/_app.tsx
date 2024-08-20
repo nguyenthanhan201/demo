@@ -14,12 +14,20 @@ const roboto = Roboto({
   subsets: ['vietnamese']
 });
 
+if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
+  // require('../mocks');
+  import('../msw').then(async ({ initMocks }) => {
+    initMocks();
+  });
+}
+
 const MyApp = ({ Component, pageProps }: any) => {
   useTheme();
   useAuth();
   const Layout = Component.Layout ? Component.Layout : Fragment;
   const layoutProps = Component.LayoutProps ? Component.LayoutProps : {};
   const { online } = useNetwork();
+
   // const [queryClient] = useState(() => new QueryClient(queryConfig));
 
   // const channel = new BroadcastChannel('notifications');

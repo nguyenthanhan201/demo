@@ -1,6 +1,6 @@
 // eslint-disable-next-line simple-import-sort/imports
 import { Brand, ICreateBrandResponse } from '@/types/brand.type';
-import { get, post, put } from '../axios/requests';
+import { get, post, put } from '../axios/http';
 import { CrudRepository } from './crud.repo';
 
 export class BrandRepository extends CrudRepository<Brand> {

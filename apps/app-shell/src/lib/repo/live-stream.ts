@@ -1,5 +1,5 @@
 import { LiveStream } from '../../types/liveStream.type';
-import { get } from '../axios/requests';
+import { get } from '../axios/http';
 
 export class LiveStreamRepository {
   async getRoomData() {

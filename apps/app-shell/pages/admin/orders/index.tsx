@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import Header from '@/components/index/admin/components/Header';
 import Img from '@/components/shared/Img/Img';
 import AdminLayout from '@/layouts/admin-layout/AdminLayout';
-import { setContext } from '@/lib/axios/requests';
+import { setContext } from '@/lib/axios/http';
 import { getSalePrice, numberWithCommans } from '@/lib/helpers/numbers';
 import { formatDate } from '@/lib/helpers/time';
 import { OrderServices } from '@/lib/repo/order.repo';

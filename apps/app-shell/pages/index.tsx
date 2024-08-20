@@ -29,6 +29,7 @@ export async function getServerSideProps() {
   return {
     props: {
       brands: res[0].data,
+      // brands: [],
       // products: res[1].data,
       seo
     }

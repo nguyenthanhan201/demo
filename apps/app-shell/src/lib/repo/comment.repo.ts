@@ -1,6 +1,6 @@
 import { Comment } from '@/types/comment.type';
 
-import { post } from '../axios/requests';
+import { post } from '../axios/http';
 import { CrudRepository } from './crud.repo';
 
 export class CommentRepository extends CrudRepository<Comment> {

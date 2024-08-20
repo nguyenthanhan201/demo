@@ -7,7 +7,7 @@ import { useMemo } from 'react';
 
 import Header from '@/components/index/admin/components/Header';
 import AdminLayout from '@/layouts/admin-layout/AdminLayout';
-import { setContext } from '@/lib/axios/requests';
+import { setContext } from '@/lib/axios/http';
 import { useToast } from '@/lib/providers/toast-provider';
 import { ProductServices } from '@/lib/repo/product.repo';
 import { colors } from '@/lib/theme/theme';

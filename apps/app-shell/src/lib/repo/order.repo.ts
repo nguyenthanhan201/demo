@@ -1,6 +1,6 @@
 import { PaymentTypes } from '@/types/order.type';
 
-import { get, post } from '../axios/requests';
+import { get, post } from '../axios/http';
 import { CrudRepository } from './crud.repo';
 
 export class OrderRepository extends CrudRepository<any> {

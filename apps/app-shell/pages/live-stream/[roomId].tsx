@@ -3,7 +3,7 @@ import { HMSRoomProvider } from 'nextjs-module-livestream/100mslive';
 
 import LiveStreamPage from '@/components/index/livestream/LiveStreamPage';
 import DefaultLayout from '@/layouts/default-layout/DefaultLayout';
-import { setContext } from '@/lib/axios/requests';
+import { setContext } from '@/lib/axios/http';
 import { LiveStreamServices } from '@/lib/repo/live-stream';
 import { NextPageWithLayout } from '@/types/index';
 import { LiveStream } from '@/types/liveStream.type';

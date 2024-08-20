@@ -1,7 +1,7 @@
 import { AxiosRequestConfig } from 'axios';
 
 import { Product } from '../../types/product.type';
-import { deleteReq, get, post, put } from '../axios/requests';
+import { deleteReq, get, post, put } from '../axios/http';
 import { CrudRepository } from './crud.repo';
 
 export class ProductRepository extends CrudRepository<Product> {

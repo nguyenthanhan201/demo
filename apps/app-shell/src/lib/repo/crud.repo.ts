@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
 
-import { get } from '../axios/requests';
+import { get } from '../axios/http';
 
 enum SortOrder {
   ASC = 'ASC',
@@ -36,6 +36,7 @@ export abstract class CrudRepository<T> {
       },
       ...config
     });
+    console.log('👌  res:', res);
 
     if (res.code === 'ERROR') {
       console.log(`Lấy danh sách ${this.apiName} thất  bại.`);
