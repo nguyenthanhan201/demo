@@ -810,7 +810,7 @@ const products2 = [
 
 const getAllProducts = () => products;
 
-const getProducts = (count) => {
+const getProducts = (count: number) => {
   const max = products.length - count;
   const min = 0;
   const start = Math.floor(Math.random() * (max - min) + min);
@@ -820,12 +820,12 @@ const getProducts = (count) => {
 //? Mix 2 Arrays
 const productsAll = products.concat(products2);
 
-const getProductBySlug = (slug) => productsAll.find((e) => e.slug === slug);
+const getProductBySlug = (slug: string) => productsAll.find((e) => e.slug === slug);
 
-const getCartItemsDetail = (cartItems) => {
-  let res = [];
+const getCartItemsDetail = (cartItems: any) => {
+  const res: any = [];
   if (cartItems.length > 0) {
-    cartItems.forEach((e) => {
+    cartItems.forEach((e: any) => {
       let product = getProductBySlug(e.slug);
       res.push({
         ...e,
@@ -836,7 +836,7 @@ const getCartItemsDetail = (cartItems) => {
   // console.log(res)
   // console.log('sorted')
   // console.log(res.sort((a, b) => a.slug > b.slug ? 1 : (a.slug < b.slug ? -1 : 0)))
-  return res.sort((a, b) => (a.id > b.id ? 1 : a.id < b.id ? -1 : 0));
+  return res.sort((a: any, b: any) => (a.id > b.id ? 1 : a.id < b.id ? -1 : 0));
 };
 
 const productData = {
