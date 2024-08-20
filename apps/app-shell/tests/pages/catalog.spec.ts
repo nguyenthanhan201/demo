@@ -23,13 +23,13 @@ test.describe('Product Page', () => {
     expect(childs).toBeGreaterThan(0);
   });
 
-  // test('should have filter', async ({ page }) => {
-  //   const checkbox = page.locator('.custom-checkbox').nth(0);
-  //   const realCheckbox = page.locator('.custom-checkbox input').nth(0);
-  //   console.log('👌  realCheckbox:', realCheckbox);
+  test('should have filter', async ({ page }) => {
+    const checkbox = page.locator('.custom-checkbox').nth(0);
+    const realCheckbox = page.locator('.custom-checkbox input').nth(0);
+    console.log('👌  realCheckbox:', realCheckbox);
 
-  //   await checkbox.check();
+    await checkbox.check();
 
-  //   await expect(realCheckbox).toBeChecked();
-  // });
+    await expect(realCheckbox).toBeChecked();
+  });
 });
