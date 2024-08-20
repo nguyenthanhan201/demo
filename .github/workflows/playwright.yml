@@ -8,6 +8,7 @@ on:
 env:
   NEXT_PRIVATE_LOCAL_WEBPACK: true
   NEXT_PUBLIC_API_MOCKING: enabled
+  NEXT_PUBLIC_BE: http://localhost:8080/
 
 jobs:
   test:
