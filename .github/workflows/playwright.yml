@@ -4,6 +4,10 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
+
+env:
+  NEXT_PRIVATE_LOCAL_WEBPACK: true
+
 jobs:
   test:
     timeout-minutes: 60
