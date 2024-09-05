@@ -88,11 +88,11 @@
     "contentType": "application/javascript; charset=utf-8"
   },
   "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js": {
-    "integrity": "sha512-KakHaWvNgg3Mo/LptevcdwXzAmSFCFHrsvRUIRbUb++of57rXmIPQiAmpEeqaEdvhVk0ljxT2FpQk+wvP+j5LQ==",
+    "integrity": "sha512-FqsC2yDVt3jLWk7ncd20ENAtb5fpt/BPDakLZsUtH3c00PV68M4/2t33r3em2s0joZKdjHTyiZdaMbnzgl2G7Q==",
     "contentType": "text/javascript; charset=UTF-8"
   },
   "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js": {
-    "integrity": "sha512-1cAHU7vA6ZcYGhTclr+PTjxEpdSDAmmtV9tzQJ1sntEiBVGYXItXBfZX29cFSbXzyKzPsRIx1FtgzRhAFu4hxg==",
+    "integrity": "sha512-ynLVyGpcd9XZs8X/4+IBt9FiReqZwis3ODXvYG3ItfNKo8yLcdUDFd4wF99uH6y/cxjP2As7rC/4xtipYxTRgQ==",
     "contentType": "text/javascript; charset=UTF-8"
   },
   "version": 1

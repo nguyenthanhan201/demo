@@ -1,6 +1,11 @@
 // Import the functions you need from the SDKs you need
-// import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js';
-// import { getAuth } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js';
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut
+} from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
 // import { getMessaging } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-messaging.js';
 // import { getStorage } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js';
 // TODO: Add SDKs for Firebase products that you want to use
@@ -19,13 +24,13 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-// const firebaseApp = initializeApp(firebaseConfig);
+const firebaseApp = initializeApp(firebaseConfig);
 
 // firebase storage
 // const storage = getStorage(firebaseApp);
 
 // firebase auth
-// const authentication = getAuth(firebaseApp);
+const authentication = getAuth(firebaseApp);
 
 // export const getMessagingToken = async () => {
 //   const messaging = getMessaging(firebaseApp);
@@ -68,31 +73,10 @@ const firebaseConfig = {
 // export { authentication };
 
 const logoutWithGoogle = async () => {
-  const { initializeApp } = await import(
-    'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js'
-  );
-  const { getAuth } = await import('https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js');
-  const { signOut } = await import('https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js');
-
-  const firebaseApp = initializeApp(firebaseConfig);
-
-  const authentication = getAuth(firebaseApp);
-
   return signOut(authentication);
 };
 
 const loginWithGoogle = async () => {
-  const { initializeApp } = await import(
-    'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js'
-  );
-  const { getAuth } = await import('https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js');
-  const { signInWithPopup, GoogleAuthProvider } = await import(
-    'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js'
-  );
-  const firebaseApp = initializeApp(firebaseConfig);
-
-  const authentication = getAuth(firebaseApp);
-
   return signInWithPopup(authentication, new GoogleAuthProvider());
 };
 
