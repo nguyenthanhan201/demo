@@ -1,0 +1,8 @@
+/**
+ * Bundled by jsDelivr using Rollup v2.79.1 and Terser v5.19.2.
+ * Original file: /npm/@swc/helpers@0.5.5/esm/_interop_require_wildcard.js
+ *
+ * Do NOT use SRI with dynamically generated files! More information: https://www.jsdelivr.com/using-sri-with-dynamic-files
+ */
+function e(t){if("function"!=typeof WeakMap)return null;var r=new WeakMap,n=new WeakMap;return(e=function(e){return e?n:r})(t)}function t(t,r){if(!r&&t&&t.__esModule)return t;if(null===t||"object"!=typeof t&&"function"!=typeof t)return{default:t};var n=e(r);if(n&&n.has(t))return n.get(t);var o={__proto__:null},u=Object.defineProperty&&Object.getOwnPropertyDescriptor;for(var f in t)if("default"!==f&&Object.prototype.hasOwnProperty.call(t,f)){var a=u?Object.getOwnPropertyDescriptor(t,f):null;a&&(a.get||a.set)?Object.defineProperty(o,f,a):o[f]=t[f]}return o.default=t,n&&n.set(t,o),o}export{t as _,t as _interop_require_wildcard};export default null;
+//# sourceMappingURL=/sm/6b8e3850278ccb288cfaa3299ecff2fa91a2ef24bab9153ab67187e29186735b.map

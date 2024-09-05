@@ -12,7 +12,6 @@ function useAuth() {
   useEffect(() => {
     (async function unsubscribe() {
       const isLogined = !isEmpty(getAccessTokenFromCookie());
-      console.log('👌  isLogined:', isLogined);
 
       if (!isLogined) {
         clearCookie();
@@ -24,7 +23,6 @@ function useAuth() {
         const { CartServices } = await import('../repo/cart.repo');
 
         const { metadata } = await AuthServices.getProfile();
-        // console.log('👌  userData:', userData);
 
         if (!metadata) return;
 

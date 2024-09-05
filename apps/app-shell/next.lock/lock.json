@@ -1,0 +1,99 @@
+{
+  "https://cdn.jsdelivr.net/npm/@supabase/auth-js@2.64.2/+esm": {
+    "integrity": "sha512-Rl1lZMEVHlIEBDzDE0MZdQRc3TPFVYvbSBOQLAvGjBn/FsNZgLfK2UXZEQJOrrdUafa2Trx+K/YrlujsEVprSw==",
+    "contentType": "application/javascript; charset=utf-8"
+  },
+  "https://cdn.jsdelivr.net/npm/@supabase/auth-js@2.65.0/+esm": {
+    "integrity": "sha512-0OdjxYpsXKyqdUBUGD14RUif1d4awkcSzr+g+o2yKYRJooJLBVwJAxFLiKQCvGiTK0V3PuKDwWzOyXSBYuzS5w==",
+    "contentType": "application/javascript; charset=utf-8"
+  },
+  "https://cdn.jsdelivr.net/npm/@supabase/functions-js@2.4.1/+esm": {
+    "integrity": "sha512-xfUmdPsh8wV+zeuBdKEdlLlArGPSm3A8JiqmzctqpwUXqeleYdGNX89OQKGUk9Mfzs4Lt02q4ioP2SYh0FPimQ==",
+    "contentType": "application/javascript; charset=utf-8"
+  },
+  "https://cdn.jsdelivr.net/npm/@supabase/node-fetch@2.6.15/+esm": {
+    "integrity": "sha512-zAe6KoQlUjJYZ7IHDGUsBBs4YUoFvOwuROnJdhohr00e459rCkBaseiy1nLXwRAij8OKHxMMniPwrKxRbL6xHg==",
+    "contentType": "application/javascript; charset=utf-8"
+  },
+  "https://cdn.jsdelivr.net/npm/@supabase/postgrest-js@1.15.8/+esm": {
+    "integrity": "sha512-CQd9t5rrE/E8TA8ZVPUoEk3YC8uy0kaB5hBiIB+SZttKgebeFQ9mXKc/u2+gPYhVrxwV7nhXiHO6N+GVbWBPkQ==",
+    "contentType": "application/javascript; charset=utf-8"
+  },
+  "https://cdn.jsdelivr.net/npm/@supabase/realtime-js@2.10.2/+esm": {
+    "integrity": "sha512-pLdLlF82VUH26iQKx3tCIfKnFcyprbJfJflubfnKBpvQeFyTc8yAQ4nojDP1u1xBtxrpkW1lYJ5GsGjGR40g2Q==",
+    "contentType": "application/javascript; charset=utf-8"
+  },
+  "https://cdn.jsdelivr.net/npm/@supabase/storage-js@2.6.0/+esm": {
+    "integrity": "sha512-u1fGbn5pem5OufgzPohSSxO9FlHs2AmZVfrMWhOVhhpZEz41kb0IaA1Xkw/daZuFbfo/7qH+ADWH3UDQlLZGEA==",
+    "contentType": "application/javascript; charset=utf-8"
+  },
+  "https://cdn.jsdelivr.net/npm/@supabase/storage-js@2.7.0/+esm": {
+    "integrity": "sha512-o5icD8ArA+bMUirP9wzZLY2xf/PlfgMu5B2RiK4oft92cfDu+FFTEwFI57rwZbuTspoENzPQKYExCFqASNfTfQ==",
+    "contentType": "application/javascript; charset=utf-8"
+  },
+  "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.44.3/+esm": {
+    "integrity": "sha512-jPWKWx+FaZq/OyD4/ZSg7XB2L4YxmCFjPaPW+voI7tk9Zt9CTkQHdKTRzODKOjv1prIUoeXHAaghGnhMdolzyg==",
+    "contentType": "application/javascript; charset=utf-8"
+  },
+  "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.3/+esm": {
+    "integrity": "sha512-c46STeeq2UdjxpAhUJWgh2uOM4gKlcR3FK/eM6l0KA3aXRVw5jVsNVcMQZjYw8+enOFuLhHhxeV6eGJKkpu4dw==",
+    "contentType": "application/javascript; charset=utf-8"
+  },
+  "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.3/dist/umd/supabase.min.js": {
+    "integrity": "sha512-M3JEjE0U3+no3Od7x50kttfmL7zOJ9SY4t00XAIKD9HqqmdjPiAEGKXDbPw0YKiWQvEOhxPrJJnmRXRo/FTOoQ==",
+    "contentType": "application/javascript; charset=utf-8"
+  },
+  "https://cdn.jsdelivr.net/npm/@swc/helpers@0.5.5/_/_interop_require_default/+esm": {
+    "integrity": "sha512-1eDDtTlXsPu+y5v6Ky9YjLsy6L6UFQ1L9N9Fga960LYbGRx3i7HXkY73eOf9UYenS1jnf1JTUKaH6xwqC5fKCQ==",
+    "contentType": "application/javascript; charset=utf-8"
+  },
+  "https://cdn.jsdelivr.net/npm/@swc/helpers@0.5.5/_/_interop_require_wildcard/+esm": {
+    "integrity": "sha512-YdapauKvYRuyjEfpAth7p/rScVaa1RYwAzRVUKWuN/1JnzVAEj/f40O4PilFus61p3no4dswdCwjMEPbMADoxA==",
+    "contentType": "application/javascript; charset=utf-8"
+  },
+  "https://cdn.jsdelivr.net/npm/next-seo@5.0.0/+esm": {
+    "integrity": "sha512-zGTRlL4p83syTc/R3C66c7vtSiuQGvUeOKqqmkCdPVHy2ZUpB8N7zg3DRkYkKfFV2LpE8p4jdNHqhAGoAaEoEg==",
+    "contentType": "application/javascript; charset=utf-8"
+  },
+  "https://cdn.jsdelivr.net/npm/next-seo@6.0.0/+esm": {
+    "integrity": "sha512-VHukAWh9nZIYVJr2CQE50H+8bqHCeLbDw0/uzP8fSa16s+eIrosfygaGSbf7r6n5v7T8AB9xRBOucUM6ntQQBA==",
+    "contentType": "application/javascript; charset=utf-8"
+  },
+  "https://cdn.jsdelivr.net/npm/next-seo@6.1.0/+esm": {
+    "integrity": "sha512-nDBEZJEauEIa6Dq4owJQveA6WVxTDKA4rAHCyVi62ZS8iegEi1sd/N1/gCYdgugK6XFVP8uUsSM4xSbwCwcz3w==",
+    "contentType": "application/javascript; charset=utf-8"
+  },
+  "https://cdn.jsdelivr.net/npm/next-seo@6.4.0/+esm": {
+    "integrity": "sha512-z3BITDGdmPkQPmkgcM6mLQRSoIeaGOmA+f8fcJivca3BeQvbgI0sU962cXI4b/XMaVwcRrsbKQWOzmCITMQVMQ==",
+    "contentType": "application/javascript; charset=utf-8"
+  },
+  "https://cdn.jsdelivr.net/npm/next-seo@6.6.0/+esm": {
+    "integrity": "sha512-COujGGVlP6NSmzXW8Do9lCrQ+toiN20MoL7/waELPourLxipZSODYt8L7PNo4dY6/+GZPOWk9ClarPuuf/2Bgg==",
+    "contentType": "application/javascript; charset=utf-8"
+  },
+  "https://cdn.jsdelivr.net/npm/next@14.2.8/head/+esm": {
+    "integrity": "sha512-7wls4wPa8h0AmEhplJLRe0uzNdXLEIcWbAJesOYNjUIpnVFuTZDrtqXy+xAaia10I1S5qTuwQZQwr81QCQB9Ig==",
+    "contentType": "application/javascript; charset=utf-8"
+  },
+  "https://cdn.jsdelivr.net/npm/react@18.3.1/+esm": {
+    "integrity": "sha512-BR5PQ9m7IAulhN712Om3s5qxnhWcRn4mWWQj+pKiF/W9UO38f+rKIhCau8+waHOL+n/wGQJMXTideYlIy8+nwA==",
+    "contentType": "application/javascript; charset=utf-8"
+  },
+  "https://cdn.jsdelivr.net/npm/react@18.3.1/jsx-runtime/+esm": {
+    "integrity": "sha512-mN6eOhongS1JNZDI42rejQYR7TYTSwYULSVz65V9X8DK82UxmRr9DefjfzeqgTBCzULa6mhEwyb71VobL6uT9g==",
+    "contentType": "application/javascript; charset=utf-8"
+  },
+  "https://cdn.jsdelivr.net/npm/ws@8.17.1/+esm": {
+    "integrity": "sha512-GmPi2LrAjkEfuB0AEHJqNwppgD83l8OuK2QwQ5Gq5/QPFb9E0etcnbdFZS6MjNBL/Hzj/jMHD5/M9AriNDyUTA==",
+    "contentType": "application/javascript; charset=utf-8"
+  },
+  "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js": {
+    "integrity": "sha512-KakHaWvNgg3Mo/LptevcdwXzAmSFCFHrsvRUIRbUb++of57rXmIPQiAmpEeqaEdvhVk0ljxT2FpQk+wvP+j5LQ==",
+    "contentType": "text/javascript; charset=UTF-8"
+  },
+  "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js": {
+    "integrity": "sha512-1cAHU7vA6ZcYGhTclr+PTjxEpdSDAmmtV9tzQJ1sntEiBVGYXItXBfZX29cFSbXzyKzPsRIx1FtgzRhAFu4hxg==",
+    "contentType": "text/javascript; charset=UTF-8"
+  },
+  "version": 1
+}

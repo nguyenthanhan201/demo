@@ -1,4 +1,5 @@
-import { createClient } from '@supabase/supabase-js';
+// import { createClient } from '@supabase/supabase-js';
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.44.3/+esm';
 
 const supabase = createClient(
   'https://qyruvrpvtuvshysvrtcx.supabase.co',

@@ -1,33 +1,57 @@
+import { loginWithGoogle } from '@/configs/firebase.config';
 import { setAccessTokenToCookie, setRefreshTokenToCookie } from '@/lib/helpers/auth';
 
 const LoginPage = () => {
   const googleSignIn = async () => {
-    const authentication = await import('../../../configs/firebase.config').then(
-      (res) => res.authentication
-    );
-    const { signInWithPopup, GoogleAuthProvider } = await import('firebase/auth');
+    // const authentication = await import('../../../configs/firebase.config').then(
+    //   (res) => res.authentication
+    // );
+    // const { signInWithPopup, GoogleAuthProvider } = await import(
+    //   'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js'
+    // );
     const AuthServices = await import('@/lib/repo/auth.repo').then((res) => res.AuthServices);
 
     try {
-      await signInWithPopup(authentication, new GoogleAuthProvider()).then(async (result: any) => {
-        // console.log('👌  result:', result._tokenResponse.idToken);
-        await AuthServices.login({
-          providerToken: result._tokenResponse.idToken,
-          providerType: 'firebase'
-        }).then(async (res) => {
-          setAccessTokenToCookie(res.access_token, {
-            // 2 day
-            expires: new Date(Date.now() + 2 + 24 * 60 * 60 * 1000)
-            // sameSite: 'None'
-          });
-          setRefreshTokenToCookie(res.refresh_token, {
-            // 7 days
-            expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-          });
+      await loginWithGoogle().then(async (result: any) => {
+        {
+          // console.log('👌  result:', result._tokenResponse.idToken);
+          await AuthServices.login({
+            providerToken: result._tokenResponse.idToken,
+            providerType: 'firebase'
+          }).then(async (res) => {
+            setAccessTokenToCookie(res.access_token, {
+              // 2 day
+              expires: new Date(Date.now() + 2 + 24 * 60 * 60 * 1000)
+              // sameSite: 'None'
+            });
+            setRefreshTokenToCookie(res.refresh_token, {
+              // 7 days
+              expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+            });
 
-          window.location.replace('/');
-        });
+            window.location.replace('/');
+          });
+        }
       });
+      // await signInWithPopup(authentication, new GoogleAuthProvider()).then(async (result: any) => {
+      //   // console.log('👌  result:', result._tokenResponse.idToken);
+      //   await AuthServices.login({
+      //     providerToken: result._tokenResponse.idToken,
+      //     providerType: 'firebase'
+      //   }).then(async (res) => {
+      //     setAccessTokenToCookie(res.access_token, {
+      //       // 2 day
+      //       expires: new Date(Date.now() + 2 + 24 * 60 * 60 * 1000)
+      //       // sameSite: 'None'
+      //     });
+      //     setRefreshTokenToCookie(res.refresh_token, {
+      //       // 7 days
+      //       expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+      //     });
+
+      //     window.location.replace('/');
+      //   });
+      // });
     } catch (err) {
       alert('Đăng nhập thất bại');
       console.log(err);

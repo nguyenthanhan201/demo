@@ -12,6 +12,7 @@ import { useRouter } from 'next/router';
 import { ElementRef, useCallback, useEffect, useRef, useState } from 'react';
 
 import Img from '@/components/shared/Img/Img';
+import { logoutWithGoogle } from '@/configs/firebase.config';
 import useTrans, { TranslatedHeader } from '@/lib/hooks/useTrans';
 import { useAuthStore } from '@/lib/zustand/useAuthStore';
 import { useCartStore } from '@/lib/zustand/useCartStore';
@@ -34,12 +35,12 @@ const DefaultHeader = () => {
     menuLeft.current?.classList.toggle('active');
   }, []);
 
-  const handleLogout = useCallback(async () => {
+  const handleLogout = async () => {
     if (!auth?.email) return;
-    const authentication = await import('../../configs/firebase.config').then(
-      (res) => res.authentication
-    );
-    const { signOut } = await import('firebase/auth');
+    // const authentication = await import('../../configs/firebase.config').then(
+    //   (res) => res.authentication
+    // );
+    // const { signOut } = await import('https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js');
     const AuthServices = await import('@/lib/repo/auth.repo').then((res) => res.AuthServices);
     const { removeAccessTokenFromCookie, removeRefreshTokenFromCookie } = await import(
       '@/lib/helpers/auth'
@@ -50,7 +51,8 @@ const DefaultHeader = () => {
 
     await Promise.all([promise2])
       .then(async () => {
-        await signOut(authentication);
+        // await signOut(authentication);
+        await logoutWithGoogle();
         removeAccessTokenFromCookie();
         removeRefreshTokenFromCookie();
         setAuth(null);
@@ -61,7 +63,7 @@ const DefaultHeader = () => {
         // console.log(err);
         alert(err);
       });
-  }, [auth?.email]);
+  };
 
   const handleClickLiveStream = async () => {
     const isLiveStreamPage = router.pathname.includes('live-stream');

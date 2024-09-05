@@ -1,0 +1,8 @@
+/**
+ * Bundled by jsDelivr using Rollup v2.79.1 and Terser v5.19.2.
+ * Original file: /npm/@supabase/node-fetch@2.6.15/browser.js
+ *
+ * Do NOT use SRI with dynamically generated files! More information: https://www.jsdelivr.com/using-sri-with-dynamic-files
+ */
+var e="undefined"!=typeof global?global:"undefined"!=typeof self?self:"undefined"!=typeof window?window:{},n=function(){if("undefined"!=typeof self)return self;if("undefined"!=typeof window)return window;if(void 0!==e)return e;throw new Error("unable to locate global object")}();const o=n.fetch;var f=n.fetch.bind(n);const t=n.Headers,d=n.Request,i=n.Response;export{t as Headers,d as Request,i as Response,f as default,o as fetch};
+//# sourceMappingURL=/sm/2c62c159c7d2a56af0f4f927d95617bcd92a95ce3f8faec410b6723b07cf1d8d.map

@@ -1,8 +1,8 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getMessaging, getToken } from 'firebase/messaging';
-import { getStorage } from 'firebase/storage';
+// import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js';
+// import { getAuth } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js';
+// import { getMessaging } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-messaging.js';
+// import { getStorage } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -19,49 +19,81 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const firebaseApp = initializeApp(firebaseConfig);
+// const firebaseApp = initializeApp(firebaseConfig);
 
 // firebase storage
-const storage = getStorage(firebaseApp);
+// const storage = getStorage(firebaseApp);
 
 // firebase auth
-const authentication = getAuth(firebaseApp);
+// const authentication = getAuth(firebaseApp);
 
-export const getMessagingToken = async () => {
-  const messaging = getMessaging(firebaseApp);
-  let currentToken = '';
-  if (!messaging) return;
-  try {
-    // currentToken = await messaging.getToken({
-    //   vapidKey: "",
-    // });
-    // const authToken = await JSON.parse(localStorage.getItem("token") || "{}");
-    // BJMhONePIMNWN5o7KPo0NU-m8vMH_kmJxa2v3JBvLua7ZV6DVtJDedAvZDQPZ3jaZEQ-Xy43OlMzxTXA07vizOU
-    // console.log("FCM registration token", currentToken);
-    // post("/user-device/token", {
-    //   user_id: authToken.user.id,
-    //   firebase_token: currentToken,
-    // }).then((res) => {
-    //   // console.log("👌 ~ res", res)
-    // });
+// export const getMessagingToken = async () => {
+//   const messaging = getMessaging(firebaseApp);
+//   let currentToken = '';
+//   if (!messaging) return;
+//   try {
+//     // currentToken = await messaging.getToken({
+//     //   vapidKey: "",
+//     // });
+//     // const authToken = await JSON.parse(localStorage.getItem("token") || "{}");
+//     // BJMhONePIMNWN5o7KPo0NU-m8vMH_kmJxa2v3JBvLua7ZV6DVtJDedAvZDQPZ3jaZEQ-Xy43OlMzxTXA07vizOU
+//     // console.log("FCM registration token", currentToken);
+//     // post("/user-device/token", {
+//     //   user_id: authToken.user.id,
+//     //   firebase_token: currentToken,
+//     // }).then((res) => {
+//     //   // console.log("👌 ~ res", res)
+//     // });
 
-    // Add the public key generated from the console here.
-    await getToken(messaging).then((res) => {
-      if (res) {
-        // console.log('👌 ~ FCM registration token', res);
-        // Send the token to your server and update the UI if necessary
-        currentToken = res;
-      } else {
-        // Show permission request UI
-        console.log('No registration token available. Request permission to generate one.');
-      }
-    });
-  } catch (error) {
-    console.log('An error occurred while retrieving token. ', error);
-  }
-  return currentToken;
+//     // Add the public key generated from the console here.
+//     await getToken(messaging).then((res) => {
+//       if (res) {
+//         // console.log('👌 ~ FCM registration token', res);
+//         // Send the token to your server and update the UI if necessary
+//         currentToken = res;
+//       } else {
+//         // Show permission request UI
+//         console.log('No registration token available. Request permission to generate one.');
+//       }
+//     });
+//   } catch (error) {
+//     console.log('An error occurred while retrieving token. ', error);
+//   }
+//   return currentToken;
+// };
+
+// const messaging = typeof window !== 'undefined' ? getMessaging(firebaseApp) : null;
+
+// export { authentication, messaging, storage };
+// export { authentication };
+
+const logoutWithGoogle = async () => {
+  const { initializeApp } = await import(
+    'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js'
+  );
+  const { getAuth } = await import('https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js');
+  const { signOut } = await import('https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js');
+
+  const firebaseApp = initializeApp(firebaseConfig);
+
+  const authentication = getAuth(firebaseApp);
+
+  return signOut(authentication);
 };
 
-const messaging = typeof window !== 'undefined' ? getMessaging(firebaseApp) : null;
+const loginWithGoogle = async () => {
+  const { initializeApp } = await import(
+    'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js'
+  );
+  const { getAuth } = await import('https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js');
+  const { signInWithPopup, GoogleAuthProvider } = await import(
+    'https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js'
+  );
+  const firebaseApp = initializeApp(firebaseConfig);
 
-export { authentication, messaging, storage };
+  const authentication = getAuth(firebaseApp);
+
+  return signInWithPopup(authentication, new GoogleAuthProvider());
+};
+
+export { loginWithGoogle, logoutWithGoogle };

@@ -1,9 +1,7 @@
-/* eslint-disable simple-import-sort/imports */
 import { ArticleOutlined as ArticleOutlinedIcon } from '@repo/icons/src/ArticleOutlined';
 import { Person as PersonIcon } from '@repo/icons/src/Person';
 import { ReceiptLong as ReceiptLongIcon } from '@repo/icons/src/ReceiptLong';
 import { StarsOutlined as StarsOutlinedIcon } from '@repo/icons/src/StarsOutlined';
-import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -45,7 +43,6 @@ const SiderBar = () => {
                 href={item.path}
                 prefetch={false}
               >
-                <NextSeo title={isSelect ? item.title : ''} />
                 {item.icon}
                 <p>{item.title}</p>
               </Link>
