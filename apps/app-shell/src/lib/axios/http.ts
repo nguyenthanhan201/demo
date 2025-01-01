@@ -38,7 +38,7 @@ class Http {
       httpsAgent: new https.Agent({
         rejectUnauthorized: false
       }),
-      baseURL: process.env.NEXT_PUBLIC_BE,
+      baseURL: process.env.NEXT_PUBLIC_90S_URL,
       withCredentials: true,
       timeout: 60000, // 60s
       headers: {
