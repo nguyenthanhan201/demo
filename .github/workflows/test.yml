@@ -1,0 +1,52 @@
+name: Vercel Nextjs Module Livestream Production Deployment
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_NEXT_MODULE_LIVESTREAM_ID }}
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'apps/nextjs-module-livestream/**'
+jobs:
+  Deploy-Production:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Declare and Fetch Variables from API
+        id: fetch_data
+        run: |
+          # Declare the variable
+          my_variable=""
+
+          # Fetch data from the API
+          response=$(curl --location 'https://jsonplaceholder.typicode.com/todos/1')
+
+          # Parse the response and assign the value to the variable
+          my_variable=$(echo "$response" | jq -r '.key')
+
+          # Check if the variable is valid
+          if [ -z "$my_variable" ]; then
+            echo "Failed to retrieve data from API or 'key' is missing in response."
+            exit 1
+          fi
+
+            # Set the variable in the GitHub Actions environment
+          echo "MY_VARIABLE=$my_variable" >> $GITHUB_ENV
+
+      - name: Use the Declared Variable
+        run: |
+          echo "The declared and set variable is: $MY_VARIABLE"
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8.9.0 # Optional: specify a pnpm version
+      - name: Install Vercel CLI
+        run: pnpm install --global vercel@latest
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }} --scope=apps/app-shell
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
