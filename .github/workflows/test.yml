@@ -23,19 +23,14 @@ jobs:
             ["apps/nextjs-project-2"]="2"
           )
 
+          echo "{{ project_map[apps/nextjs-module-livestream] }}"
+
           for file in ${{ steps.changed-files.outputs.changed_files }}; do
             echo "$file was changed"
             # if [[ "${file}" =~ ^apps/nextjs-module-livestream ]]; then
             #   echo "VERCEL_PROJECT_ID_TWO=${{ secrets.VERCEL_PROJECT_NEXT_MODULE_LIVESTREAM_ID }}" >> $GITHUB_ENV
             #   exit 0
             # fi
-          done
-
-          for path in "${!project_map[@]}"; do
-            if [[ "${{ github.event.commits[*].modified }}" =~ $path ]]; then
-              echo "VERCEL_PROJECT_ID_TWO=${project_map[$path]}" >> $GITHUB_ENV
-              exit 0
-            fi
           done
 
           echo "No matching project found for the modified paths."
