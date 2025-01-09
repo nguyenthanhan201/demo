@@ -5,9 +5,9 @@ env:
 on:
   push:
     branches:
-      - main
-    paths:
-      - 'apps/nextjs-module-livestream/**'
+      - 'production/**'
+    # paths:
+    #   - 'apps/nextjs-module-livestream/**'
 jobs:
   job1:
     runs-on: ubuntu-latest
@@ -31,11 +31,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
       - name: get all outputs from prior job
         run: |
-          echo "The outputs are ${{ toJSON(needs.job1.outputs) }}"
-          echo
-          jobjson=$(echo "${{ toJSON(needs.job1.outputs) }}" )
-          echo $jobjson | yq
-          echo
-          echo "my_output is $(echo $jobjson | yq .my_output)"
+          echo "Full branch name: ${{ github.ref_name }}"
+
+
+          # Check if the branch name starts with 'production/'
+
+          if [[ "${{ github.ref_name }}" == production/* ]]; then
+            # Extract suffix after 'production/'
+            SUFFIX=${{ github.ref_name#production/ }}
+            echo "Suffix after 'production/': $SUFFIX"
+
+            # Convert outputs from prior job (job1) to JSON
+            jobjson='${{ toJSON(needs.job1.outputs) }}'
+            echo "The outputs are: $jobjson"
+
+            # Parse JSON using jq
+            echo "$jobjson" | jq
+
+            # Retrieve specific value using suffix
+            output=$(echo "$jobjson" | jq -r ".${SUFFIX}")
+            echo "my_output is $output"
+
+          else
+            echo "Branch does not start with 'production/'. Exiting..."
+            exit 1
+          fi

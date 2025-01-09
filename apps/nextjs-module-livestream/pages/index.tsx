@@ -2,7 +2,7 @@ const Page = () => {
   return (
     <div>
       <button type='button'>123123123123</button>
-      trigger9
+      trigger10
       {/* <ReactAppLoader title="2sfsfd" /> */}
     </div>
   );
