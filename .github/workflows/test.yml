@@ -22,7 +22,7 @@ jobs:
         run: echo 'nextjs_module_livestream="Hello, world!"' >> $GITHUB_OUTPUT
 
       - name: output nextjs_module_livestream_2
-        id: out1
+        id: out2
         run: |
           echo 'nextjs_module_livestream_2="Hello, chicago!"' >> $GITHUB_OUTPUT
 
