@@ -9,53 +9,33 @@ on:
     paths:
       - 'apps/nextjs-module-livestream/**'
 jobs:
-  Generate-Object:
+  job1:
     runs-on: ubuntu-latest
 
     outputs:
-      nextjs_module_livestream: ${{ steps.out1.outputs.nextjs_module_livestream }}
-      nextjs_module_livestream_2: ${{ steps.out2.outputs.nextjs_module_livestream_2  }}
+      my_output: ${{ steps.out1.outputs.my_output }}
+      output_2: ${{ steps.out2.outputs.output_2  }}
 
     steps:
-      - name: output nextjs_module_livestream
+      - name: output one line
         id: out1
-        run: echo 'nextjs_module_livestream="Hello, world!"' >> $GITHUB_OUTPUT
+        run: echo 'my_output="Hello, world!"' >> $GITHUB_OUTPUT
 
-      - name: output nextjs_module_livestream_2
+      - name: output two line
         id: out2
         run: |
-          echo 'nextjs_module_livestream_2="Hello, chicago!"' >> $GITHUB_OUTPUT
+          echo 'output_2="Hello, chicago!"' >> $GITHUB_OUTPUT
 
-  Deploy-Production:
+  job2:
+    needs: job1
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Set VERCEL_PROJECT_ID_TWO Dynamically
-        id: set_project_id
+      - name: get all outputs from prior job
         run: |
-          echo "The outputs are ${{ toJSON(needs.Generate-Object.outputs) }}"
-
-        # declare -A project_map=(
-        #   ["apps/nextjs-module-livestream"]="${{ secrets.VERCEL_PROJECT_NEXT_MODULE_LIVESTREAM_ID }}"
-        #   ["apps/nextjs-project-1"]="1"
-        #   ["apps/nextjs-project-2"]="2"
-        # )
-
-        # for file in ${{ steps.changed-files.outputs.changed_files }}; do
-        #   echo "$file was changed"
-        #   # if [[ "${file}" =~ ^apps/nextjs-module-livestream ]]; then
-        #   #   echo "VERCEL_PROJECT_ID_TWO=${{ secrets.VERCEL_PROJECT_NEXT_MODULE_LIVESTREAM_ID }}" >> $GITHUB_ENV
-        #   #   exit 0
-        #   # fi
-        # done
-
-        # for path in "${!project_map[@]}"; do
-        #   if [[ "${{ github.event.commits[*].modified }}" =~ $path ]]; then
-        #     echo "VERCEL_PROJECT_ID_TWO=${project_map[$path]}" >> $GITHUB_ENV
-        #     exit 0
-        #   fi
-        # done
-
-        # echo "No matching project found for the modified paths."
-        # exit 1
+          echo "The outputs are ${{ toJSON(needs.job1.outputs) }}"
+          echo
+          jobjson=$(echo "${{ toJSON(needs.job1.outputs) }}" )
+          echo $jobjson | yq
+          echo
+          echo "my_output is $(echo $jobjson | yq .my_output)"
