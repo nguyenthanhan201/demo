@@ -64,7 +64,13 @@ jobs:
             # Safely retrieve specific value using suffix
             output=$(echo "$jobjson" | jq -r ".\"${SUFFIX}\"")
             echo "VERCEL_PROJECT_ID is $output"
-            echo "::set-output name=VERCEL_PROJECT_ID::$output"
+
+            # Strip surrounding quotes (if any) from the output
+            formatted_output=$(echo "$output" | sed 's/^"//;s/"$//')
+            echo "Formatted VERCEL_PROJECT_ID: $formatted_output"
+
+
+            echo "::set-output name=VERCEL_PROJECT_ID::$formatted_output"
 
           else
             echo "Branch does not start with 'production/'. Exiting..."
@@ -83,6 +89,9 @@ jobs:
 
       - name: Install Vercel CLI
         run: pnpm install --global vercel@latest
+
+      - name: Debug VERCEL_PROJECT_ID
+        run: echo "VERCEL_PROJECT_ID = ${{ needs.job2.outputs.VERCEL_PROJECT_ID }}"
 
       - name: Pull Vercel Environment Information
         env:
