@@ -43,7 +43,7 @@ jobs:
 
           if [[ "${{ github.ref_name }}" == production/* ]]; then
             # Extract suffix after 'production/'
-            SUFFIX=${{ github.ref_name#production/ }}
+            SUFFIX="${GITHUB_REF_NAME#production/}"
             echo "Suffix after 'production/': $SUFFIX"
 
             # Convert outputs from prior job (job1) to JSON
