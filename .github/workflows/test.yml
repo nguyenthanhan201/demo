@@ -58,8 +58,8 @@ jobs:
             # Parse JSON using jq
             echo "$jobjson" | jq
 
-            # Retrieve specific value using suffix
-            output=$(echo "$jobjson" | jq -r ".${SUFFIX}")
+            # Safely retrieve specific value using suffix
+            output=$(echo "$jobjson" | jq -r ".\"${SUFFIX}\"")
             echo "my_output is $output"
 
           else
