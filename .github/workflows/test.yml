@@ -1,13 +1,12 @@
 name: Vercel Nextjs Module Livestream Production Deployment
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_NEXT_MODULE_LIVESTREAM_ID }}
+  # VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_NEXT_MODULE_LIVESTREAM_ID }}
 on:
   push:
     branches:
       - 'production/**'
-    # paths:
-    #   - 'apps/nextjs-module-livestream/**'
+
 jobs:
   job1:
     runs-on: ubuntu-latest
@@ -29,17 +28,21 @@ jobs:
       - name: output three line
         id: out3
         run: |
-          echo 'app-shell="Hello, app-shell!"' >> $GITHUB_OUTPUT
+          echo 'app-shell="prj_QaSqKm52IHermZtIu9jAvcv4VWSi"' >> $GITHUB_OUTPUT
 
   job2:
     needs: job1
     runs-on: ubuntu-latest
+
+    outputs:
+      VERCEL_PROJECT_ID: ${{ steps.get_outputs.outputs.VERCEL_PROJECT_ID }}
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
 
       - name: get all outputs from prior job
+        id: get_outputs
         run: |
           echo "Full branch name: ${{ github.ref_name }}"
 
@@ -60,9 +63,28 @@ jobs:
 
             # Safely retrieve specific value using suffix
             output=$(echo "$jobjson" | jq -r ".\"${SUFFIX}\"")
-            echo "my_output is $output"
+            echo "VERCEL_PROJECT_ID is $output"
+            echo "VERCEL_PROJECT_ID=$output" >> $GITHUB_ENV
 
           else
             echo "Branch does not start with 'production/'. Exiting..."
             exit 1
           fi
+
+  job3:
+    needs: job2
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8.9.0 # Optional: specify a pnpm version
+      - name: Install Vercel CLI
+        run: pnpm install --global vercel@latest
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }} --scope=apps/app-shell
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
