@@ -64,7 +64,7 @@ jobs:
             # Safely retrieve specific value using suffix
             output=$(echo "$jobjson" | jq -r ".\"${SUFFIX}\"")
             echo "VERCEL_PROJECT_ID is $output"
-            echo "VERCEL_PROJECT_ID=$output" >> $GITHUB_ENV
+            echo "::set-output name=VERCEL_PROJECT_ID::$output"
 
           else
             echo "Branch does not start with 'production/'. Exiting..."
@@ -77,17 +77,24 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        env:
-          VERCEL_PROJECT_ID: ${{ env.VERCEL_PROJECT_ID }}
-
       - uses: pnpm/action-setup@v2
         with:
           version: 8.9.0 # Optional: specify a pnpm version
+
       - name: Install Vercel CLI
         run: pnpm install --global vercel@latest
+
       - name: Pull Vercel Environment Information
+        env:
+          VERCEL_PROJECT_ID: ${{ needs.job2.outputs.VERCEL_PROJECT_ID }}
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
       - name: Build Project Artifacts
+        env:
+          VERCEL_PROJECT_ID: ${{ needs.job2.outputs.VERCEL_PROJECT_ID }}
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }} --scope=apps/app-shell
+
       - name: Deploy Project Artifacts to Vercel
+        env:
+          VERCEL_PROJECT_ID: ${{ needs.job2.outputs.VERCEL_PROJECT_ID }}
         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
