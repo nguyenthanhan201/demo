@@ -12,23 +12,17 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      my_output: ${{ steps.out1.outputs.my_output }}
-      output_2: ${{ steps.out2.outputs.output_2  }}
-      app-shell: ${{ steps.out3.outputs.app-shell }}
+      my_output: ${{ steps.generate_outputs.outputs.my_output }}
+      output_2: ${{ steps.generate_outputs.outputs.output_2 }}
+      app-shell: ${{ steps.generate_outputs.outputs.app_shell }}
 
     steps:
-      - name: output one line
-        id: out1
-        run: echo 'my_output="Hello, world!"' >> $GITHUB_OUTPUT
-
-      - name: output two line
-        id: out2
+      - name: Generate all outputs
+        id: generate_outputs
         run: |
+          echo 'my_output="Hello, world!"' >> $GITHUB_OUTPUT
           echo 'output_2="Hello, chicago!"' >> $GITHUB_OUTPUT
-      - name: output three line
-        id: out3
-        run: |
-          echo 'app-shell="prj_QaSqKm52IHermZtIu9jAvcv4VWSi"' >> $GITHUB_OUTPUT
+          echo 'app_shell="prj_QaSqKm52IHermZtIu9jAvcv4VWSi"' >> $GITHUB_OUTPUT
 
   job2:
     needs: job1
@@ -68,7 +62,6 @@ jobs:
             # Strip surrounding quotes (if any) from the output
             formatted_output=$(echo "$output" | sed 's/^"//;s/"$//')
             echo "Formatted VERCEL_PROJECT_ID: $formatted_output"
-
 
             echo "::set-output name=VERCEL_PROJECT_ID::$formatted_output"
 
