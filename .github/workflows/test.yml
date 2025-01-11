@@ -1,4 +1,4 @@
-name: Vercel Nextjs Module Livestream Production Deployment
+name: Vercel Production Deployment
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
 
@@ -8,7 +8,7 @@ on:
       - 'production/**'
 
 jobs:
-  job1:
+  generate_outputs:
     runs-on: ubuntu-latest
 
     outputs:
@@ -24,8 +24,8 @@ jobs:
           echo 'output_2="Hello, chicago!"' >> $GITHUB_OUTPUT
           echo 'app_shell="prj_QaSqKm52IHermZtIu9jAvcv4VWSi"' >> $GITHUB_OUTPUT
 
-  job2:
-    needs: job1
+  process_branch_and_outputs:
+    needs: generate_outputs
     runs-on: ubuntu-latest
 
     outputs:
@@ -40,16 +40,15 @@ jobs:
         run: |
           echo "Full branch name: ${{ github.ref_name }}"
 
-
           # Check if the branch name starts with 'production/'
-
           if [[ "${{ github.ref_name }}" == production/* ]]; then
+
             # Extract suffix after 'production/'
             SUFFIX="${GITHUB_REF_NAME#production/}"
             echo "Suffix after 'production/': $SUFFIX"
 
-            # Convert outputs from prior job (job1) to JSON
-            jobjson='${{ toJSON(needs.job1.outputs) }}'
+            # Convert outputs from prior job (generate_outputs) to JSON
+            jobjson='${{ toJSON(needs.generate_outputs.outputs) }}'
             echo "The outputs are: $jobjson"
 
             # Parse JSON using jq
@@ -70,8 +69,8 @@ jobs:
             exit 1
           fi
 
-  job3:
-    needs: job2
+  deploy_to_vercel:
+    needs: process_branch_and_outputs
     runs-on: ubuntu-latest
 
     steps:
@@ -84,19 +83,19 @@ jobs:
         run: pnpm install --global vercel@latest
 
       - name: Debug VERCEL_PROJECT_ID
-        run: echo "VERCEL_PROJECT_ID = ${{ needs.job2.outputs.VERCEL_PROJECT_ID }}"
+        run: echo "VERCEL_PROJECT_ID = ${{ needs.process_branch_and_outputs.outputs.VERCEL_PROJECT_ID }}"
 
       - name: Pull Vercel Environment Information
         env:
-          VERCEL_PROJECT_ID: ${{ needs.job2.outputs.VERCEL_PROJECT_ID }}
+          VERCEL_PROJECT_ID: ${{ needs.process_branch_and_outputs.outputs.VERCEL_PROJECT_ID }}
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Build Project Artifacts
         env:
-          VERCEL_PROJECT_ID: ${{ needs.job2.outputs.VERCEL_PROJECT_ID }}
+          VERCEL_PROJECT_ID: ${{ needs.process_branch_and_outputs.outputs.VERCEL_PROJECT_ID }}
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }} --scope=apps/app-shell
 
       - name: Deploy Project Artifacts to Vercel
         env:
-          VERCEL_PROJECT_ID: ${{ needs.job2.outputs.VERCEL_PROJECT_ID }}
+          VERCEL_PROJECT_ID: ${{ needs.process_branch_and_outputs.outputs.VERCEL_PROJECT_ID }}
         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
