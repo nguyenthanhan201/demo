@@ -1,4 +1,4 @@
-import { ComponentPropsWithRef } from 'react';
+import { ComponentPropsWithRef, JSX } from 'react';
 
 export type InfinityListProps = ComponentPropsWithRef<'div'> & {
   dataLength: number;

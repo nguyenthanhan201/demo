@@ -6,7 +6,6 @@ import DataGrid, { GridColumns } from 'nextjs-module-admin/DataGrid';
 import { useState } from 'react';
 
 import Header from '@/components/index/admin/components/Header';
-import { UNLIMITED_PAGE_SIZE } from '@/constants/index';
 import AdminLayout from '@/layouts/admin-layout/AdminLayout';
 import { setContext } from '@/lib/axios/http';
 import { useToast } from '@/lib/providers/toast-provider';
@@ -120,10 +119,14 @@ const Page: NextPageWithLayout<{
     }
   ];
 
-  const hideProduct = (id: string) => {
+  const hideProduct = async (id: string) => {
+    const ProductServices = await import('@/lib/repo/product.repo').then(
+      (mod) => mod.ProductServices
+    );
+
     toast.promise(
       'Ẩn sản phẩm thành công',
-      ProductServices.hideProduct(id),
+      ProductServices.hideProduct(id).then(() => window.location.reload()),
       'Ẩn sản phẩm thất bại'
     );
   };
@@ -216,11 +219,13 @@ Page.Layout = AdminLayout;
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   setContext(ctx);
 
-  const products = await ProductServices.getAll(UNLIMITED_PAGE_SIZE);
+  const products = await ProductServices.getAll();
+
+  // console.log('👌  products:', products.data.length);
 
   return {
     props: {
-      products: products.data
+      products: products
     }
   };
 }

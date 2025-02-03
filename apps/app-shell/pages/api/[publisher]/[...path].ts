@@ -1,6 +1,12 @@
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import { NextApiRequest, NextApiResponse } from 'next';
 
+export const config = {
+  api: {
+    bodyParser: false
+  }
+};
+
 const proxy = createProxyMiddleware({
   target: process.env.NEXT_PUBLIC_BE
   // secure: false
@@ -8,12 +14,14 @@ const proxy = createProxyMiddleware({
 });
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  proxy(req, res, (err) => {
-    if (err) {
-      throw err;
-    }
+  return new Promise(() => {
+    proxy(req, res, (err) => {
+      if (err) {
+        throw err;
+      }
 
-    throw new Error(`Request '${req.url}' is not proxied! We should never reach here!`);
+      throw new Error(`Request '${req.url}' is not proxied! We should never reach here!`);
+    });
   });
 };
 

@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 import { getSalePrice, numberWithCommans } from '@/lib/helpers/numbers';
-import { ProductServices } from '@/lib/repo/product.repo';
 import { Product } from '@/types/product.type';
 
 import Button from './Button';
@@ -22,8 +21,13 @@ const ProductCard = ({ product }: ProductCardProps) => {
   // const [sourceURL, setSourceURL] = useState(product.image01);
   const [open, setOpen] = useState(false);
 
-  const handleIncreaseViewsProduct = () => {
+  const handleIncreaseViewsProduct = async () => {
     if (!product._id) return;
+
+    const ProductServices = await import('@/lib/repo/product.repo').then(
+      (res) => res.ProductServices
+    );
+
     ProductServices.updateViewsProduct(product._id);
   };
 

@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 
 import { setAccessTokenToCookie, setRefreshTokenToCookie } from '@/lib/helpers/auth';
 import { getResultSupabaseSinginRedirectUrl } from '@/lib/helpers/string';
-import { AuthServices } from '@/lib/repo/auth.repo';
 
 const Page = () => {
   const router = useRouter();
@@ -15,6 +14,8 @@ const Page = () => {
       if (!authUser) return router.push('/');
 
       try {
+        const AuthServices = await import('@/lib/repo/auth.repo').then((res) => res.AuthServices);
+
         await AuthServices.login({
           providerToken: authUser.access_token,
           providerType: 'supabase'

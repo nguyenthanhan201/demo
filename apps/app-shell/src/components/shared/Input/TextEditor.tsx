@@ -1,7 +1,7 @@
 import 'react-quill/dist/quill.snow.css';
 
-import ReactQuill, { ReactQuillProps } from 'react-quill';
+import ReactQuill from 'react-quill-new';
 
-const TextEditor = (props: ReactQuillProps) => <ReactQuill {...props} />;
+const TextEditor = (props: ReactQuill.ReactQuillProps) => <ReactQuill {...props} />;
 
 export default TextEditor;

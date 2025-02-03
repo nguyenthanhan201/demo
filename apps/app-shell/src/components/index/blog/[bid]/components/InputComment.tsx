@@ -40,14 +40,14 @@ const InputComment = (props: InputCommentProps) => {
   return (
     <div className='flex gap-3 m-3'>
       <textarea
-        className='w-full p-1'
+        className='p-1 w-full'
         onChange={(e) => setCommentValue(e.target.value)}
         placeholder='comment moi'
         rows={2}
         value={commentValue}
       />
       <SendFilled
-        className='cursor-pointer hover:text-myPrimaryLinkColor h-fit'
+        className='h-fit hover:text-myPrimaryLinkColor cursor-pointer'
         onClick={handleCreateComment}
       />
     </div>

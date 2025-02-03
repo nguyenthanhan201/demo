@@ -1,5 +1,7 @@
 import { AxiosRequestConfig } from 'axios';
 
+import { UNLIMITED_PAGE_SIZE } from '@/constants/index';
+
 import { Product } from '../../types/product.type';
 import { deleteReq, get, post, put } from '../axios/http';
 import { CrudRepository } from './crud.repo';
@@ -11,6 +13,15 @@ export class ProductRepository extends CrudRepository<Product> {
   async createProduct(product: Product) {
     const res = await post('api/v1/product/store', product);
     return res;
+  }
+
+  async getAllProducts(config?: AxiosRequestConfig<any> | undefined) {
+    return await get<Product[]>(`api/v1/product`, {
+      params: {
+        UNLIMITED_PAGE_SIZE
+      },
+      ...config
+    });
   }
 
   async updateProduct(product: Product) {

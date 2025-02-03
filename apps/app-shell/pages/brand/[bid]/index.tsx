@@ -1,13 +1,16 @@
 import { PreviewProps } from '@repo/shared-types';
-import { GetStaticProps, InferGetStaticPropsType } from 'next';
+import { GetServerSidePropsContext } from 'next';
 import { useEffect, useRef } from 'react';
 import { mount } from 'vuejs_app/Preview';
 
-import { UNLIMITED_PAGE_SIZE } from '@/constants/index';
 import DefaultLayout from '@/layouts/default-layout/DefaultLayout';
 import { BrandServices } from '@/lib/repo/brand.repo';
+import { Brand } from '@/types/brand.type';
+import { NextPageWithLayout } from '@/types/index';
 
-const Page = ({ brand }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Page: NextPageWithLayout<{
+  brand: Brand;
+}> = ({ brand }) => {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -24,35 +27,40 @@ const Page = ({ brand }: InferGetStaticPropsType<typeof getStaticProps>) => {
 export default Page;
 Page.Layout = DefaultLayout;
 
-export async function getStaticPaths() {
-  const res = await BrandServices.getAll(UNLIMITED_PAGE_SIZE);
+// export async function getStaticPaths() {
+//   let res = await BrandServices.getAll(UNLIMITED_PAGE_SIZE);
+//   console.log('👌  res:', res);
 
-  const paths = res.data.map((post) => ({
-    params: { bid: String(post._id) }
-  }));
+//   if (!res) {
+//     res = { data: [] } as any;
+//   }
 
-  return { paths, fallback: false };
-}
+//   const paths = res.data.map((post) => ({
+//     params: { bid: String(post._id) }
+//   }));
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const res = await BrandServices.getOneBrand(context.params?.bid as string);
+//   return { paths, fallback: false };
+// }
 
-  if (res.code === 'ERROR') return { notFound: true };
+// export const getStaticProps: GetStaticProps = async (context) => {
+//   const res = await BrandServices.getOneBrand(context.params?.bid as string);
 
-  return { props: { brand: res.data }, revalidate: 86400 }; // 1 days
-};
+//   if (res.code === 'ERROR') return { notFound: true };
 
-// export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-//   const { bid } = ctx.params as any;
-//   const res = await BrandServices.getOneBrand(bid as string);
-
-//   if (res.code === 'ERROR') return;
-
-//   return {
-//     props: JSON.parse(
-//       JSON.stringify({
-//         brand: res.data
-//       })
-//     )
-//   };
+//   return { props: { brand: res.data }, revalidate: 86400 }; // 1 days
 // };
+
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const { bid } = ctx.params as { bid: string };
+  const res = await BrandServices.getOneBrand(bid as string);
+
+  if (res.code === 'ERROR') return;
+
+  return {
+    props: JSON.parse(
+      JSON.stringify({
+        brand: res.data
+      })
+    )
+  };
+};

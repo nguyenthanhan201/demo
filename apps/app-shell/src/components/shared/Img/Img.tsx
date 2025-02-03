@@ -54,6 +54,7 @@ const Img = ({
   priority,
   loading,
   onClick,
+  children: _children,
   ...props
 }: ImgProps) => {
   return (

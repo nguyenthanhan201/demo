@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import Button from '@/components/shared/Button';
 import { getResultPaymentFromUrl } from '@/lib/helpers/string';
 import { useToast } from '@/lib/providers/toast-provider';
-import { OrderServices } from '@/lib/repo/order.repo';
 import { useAuthStore } from '@/lib/zustand/useAuthStore';
 
 const PaymentUrlReturnPage = () => {
@@ -14,15 +13,21 @@ const PaymentUrlReturnPage = () => {
   useEffect(() => {
     if (!auth || !getResultPaymentFromUrl()) return;
 
-    toast.promise(
-      'Xử lí đơn hàng thành công',
-      OrderServices.addOrder(auth._id)
-        .then(() => (window.location.href = '/'))
-        .catch((err) => {
-          console.log('🚀 ~ file: VNPayReturn.tsx ~ line 43 ~ err', err);
-        }),
-      'Xử lí đơn hàng thất bại'
-    );
+    const handleCreateOrder = async () => {
+      const OrderServices = await import('@/lib/repo/order.repo').then((res) => res.OrderServices);
+
+      toast.promise(
+        'Xử lí đơn hàng thành công',
+        OrderServices.addOrder(auth._id)
+          .then(() => (window.location.href = '/'))
+          .catch((err) => {
+            console.log('🚀 ~ file: VNPayReturn.tsx ~ line 43 ~ err', err);
+          }),
+        'Xử lí đơn hàng thất bại'
+      );
+    };
+
+    handleCreateOrder();
   }, [auth?._id]);
 
   return (

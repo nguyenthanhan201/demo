@@ -31,9 +31,19 @@
       "@/utils/*": ["utils/*"],
       "@/types/*": ["types/*"],
       "@/constants/*": ["constants/*"],
-      "@/configs/*": ["configs/*"]
+      "@/configs/*": ["configs/*"],
+      "@/services/*": ["services/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.d.ts", "src/@types/*"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.d.ts",
+    "src/@types/*",
+    "src/lib/helpers/assertion.ts",
+    "src/lib/helpers/auth.ts",
+    "src/lib/helpers/cookie.ts"
+  ],
   "exclude": ["node_modules"]
 }

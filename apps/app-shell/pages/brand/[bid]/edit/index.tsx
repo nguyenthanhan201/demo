@@ -18,6 +18,8 @@ const Page: NextPageWithLayout<{
 
   useEffect(() => {
     const propFunc = async (design: string, preview: never[]) => {
+      const BrandServices = await import('@/lib/repo/brand.repo').then((mod) => mod.BrandServices);
+
       await BrandServices.updateBrand({
         brandId: bid as string,
         design,

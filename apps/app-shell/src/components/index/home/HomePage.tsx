@@ -7,45 +7,43 @@ import dynamic from 'next/dynamic';
 import Grid from '@/components/shared/Grid';
 import HeroSlider from '@/components/shared/HeroSlider';
 import Img from '@/components/shared/Img/Img';
-import { InfiniteScroll } from '@/components/shared/InfiniteScroll';
-import Loading from '@/components/shared/Loading/Loading';
 import PolicyCard from '@/components/shared/PolicyCard';
 import ProductCard from '@/components/shared/ProductCard';
 import Section, { SectionBody, SectionTitle } from '@/components/shared/Section';
-import { ProductServices } from '@/lib/repo/product.repo';
 import { Brand } from '@/types/brand.type';
 import { Product } from '@/types/product.type';
 import heroSliderData from '@/utils/fake-data/hero-slider';
 import policy from '@/utils/fake-data/policy';
 import Link from 'next/link';
-import { useState } from 'react';
 
 const SlideBanner = dynamic(import('@/components/shared/SlideBanner'));
 
-const HomePage = ({ brands }: { brands: Brand[] }) => {
-  const [product, setProduct] = useState<Product[]>([]);
-  const [hasNextPage, setHasNextPage] = useState(true);
-  const [page, setPage] = useState(0);
+const HomePage = ({ brands, products }: { brands: Brand[]; products: Product[] }) => {
+  // const [product, setProduct] = useState<Product[]>([]);
+  // const [hasNextPage, setHasNextPage] = useState(true);
+  // const [page, setPage] = useState(0);
+  // const product: any = use(usePromise);
+  // console.log('👌  product:', product);
 
-  const fetchNextPage = async () => {
-    try {
-      const res = await ProductServices.getAll({
-        page: page + 1,
-        pageSize: 4
-      });
+  // const fetchNextPage = async () => {
+  //   try {
+  //     const res = await ProductServices.getAll({
+  //       page: page + 1,
+  //       pageSize: 4
+  //     });
 
-      if (page + 1 > res.totalPages) {
-        setHasNextPage(false);
-        return;
-      }
+  //     if (page + 1 > res.totalPages) {
+  //       setHasNextPage(false);
+  //       return;
+  //     }
 
-      setProduct([...product, ...res.data]);
-      setPage((prev) => prev + 1);
-    } catch (error) {
-      console.log(error);
-      setHasNextPage(false);
-    }
-  };
+  //     setProduct([...product, ...res.data]);
+  //     setPage((prev) => prev + 1);
+  //   } catch (error) {
+  //     console.log(error);
+  //     setHasNextPage(false);
+  //   }
+  // };
 
   return (
     <>
@@ -81,18 +79,17 @@ const HomePage = ({ brands }: { brands: Brand[] }) => {
       <Section>
         <SectionTitle>top sản phẩm bản chạy trong tuần</SectionTitle>
         <SectionBody>
-          <InfiniteScroll
+          <Grid col={4} gap={20} mdCol={2} smCol={1}>
+            {products.map((item: Product) => (
+              <ProductCard key={item.title} product={item} />
+            ))}
+          </Grid>
+          {/* <InfiniteScroll
             dataLength={product.length}
             hasMore={hasNextPage}
             loader={<Loading />}
             next={fetchNextPage}
-          >
-            <Grid col={4} gap={20} mdCol={2} smCol={1}>
-              {product.map((item: Product) => (
-                <ProductCard key={item.title} product={item} />
-              ))}
-            </Grid>
-          </InfiniteScroll>
+          ></InfiniteScroll> */}
         </SectionBody>
       </Section>
       <Section>

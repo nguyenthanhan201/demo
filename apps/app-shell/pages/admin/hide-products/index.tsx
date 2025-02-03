@@ -19,7 +19,6 @@ const DataGrid = dynamic(() => import('nextjs-module-admin/DataGrid'));
 const Page: NextPageWithLayout<{
   hideProducts: Array<Product>;
 }> = ({ hideProducts }) => {
-  console.log('👌  hideProducts:', hideProducts);
   const toast = useToast();
 
   const columns: GridColumns<Product> = useMemo(() => {
@@ -99,7 +98,10 @@ const Page: NextPageWithLayout<{
             </Button>
             <Button
               onClick={() => {
-                ProductServices.deleteProduct(row.row._id);
+                const result = confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?');
+                if (result) {
+                  handleDeleteProduct(row.row._id);
+                }
               }}
               style={{ backgroundColor: '#70d8bd' }}
               variant='contained'
@@ -112,11 +114,27 @@ const Page: NextPageWithLayout<{
     ];
   }, []);
 
-  const handleShowProduct = (id: string) => {
+  const handleShowProduct = async (id: string) => {
+    const ProductServices = await import('@/lib/repo/product.repo').then(
+      (mod) => mod.ProductServices
+    );
+
     toast.promise(
       'Hiện sản phẩm thành công',
-      ProductServices.unhideProduct(id),
+      ProductServices.unhideProduct(id).then(() => window.location.reload()),
       'Hiện sản phẩm thất bại'
+    );
+  };
+
+  const handleDeleteProduct = async (id: string) => {
+    const ProductServices = await import('@/lib/repo/product.repo').then(
+      (mod) => mod.ProductServices
+    );
+
+    toast.promise(
+      'Xóa sản phẩm thành công',
+      ProductServices.deleteProduct(id).then(() => window.location.reload()),
+      'Xóa sản phẩm thất bại'
     );
   };
 
@@ -190,7 +208,6 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 
     return res.data.metadata;
   });
-  console.log('👌  hideProducts:', hideProducts);
 
   return {
     props: {
