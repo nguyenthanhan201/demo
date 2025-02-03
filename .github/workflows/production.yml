@@ -20,7 +20,7 @@ jobs:
       - name: Generate all outputs
         id: generate_outputs
         run: |
-          echo 'app_shell="prj_QaSqKm52IHermZtIu9jAvcv4VWSi"' >> $GITHUB_OUTPUT
+          echo 'app_shell="prj_DYjotFM2V2PI9PVy2SkDVOAz1EWY"' >> $GITHUB_OUTPUT
           echo 'nextjs-module-admin="prj_HEIFuRXui7ZtFbX698YOYsko0rIt"' >> $GITHUB_OUTPUT
           echo 'nextjs-module-livestream="prj_QaSqKm52IHermZtIu9jAvcv4VWSi"' >> $GITHUB_OUTPUT
 
