@@ -14,12 +14,12 @@ const roboto = Roboto({
   subsets: ['vietnamese']
 });
 
-if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
-  // require('../mocks');
-  import('../msw').then(async ({ initMocks }) => {
-    initMocks();
-  });
-}
+// if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
+//   // require('../mocks');
+//   import('../msw').then(async ({ initMocks }) => {
+//     initMocks();
+//   });
+// }
 
 const MyApp = ({ Component, pageProps }: any) => {
   useTheme();
