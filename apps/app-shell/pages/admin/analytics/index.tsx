@@ -20,7 +20,7 @@ import { ProductServices } from '@/lib/repo/product.repo';
 import { NextPageWithLayout } from '@/types/index';
 import { Product } from '@/types/product.type';
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+ChartJS?.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const Page: NextPageWithLayout<{
   mostViewProducts: Array<Product>;

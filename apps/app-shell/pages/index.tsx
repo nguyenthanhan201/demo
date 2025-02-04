@@ -1,13 +1,15 @@
 import HomePage from '@/components/index/home/HomePage';
 import DefaultLayout from '@/layouts/default-layout/DefaultLayout';
 import { useSEO } from '@/lib/hooks/useSEO';
+import { ProductServices } from '@/lib/repo/product.repo';
 import { Brand } from '@/types/brand.type';
 import { NextPageWithLayout } from '@/types/index';
 
 const Page: NextPageWithLayout<{
   brands: Array<Brand>;
-}> = ({ brands }) => {
-  return <HomePage brands={brands} />;
+  products: Array<any>;
+}> = ({ brands, products }) => {
+  return <HomePage brands={brands} products={products} />;
 };
 Page.Layout = DefaultLayout;
 export default Page;
@@ -17,7 +19,7 @@ export async function getServerSideProps() {
   //   (res) => res.ProductServices
   // );
 
-  const res = await Promise.all([BrandServices.getAll()]);
+  const res = await Promise.all([BrandServices.getAll(), ProductServices.getAll()]);
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const seo = useSEO('Dịch vụ đặt sản phẩm trực tuyến và giao hàng tận nơi', {
@@ -28,9 +30,9 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      brands: res[0].data,
+      brands: res[0],
       // brands: [],
-      // products: res[1].data,
+      products: res[1],
       seo
     }
   };

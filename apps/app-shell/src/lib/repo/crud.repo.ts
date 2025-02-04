@@ -7,13 +7,13 @@ enum SortOrder {
   DESC = 'DESC'
 }
 
-type BaseResponseList<T> = {
-  data: T[];
-  page: number;
-  pageSize: number;
-  totalPages: number;
-  total: number;
-};
+// type BaseResponseList<T> = {
+//   data: T[];
+//   page: number;
+//   pageSize: number;
+//   totalPages: number;
+//   total: number;
+// };
 
 type GenericFilter = {
   page: number;
@@ -29,8 +29,8 @@ export abstract class CrudRepository<T> {
   abstract apiName: string;
   abstract displayName: string;
 
-  async getAll(filter?: GenericFilter, config?: AxiosRequestConfig): Promise<BaseResponseList<T>> {
-    const res = await get<BaseResponseList<T>>(`api/v1/${this.apiName}`, {
+  async getAll(filter?: GenericFilter, config?: AxiosRequestConfig): Promise<Array<T>> {
+    const res = await get<Array<T>>(`api/v1/${this.apiName}`, {
       params: {
         ...filter
       },

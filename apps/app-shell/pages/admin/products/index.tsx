@@ -220,7 +220,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 
   return {
     props: {
-      products: products.data
+      products
     }
   };
 }
