@@ -6,6 +6,8 @@ const federationConfig = require('./src/configs/federationConfig');
 // const million = require('million/compiler');
 // const CompressionPlugin = require('compression-webpack-plugin');
 
+const beUrl = process.env.NEXT_PUBLIC_BE || '';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   compress: true,
@@ -185,46 +187,47 @@ const nextConfig = {
     //   ]
     // };
 
-    return {
-      beforeFiles: [
-        // {
-        //   source: '/login',
-        //   destination: 'https://www.youtube.com/'
-        // }
-        // {
-        //   source: '/images/slider/:path*',
-        //   destination: 'https://picsum.photos/id/237/200/300',
-        //   basePath: false
-        // },
-        // {
-        //   source: '/api/v1/upload/image/:path*',
-        //   destination: `http://localhost:8081/insecure/resize:fit:825:0:no:0/plain/${beUrl}upload/image/1718509662888-80932055.jpeg`,
-        //   basePath: false
-        // },
-        // {
-        //   source: '/_next/image/:path*',
-        //   destination: `http://localhost:8081/insecure/resize:fit:825:0:no:0/plain/${beUrl}upload/image/1718509662888-80932055.jpeg`,
-        //   basePath: false
-        // },
-        // {
-        //   // http://localhost:8081/insecure/resize:fit:825:0:no:0/plain/http://api:8080/api/v1/upload/image/1718509078056-80932055.jpeg
-        //   source: '/_next/image/:path*',
-        //   // destination: 'http://localhost:8080/api/v1/upload/image/1718523210791-images.jpeg',
-        //   destination:
-        //     'http://localhost:8081/insecure/resize:fit:825:0:no:0/plain/https://picsum.photos/id/237/200/300',
-        //   basePath: false
-        // }
-        {
-          source: '/_next/image/:path*',
-          destination:
-            '/_next/image/?url=https://imgproxy-1-0-0.onrender.com/insecure/resize:fit:825:0:no:0/plain/https://picsum.photos/id/237/200/300'
-          // basePath: false
-        }
-        // {
-        //   source: ''
-        // }
-      ]
-    };
+    // return {
+    //   beforeFiles: [
+    //     // {
+    //     //   source: '/login',
+    //     //   destination: 'https://www.youtube.com/'
+    //     // }
+    //     // {
+    //     //   source: '/images/slider/:path*',
+    //     //   destination: 'https://picsum.photos/id/237/200/300',
+    //     //   basePath: false
+    //     // },
+    //     // {
+    //     //   source: '/api/v1/upload/image/:path*',
+    //     //   destination: `http://localhost:8081/insecure/resize:fit:825:0:no:0/plain/${beUrl}upload/image/1718509662888-80932055.jpeg`,
+    //     //   basePath: false
+    //     // },
+    //     // {
+    //     //   source: '/_next/image/:path*',
+    //     //   destination: `http://localhost:8081/insecure/resize:fit:825:0:no:0/plain/${beUrl}upload/image/1718509662888-80932055.jpeg`,
+    //     //   basePath: false
+    //     // },
+    //     // {
+    //     //   // http://localhost:8081/insecure/resize:fit:825:0:no:0/plain/http://api:8080/api/v1/upload/image/1718509078056-80932055.jpeg
+    //     //   source: '/_next/image/:path*',
+    //     //   // destination: 'http://localhost:8080/api/v1/upload/image/1718523210791-images.jpeg',
+    //     //   destination:
+    //     //     'http://localhost:8081/insecure/resize:fit:825:0:no:0/plain/https://picsum.photos/id/237/200/300',
+    //     //   basePath: false
+    //     // }
+    //     {
+    //       source: '/_next/image/:path*',
+    //       destination:
+    //         '/_next/image/?url=https://imgproxy-1-0-0.onrender.com/insecure/resize:fit:825:0:no:0/plain/https://picsum.photos/id/237/200/300'
+    //       // basePath: false
+    //     }
+    //     // {
+    //     //   source: ''
+    //     // }
+    //   ]
+    // };
+    return [{ source: '/api/:path*', destination: `${beUrl}api/:path*` }];
   }
 };
 
