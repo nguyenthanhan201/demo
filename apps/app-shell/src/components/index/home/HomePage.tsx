@@ -52,7 +52,7 @@ const HomePage = ({ brands, products }: { brands: Brand[]; products: Product[] }
           <Grid col={6} gap={20} id='list-brands' mdCol={2} smCol={1}>
             {brands.map((item) => {
               return (
-                <Link href={`brand/${item._id}`} key={item._id} prefetch={false}>
+                <Link href={`brand/${item._id}`} key={item._id}>
                   <Img alt={item.name} height={200} src={item.logo} width={200} />
                 </Link>
               );

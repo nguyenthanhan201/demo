@@ -38,11 +38,7 @@ const SiderBar = () => {
           const isSelect = router.pathname === item.path;
           return (
             <li key={item.path}>
-              <Link
-                className={`side-bar__content__item ${isSelect && 'active'}`}
-                href={item.path}
-                prefetch={false}
-              >
+              <Link className={`side-bar__content__item ${isSelect && 'active'}`} href={item.path}>
                 {item.icon}
                 <p>{item.title}</p>
               </Link>
