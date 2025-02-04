@@ -98,7 +98,7 @@ const DefaultHeader = () => {
   }, []);
 
   return (
-    <div className={`header ${headerShrink && 'shrink'}`}>
+    <div className={`header ${headerShrink && 'shrink'}`} suppressHydrationWarning>
       <div className='container'>
         <div className='header_menu'>
           <div className='header_menu_mobile-toggle' onClick={menuToggle} role='presentation'>
@@ -117,13 +117,13 @@ const DefaultHeader = () => {
                 onClick={menuToggle}
                 role='presentation'
               >
-                <Link href={item.path} prefetch={false}>
+                <Link href={item.path}>
                   <span>{trans.header[item.name as TranslatedHeader]}</span>
                 </Link>
               </div>
             ))}
           </div>
-          <Link className='header_logo' href='/' prefetch={false}>
+          <Link className='header_logo' href='/'>
             <Img
               alt='Yolo'
               layout='fill'
@@ -135,30 +135,30 @@ const DefaultHeader = () => {
             />
           </Link>
           <div className='header_menu_right'>
-            <div className='header_menu_item header_menu_right_item'>
+            <div className='header_menu_right_item header_menu_item'>
               <Tooltip title='Live Stream'>
                 <div onClick={handleClickLiveStream}>
                   <LiveTvIcon />
                 </div>
               </Tooltip>
             </div>
-            <div className='header_menu_item header_menu_right_item'>
+            <div className='header_menu_right_item header_menu_item'>
               <Tooltip title='Bài post'>
-                <Link href='/blog' prefetch={false}>
+                <Link href='/blog'>
                   <RssFeedOutlined />
                 </Link>
               </Tooltip>
             </div>
-            <div className='header_menu_item header_menu_right_item'>
+            <div className='header_menu_right_item header_menu_item'>
               <Tooltip title='Giỏ hàng'>
-                <Link href='/cart' prefetch={false}>
+                <Link href='/cart'>
                   <Badge badgeContent={Object.keys(cart).length} color='primary'>
                     <LocalMallOutlinedIcon />
                   </Badge>
                 </Link>
               </Tooltip>
             </div>
-            <div className='header_menu_item header_menu_right_item'>
+            <div className='header_menu_right_item header_menu_item'>
               {auth ? (
                 <>
                   <DynamicAvatar sx={{ width: 27, height: 27 }}>
@@ -168,7 +168,7 @@ const DefaultHeader = () => {
                 </>
               ) : (
                 <Tooltip title='Đăng nhập'>
-                  <Link href='/login' prefetch={false}>
+                  <Link href='/login'>
                     <LoginIcon />
                   </Link>
                 </Tooltip>

@@ -12,10 +12,10 @@ import { NextPageWithLayout } from '@/types/index';
 const Page: NextPageWithLayout<{
   data: Brand[];
 }> = ({ data }) => {
-  console.log('👌  data:', data);
+  // console.log('👌  data:', data);
   if (data.length === 0)
     return (
-      <Link href='/brand/create' prefetch={false}>
+      <Link href='/brand/create'>
         <Button>tham gia hợp tác</Button>
       </Link>
     );
@@ -30,7 +30,7 @@ const Page: NextPageWithLayout<{
               <Img alt={brand.logo} height={100} src={brand.logo} width={100} />
             </td>
             <td>
-              <div className='flex items-center justify-center gap-3'>
+              <div className='flex justify-center items-center gap-3'>
                 <Link href={`/brand/${brand._id}/edit`}>Sửa</Link>
                 Xoá
               </div>

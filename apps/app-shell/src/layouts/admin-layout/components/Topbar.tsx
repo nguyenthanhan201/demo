@@ -20,7 +20,7 @@ const Topbar = () => {
       </Box> */}
       {/* ICONS */}
       <Box display='flex'>
-        <Link href='/' prefetch={false}>
+        <Link href='/'>
           <HomeOutlinedIcon />
         </Link>
         <div onClick={toggleTheme}>
