@@ -1,5 +1,4 @@
 import HomePage from '@/components/index/home/HomePage';
-import { UNLIMITED_PAGE_SIZE } from '@/constants/index';
 import DefaultLayout from '@/layouts/default-layout/DefaultLayout';
 import { useSEO } from '@/lib/hooks/useSEO';
 import { BrandServices } from '@/lib/repo/brand.repo';
@@ -22,11 +21,7 @@ export async function getServerSideProps() {
   //   (res) => res.ProductServices
   // );
 
-  const res = await Promise.all([
-    BrandServices.getAll(),
-    // ProductServices.getAll(UNLIMITED_PAGE_SIZE).then((res) => res)
-    ProductServices.getAll(UNLIMITED_PAGE_SIZE)
-  ]);
+  const res = await Promise.all([BrandServices.getAll(), ProductServices.getAll()]);
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const seo = useSEO('Dịch vụ đặt sản phẩm trực tuyến và giao hàng tận nơi', {

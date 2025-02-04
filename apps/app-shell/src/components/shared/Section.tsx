@@ -1,11 +1,13 @@
-import { ComponentPropsWithRef, ElementRef, forwardRef, ForwardRefRenderFunction } from 'react';
+import { forwardRef, ForwardRefRenderFunction } from 'react';
 
-const Section: ForwardRefRenderFunction<ElementRef<'div'>, ComponentPropsWithRef<'div'>> = (
-  { children },
+interface SectionProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+const Section: ForwardRefRenderFunction<HTMLDivElement, SectionProps> = (
+  { children, ...props },
   ref
 ) => {
   return (
-    <div className='section' ref={ref}>
+    <div className='section' ref={ref} {...props}>
       {children}
     </div>
   );

@@ -22,8 +22,6 @@ const HomePage = ({ brands, products }: { brands: Brand[]; products: Product[] }
   // const [product, setProduct] = useState<Product[]>([]);
   // const [hasNextPage, setHasNextPage] = useState(true);
   // const [page, setPage] = useState(0);
-  // const product: any = use(usePromise);
-  // console.log('👌  product:', product);
 
   // const fetchNextPage = async () => {
   //   try {
@@ -89,7 +87,13 @@ const HomePage = ({ brands, products }: { brands: Brand[]; products: Product[] }
             hasMore={hasNextPage}
             loader={<Loading />}
             next={fetchNextPage}
-          ></InfiniteScroll> */}
+          >
+            <Grid col={4} gap={20} mdCol={2} smCol={1}>
+              {product.map((item: Product) => (
+                <ProductCard key={item.title} product={item} />
+              ))}
+            </Grid>
+          </InfiniteScroll> */}
         </SectionBody>
       </Section>
       <Section>

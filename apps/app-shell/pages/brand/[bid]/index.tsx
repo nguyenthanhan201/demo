@@ -5,12 +5,9 @@ import { mount } from 'vuejs_app/Preview';
 
 import DefaultLayout from '@/layouts/default-layout/DefaultLayout';
 import { BrandServices } from '@/lib/repo/brand.repo';
-import { Brand } from '@/types/brand.type';
-import { NextPageWithLayout } from '@/types/index';
 
-const Page: NextPageWithLayout<{
-  brand: Brand;
-}> = ({ brand }) => {
+// const Page = ({ brand }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Page = ({ brand }: any) => {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -28,14 +25,9 @@ export default Page;
 Page.Layout = DefaultLayout;
 
 // export async function getStaticPaths() {
-//   let res = await BrandServices.getAll(UNLIMITED_PAGE_SIZE);
-//   console.log('👌  res:', res);
+//   const res = await BrandServices.getAll(UNLIMITED_PAGE_SIZE);
 
-//   if (!res) {
-//     res = { data: [] } as any;
-//   }
-
-//   const paths = res.data.map((post) => ({
+//   const paths = res.map((post) => ({
 //     params: { bid: String(post._id) }
 //   }));
 
@@ -51,7 +43,7 @@ Page.Layout = DefaultLayout;
 // };
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const { bid } = ctx.params as { bid: string };
+  const { bid } = ctx.params as any;
   const res = await BrandServices.getOneBrand(bid as string);
 
   if (res.code === 'ERROR') return;
