@@ -1,5 +1,0 @@
-{
-  "rewrites": [
-    { "source": "/api/:path*", "destination": "https://nginx-1-0-0.onrender.com/api/:path*" }
-  ]
-}
