@@ -208,5 +208,6 @@ module.exports = {
       }
     }
   },
+  blocklist: ['container'],
   plugins: []
 };

@@ -7,7 +7,7 @@ const DefaultLayout = ({ ...props }: any) => {
   return (
     <>
       <DefaultHeader />
-      <div className='app container'>
+      <div className='app'>
         <div className='main'>
           {props.children}
           <DefaultFooter />

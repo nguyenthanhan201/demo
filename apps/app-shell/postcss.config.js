@@ -1,7 +1,8 @@
 // https://blog.openreplay.com/removing-unused-css-with-purgecss/
 module.exports = {
   plugins: {
-    tailwindcss: {},
+    '@tailwindcss/postcss': {},
+    // tailwindcss: {},
     autoprefixer: {},
     // restore the Next.js default behavior
     'postcss-flexbugs-fixes': {},
