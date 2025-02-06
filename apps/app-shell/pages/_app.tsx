@@ -27,6 +27,7 @@ const roboto = Roboto({
 // }
 
 const MyApp = ({ Component, pageProps }: any) => {
+  console.log('👌  pageProps:', pageProps);
   useTheme();
   useAuth({
     initialState: {
