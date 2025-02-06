@@ -1,3 +1,5 @@
+import { CartItem } from '@/types/cartItem.type';
+
 import { get, post } from '../axios/http';
 
 export class CartRepository {
@@ -28,8 +30,12 @@ export class CartRepository {
     return res;
   }
 
-  async getCartItemsByIdAuth(idAuth: string) {
-    const res: any = await get(`api/v1/cart-item/${idAuth}`);
+  async getCartItemsByIdAuth() {
+    const res = await get<CartItem>(`api/v1/cart-item`);
+    if (res.code === 'ERROR') {
+      throw new Error(res.error.message);
+    }
+
     return res.data;
   }
 

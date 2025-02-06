@@ -16,7 +16,7 @@ const Page: NextPageWithLayout<{
 Page.Layout = DefaultLayout;
 export default Page;
 export async function getServerSideProps() {
-  const res = await Promise.all([BrandServices.getAll(), ProductServices.getAll()]);
+  const [brands, products] = await Promise.all([BrandServices.getAll(), ProductServices.getAll()]);
   // console.log('👌  res:', res);
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -28,9 +28,9 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      brands: res[0],
+      brands: brands,
       // brands: [],
-      products: res[1],
+      products: products,
       // products: [],
       seo
     }

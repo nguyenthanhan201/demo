@@ -4,21 +4,19 @@ import { useEffect } from 'react';
 import Button from '@/components/shared/Button';
 import { getResultPaymentFromUrl } from '@/lib/helpers/string';
 import { useToast } from '@/lib/providers/toast-provider';
-import { useAuthStore } from '@/lib/zustand/useAuthStore';
 
 const PaymentUrlReturnPage = () => {
   const toast = useToast();
-  const { auth } = useAuthStore(['auth']);
 
   useEffect(() => {
-    if (!auth || !getResultPaymentFromUrl()) return;
+    if (!getResultPaymentFromUrl()) return;
 
     const handleCreateOrder = async () => {
       const OrderServices = await import('@/lib/repo/order.repo').then((res) => res.OrderServices);
 
       toast.promise(
         'Xử lí đơn hàng thành công',
-        OrderServices.addOrder(auth._id)
+        OrderServices.addOrder()
           .then(() => (window.location.href = '/'))
           .catch((err) => {
             console.log('🚀 ~ file: VNPayReturn.tsx ~ line 43 ~ err', err);
@@ -28,7 +26,7 @@ const PaymentUrlReturnPage = () => {
     };
 
     handleCreateOrder();
-  }, [auth?._id]);
+  }, []);
 
   return (
     <div className='vnpay-return'>

@@ -208,6 +208,6 @@ module.exports = {
       }
     }
   },
-  blocklist: ['container'],
+  blocklist: ['container', 'btn_txt'],
   plugins: []
 };

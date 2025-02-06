@@ -16,13 +16,13 @@ export class OrderRepository extends CrudRepository<any> {
     return res;
   }
 
-  async addOrder(idAuth: string) {
-    const res = await post(`api/v1/order/add-order`, { idAuth });
+  async addOrder() {
+    const res = await post(`api/v1/order/add-order`);
     return res;
   }
 
-  async getOrdersByIdAuth(idAuth: string) {
-    const res = await get(`api/v1/order/show/${idAuth}`);
+  async getOrdersByIdAuth() {
+    const res = await get(`api/v1/order/show`);
     return res;
   }
 }

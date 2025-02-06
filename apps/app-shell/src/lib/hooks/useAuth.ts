@@ -1,41 +1,64 @@
 import { useEffect } from 'react';
 
+import { Auth } from '@/types/auth.type';
+import { CartItem } from '@/types/cartItem.type';
+
 import { isEmpty } from '../helpers/assertion';
 import { clearCookie, getAccessTokenFromCookie } from '../helpers/auth';
 import { useAuthStore } from '../zustand/useAuthStore';
 import { useCartStore } from '../zustand/useCartStore';
 
-function useAuth() {
+type AuthState = {
+  initialState?: {
+    auth: Auth | null;
+    cart: CartItem;
+  };
+};
+
+function useAuth(props: AuthState) {
+  const { initialState } = props;
+  const { auth, cart } = initialState || {};
+
   const { setAuth } = useAuthStore(['setAuth']);
   const { setCart } = useCartStore(['setCart']);
 
   useEffect(() => {
-    (async function unsubscribe() {
-      const isLogined = !isEmpty(getAccessTokenFromCookie());
+    if (isEmpty(getAccessTokenFromCookie())) {
+      clearCookie();
+      return;
+    }
 
-      if (!isLogined) {
-        clearCookie();
-        return;
-      }
+    auth && setAuth(auth);
+    cart && setCart(cart);
+  }, [auth, cart]);
 
-      try {
-        const { AuthServices } = await import('../repo/auth.repo');
-        const { CartServices } = await import('../repo/cart.repo');
+  // useEffect(() => {
+  //   (async function unsubscribe() {
+  //     const isLogined = !isEmpty(getAccessTokenFromCookie());
 
-        const { metadata } = await AuthServices.getProfile();
+  //     if (!isLogined) {
+  //       clearCookie();
+  //       return;
+  //     }
 
-        if (!metadata) return;
+  //     try {
+  //       const { AuthServices } = await import('../repo/auth.repo');
+  //       const { CartServices } = await import('../repo/cart.repo');
 
-        const cartItems = await CartServices.getCartItemsByIdAuth(metadata._id);
+  //       const { metadata } = await AuthServices.getProfile();
 
-        setAuth(metadata);
-        setCart(cartItems);
-      } catch (error) {
-        console.log('🚀 ~ file: useAuth.ts ~ line 57 ~ onAuthStateChanged ~ error', error);
-        alert('Error when fetching user data');
-      }
-    })();
-  }, []);
+  //       if (!metadata) return;
+
+  //       const cartItems = await CartServices.getCartItemsByIdAuth(metadata._id);
+
+  //       setAuth(metadata);
+  //       setCart(cartItems);
+  //     } catch (error) {
+  //       console.log('🚀 ~ file: useAuth.ts ~ line 57 ~ onAuthStateChanged ~ error', error);
+  //       alert('Error when fetching user data');
+  //     }
+  //   })();
+  // }, []);
 }
 
 export default useAuth;

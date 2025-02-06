@@ -1,11 +1,16 @@
 // eslint-disable-next-line simple-import-sort/imports
+import { setContext } from '@/lib/axios/http';
 import '../src/sass/index.scss';
 
+import { getAccessTokenFromServerSidePropsContext } from '@/lib/helpers/cookie';
 import useAuth from '@/lib/hooks/useAuth';
 import useTheme from '@/lib/hooks/useTheme';
 import { ToastProvider } from '@/lib/providers/toast-provider';
+import { AuthServices } from '@/lib/repo/auth.repo';
+import { CartServices } from '@/lib/repo/cart.repo';
 import { useNetwork } from 'my-package/dist/useNetwork';
 import { DefaultSeo, NextSeo } from 'next-seo';
+import App, { AppContext, AppInitialProps } from 'next/app';
 import { Roboto } from 'next/font/google';
 import { Fragment } from 'react';
 
@@ -23,7 +28,12 @@ const roboto = Roboto({
 
 const MyApp = ({ Component, pageProps }: any) => {
   useTheme();
-  useAuth();
+  useAuth({
+    initialState: {
+      auth: pageProps.userData,
+      cart: pageProps.cartItems
+    }
+  });
   const Layout = Component.Layout ? Component.Layout : Fragment;
   const layoutProps = Component.LayoutProps ? Component.LayoutProps : {};
   const { online } = useNetwork();
@@ -105,19 +115,35 @@ const MyApp = ({ Component, pageProps }: any) => {
   );
 };
 export default MyApp;
-// MyApp.getInitialProps = async (appContext: AppContext): Promise<AppInitialProps> => {
-//   const pageProps = await App.getInitialProps(appContext);
-//   const { ctx } = appContext;
-//   let userData = null;
-//   setContext(ctx as any);
+MyApp.getInitialProps = async (appContext: AppContext): Promise<AppInitialProps> => {
+  const pageProps = await App.getInitialProps(appContext);
+  const { ctx } = appContext;
+  const token = getAccessTokenFromServerSidePropsContext(ctx);
 
-//   const { isMobile } = checkServerSideDeviceDetection(ctx);
-//   const { AuthServices } = await import('../src/lib/repo/auth.repo');
-//   userData = await AuthServices.getProfile();
+  if (token) {
+    setContext(ctx);
+    // const { AuthServices } = await import('../src/lib/repo/auth.repo');
+    // const { CartServices } = await import('../src/lib/repo/cart.repo');
 
-//   return {
-//     pageProps: {
-//       ...pageProps.pageProps
-//     }
-//   };
-// };
+    const [userData, cartItems] = await Promise.all([
+      AuthServices.getProfile(),
+      CartServices.getCartItemsByIdAuth()
+    ]);
+
+    return {
+      pageProps: {
+        ...pageProps.pageProps,
+        userData: userData.metadata,
+        cartItems
+      }
+    };
+  }
+
+  // const { isMobile } = checkServerSideDeviceDetection(ctx);
+
+  return {
+    pageProps: {
+      ...pageProps.pageProps
+    }
+  };
+};

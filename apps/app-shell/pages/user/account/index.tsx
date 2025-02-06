@@ -1,9 +1,9 @@
 import AccountInfo from '@/components/index/user/components/AccountInfo/AccountInfo';
-import UserPlayout from '@/layouts/user-layout/UserPlayout';
+import UserLayout from '@/layouts/user-layout/UserLayout';
 
 const Page = () => {
   return <AccountInfo />;
 };
 
 export default Page;
-Page.Layout = UserPlayout;
+Page.Layout = UserLayout;

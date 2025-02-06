@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import * as https from 'https';
-import { GetServerSidePropsContext } from 'next';
+import { GetServerSidePropsContext, NextPageContext } from 'next';
 
 import { BaseResponse, BaseResponseBE, CustomAxiosError } from '@/types/utils.type';
 
@@ -11,12 +11,12 @@ import {
   getRefreshTokenFromCookie,
   setAccessTokenToCookie
 } from '../helpers/auth';
-import { decodedToken } from '../helpers/cookie';
+import { getAccessTokenFromServerSidePropsContext } from '../helpers/cookie';
 
 const ERROR_MAX_RETRY = 2;
-let context = <GetServerSidePropsContext>{};
+let context = <NextPageContext | GetServerSidePropsContext>{};
 
-export const setContext = (_context: GetServerSidePropsContext) => {
+export const setContext = (_context: NextPageContext | GetServerSidePropsContext) => {
   context = _context;
 };
 
@@ -54,12 +54,7 @@ class Http {
       }
 
       if (isServer() && context?.req?.headers.cookie) {
-        const token = decodedToken(
-          context.req.headers.cookie?.replace(
-            /(?:(?:^|.*;\s*)90s_access_token\s*=\s*([^;]*).*$)|^.*$/,
-            '$1'
-          )
-        );
+        const token = getAccessTokenFromServerSidePropsContext(context);
 
         config.headers.Authorization = `Bearer ${token}`;
         return config;

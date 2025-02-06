@@ -1,5 +1,8 @@
 // type ParsedCookie = {
 //   [key: string]: string;
+
+import { GetServerSidePropsContext, NextPageContext } from 'next';
+
 // };
 type ParsedCookie = {
   token: string;
@@ -17,4 +20,17 @@ const parseCookie = <T extends ParsedCookie>(cookieString: string): T => {
 
 const decodedToken = (token: string): string => decodeURIComponent(token.replace(/%22/g, ''));
 
-export { decodedToken, parseCookie };
+const getAccessTokenFromServerSidePropsContext = (
+  context: NextPageContext | GetServerSidePropsContext
+): string => {
+  const token = decodedToken(
+    context.req?.headers.cookie?.replace(
+      /(?:(?:^|.*;\s*)90s_access_token\s*=\s*([^;]*).*$)|^.*$/,
+      '$1'
+    ) || ''
+  );
+
+  return token;
+};
+
+export { decodedToken, getAccessTokenFromServerSidePropsContext, parseCookie };

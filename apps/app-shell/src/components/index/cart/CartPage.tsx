@@ -6,7 +6,6 @@ import { TEST_PAYMENT_LINKS } from '@/constants/index';
 import { getSalePrice, numberWithCommans } from '@/lib/helpers/numbers';
 import { useToast } from '@/lib/providers/toast-provider';
 import { useCartStore } from '@/lib/zustand/useCartStore';
-import { CartItem as CartItemType } from '@/types/cartItem.type';
 import { PaymentTypes } from '@/types/order.type';
 
 import SelectPayment from './components/SelectPayment';
@@ -31,12 +30,12 @@ const CartPage = () => {
     });
 
     // filter out cart items with products are not hidden
-    return asArray.filter((item) => item[0].idProduct.deletedAt === null);
+    return asArray.filter((item: any) => item[0].idProduct.deletedAt === null);
   }, [cart]);
   const totalPrice = useMemo(() => {
     let total = 0;
     if (!filteredCartItems) return total;
-    Object.values(filteredCartItems).map((item: [CartItemType]) => {
+    Object.values(filteredCartItems).map((item: any) => {
       const quantity = item[0].quantity;
 
       // if product is on sale then use sale price else use price from product
@@ -48,7 +47,7 @@ const CartPage = () => {
   }, [filteredCartItems]);
 
   const handleCreateOrder = async () => {
-    const OrderServices = await import('@/lib/repo/order.repo').then((res) => res.OrderServices);
+    const { OrderServices } = await import('@/lib/repo/order.repo');
 
     return OrderServices.createOrder(totalPrice, cart, paymentMethod)
       .then((res) => {
@@ -61,7 +60,7 @@ const CartPage = () => {
   };
 
   return (
-    <div className='cart mb-3'>
+    <div className='mb-3 cart'>
       <div className='cart_info'>
         <div className='cart_info_txt'>
           <p>
@@ -88,11 +87,11 @@ const CartPage = () => {
         {cart
           ? Object.values(cart).map((item, index) => (
               <DynamicCartItem
-                color={item[0].color}
+                color={item[0]?.color || ''}
                 key={index}
-                product={item[0].idProduct}
-                quantity={item[0].quantity}
-                size={item[0].size}
+                product={item[0]?.idProduct || ({} as any)}
+                quantity={item[0]?.quantity || 0}
+                size={item[0]?.size || ''}
               />
             ))
           : null}

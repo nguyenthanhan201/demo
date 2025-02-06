@@ -52,22 +52,24 @@ const SelectPayment = ({ btnOrderProps, setValue, value }: SelectPaymentProps) =
             control={<Radio />}
             label={
               <Img
-                alt='https://docs.zalopay.vn/images/logo-zalopay.svg'
-                height={42}
-                src='https://docs.zalopay.vn/images/logo-zalopay.svg'
-                width={86}
+                alt='https://simg.zalopay.com.vn/zlp-website/assets/new_logo_6c5db2d21b.svg'
+                height={28}
+                src='https://simg.zalopay.com.vn/zlp-website/assets/new_logo_6c5db2d21b.svg'
+                width={125}
               />
             }
             value='zalopay'
           />
         </RadioGroup>
       </FormControl>
-      <div className='mt-4 space-x-2'>
-        <Button size='block' {...btnOrderProps}>
+      <div className='flex space-x-2 mt-4'>
+        <Button size='block' {...btnOrderProps} className='flex-1'>
           đặt hàng
         </Button>
-        <Link href='/' prefetch={false}>
-          <Button size='block'>tiếp tục mua hàng</Button>
+        <Link className='flex-1' href='/' prefetch={false}>
+          <Button className='whitespace-nowrap' size='block'>
+            tiếp tục mua hàng
+          </Button>
         </Link>
       </div>
     </div>

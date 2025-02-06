@@ -5,6 +5,7 @@ import Img from '@/components/shared/Img/Img';
 import { getSalePrice, numberWithCommans } from '@/lib/helpers/numbers';
 import { formatDate } from '@/lib/helpers/time';
 import { colors } from '@/lib/theme/theme';
+import { Order } from '@/types/order.type';
 
 const columns: GridColDef[] = [
   {
@@ -81,7 +82,7 @@ const columns: GridColDef[] = [
 ];
 
 type ManagerOrdersProps = {
-  orders: any[];
+  orders: Order[];
 };
 
 const ManagerOrders = ({ orders }: ManagerOrdersProps) => {

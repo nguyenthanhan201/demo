@@ -62,8 +62,8 @@ export const withCSR = (next: any) => async (ctx: any) => {
 };
 
 export const refetchCart = async (authId: string, CbSuccess: (cartItems: CartItem) => void) => {
-  const cartItems = await CartServices.getCartItemsByIdAuth(authId);
-  CbSuccess(cartItems);
+  const cartItems = await CartServices.getCartItemsByIdAuth();
+  CbSuccess(cartItems as unknown as CartItem);
 };
 
 export type CommentTree = Comment & { childComments: CommentTree[] };

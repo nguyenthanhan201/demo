@@ -24,7 +24,7 @@ const Button = (props: ButtonProps) => {
       // eslint-disable-next-line react/button-has-type
       type={type}
     >
-      <span className='btn_txt'>{children}</span>
+      <span className='!py-0 btn_txt'>{children}</span>
       {props.icon ? <span className='btn_icon'>{props.icon}</span> : null}
     </button>
   );

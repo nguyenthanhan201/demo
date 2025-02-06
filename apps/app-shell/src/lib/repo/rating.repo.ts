@@ -3,8 +3,8 @@ import { Rating } from '@/types/rating.type';
 import { get, put } from '../axios/http';
 
 export class RatingRepository {
-  async getRatingByIdAuth(idAuth: string) {
-    const res = await get<Rating[]>(`api/v1/rating/getRatingByIdAuth/${idAuth}`);
+  async getRatingByIdAuth() {
+    const res = await get<Rating[]>(`api/v1/rating/getRatingByIdAuth`);
     return res;
   }
   async getRatingByIdProduct(idProduct: string) {

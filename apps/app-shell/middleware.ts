@@ -6,6 +6,10 @@ export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const token = request.cookies.get('90s_access_token');
 
+  if (pathname.includes('/api')) {
+    return NextResponse.next();
+  }
+
   if (authPaths.some((path) => pathname.includes(path))) {
     const isRequiredAuthPath =
       pathname.includes('/admin') || pathname.includes('/cart') || pathname.includes('/user');

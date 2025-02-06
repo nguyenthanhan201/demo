@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import Button from '@/components/shared/Button';
 import Img from '@/components/shared/Img/Img';
-import UserPlayout from '@/layouts/user-layout/UserPlayout';
+import UserLayout from '@/layouts/user-layout/UserLayout';
 import { setContext } from '@/lib/axios/http';
 import { BrandServices } from '@/lib/repo/brand.repo';
 import { Brand } from '@/types/brand.type';
@@ -43,7 +43,7 @@ const Page: NextPageWithLayout<{
 };
 
 export default Page;
-Page.Layout = UserPlayout;
+Page.Layout = UserLayout;
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   setContext(ctx);

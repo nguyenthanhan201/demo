@@ -5,7 +5,7 @@ import SiderBar from './components/SiderBar';
 const DefaultFooter = dynamic(() => import('@/layouts/default-footer/DefaultFooter'));
 const DefaultHeader = dynamic(() => import('../default-header/DefaultHeader'));
 
-const UserPlayout = ({ ...props }: any) => {
+const UserLayout = ({ ...props }: any) => {
   return (
     <>
       <DefaultHeader />
@@ -20,4 +20,4 @@ const UserPlayout = ({ ...props }: any) => {
   );
 };
 
-export default UserPlayout;
+export default UserLayout;

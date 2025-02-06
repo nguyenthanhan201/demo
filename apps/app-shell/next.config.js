@@ -168,7 +168,7 @@ const nextConfig = {
       transform: '@mui/icons-material/{{ matches.[1] }}/{{member}}'
     }
   },
-  async rewrites() {
+  rewrites() {
     // console.log('Rewrites configuration applied');
     // return {
     //   afterFiles: [
@@ -186,7 +186,6 @@ const nextConfig = {
     //     }
     //   ]
     // };
-
     // return {
     //   beforeFiles: [
     //     // {
@@ -228,12 +227,16 @@ const nextConfig = {
     //   ]
     // };
     return [{ source: '/api/:path*', destination: `${beUrl}api/:path*` }];
+    // return [];
   }
+  // redirects() {
+  //   return [{ source: '/api/:path*', destination: `${beUrl}api/:path*`, permanent: false }];
+  // }
 };
 
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true'
-});
+// const withBundleAnalyzer = require('@next/bundle-analyzer')({
+//   enabled: process.env.ANALYZE === 'true'
+// });
 
 // module.exports = withBundleAnalyzer(nextConfig);
 // module.exports = million.next(nextConfig);

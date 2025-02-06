@@ -24,7 +24,7 @@ export class BrandRepository extends CrudRepository<Brand> {
 
   async updateBrand(data: { brandId: string; design: string; preview: never[] }) {
     const { brandId, design, preview } = data;
-    console.log('👌  brandId:', brandId);
+    // console.log('👌  brandId:', brandId);
     const res = await put(`api/v1/brand/updateDesign`, {
       brandId,
       design,

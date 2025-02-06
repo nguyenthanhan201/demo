@@ -50,9 +50,6 @@ importers:
       date-fns:
         specifier: ^2.28.0
         version: 2.30.0
-      http-proxy:
-        specifier: ^1.18.1
-        version: 1.18.1(debug@4.4.0)
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5
@@ -129,9 +126,6 @@ importers:
       '@tailwindcss/postcss':
         specifier: ^4.0.3
         version: 4.0.3
-      '@types/http-proxy':
-        specifier: ^1.17.15
-        version: 1.17.15
       '@types/js-cookie':
         specifier: ^3.0.4
         version: 3.0.6
