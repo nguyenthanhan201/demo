@@ -76,6 +76,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
       - uses: pnpm/action-setup@v2
         with:
           version: 8.9.0 # Optional: specify a pnpm version
