@@ -3,7 +3,7 @@ import { Cancel } from '@repo/icons/src/Cancel';
 import { CheckCircle } from '@repo/icons/src/CheckCircle';
 import { Info } from '@repo/icons/src/Info';
 import { WarningOutlined } from '@repo/icons/src/WarningOutlined';
-import { createContext, ReactNode, use } from 'react';
+import { createContext, ReactNode, useContext } from 'react';
 import {
   ToastContainer,
   ToastContent,
@@ -116,11 +116,11 @@ const toast = {
 
 export const ToastProvider = ({ children }: { children: ReactNode }) => {
   return (
-    <ToastContext value={toast}>
+    <ToastContext.Provider value={toast}>
       {children}
       <ToastContainer containerId='toast-root' limit={1} position='top-center' transition={Zoom} />
-    </ToastContext>
+    </ToastContext.Provider>
   );
 };
 
-export const useToast = () => use(ToastContext);
+export const useToast = () => useContext(ToastContext);
