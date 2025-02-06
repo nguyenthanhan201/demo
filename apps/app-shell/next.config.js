@@ -107,13 +107,13 @@ const nextConfig = {
     }
 
     config.plugins.push(new NextFederationPlugin(federationConfig(isServer)));
-    if (!isServer) {
-      config.plugins.push(
-        new FederatedTypesPlugin({
-          federationConfig: federationConfig(isServer)
-        })
-      );
-    }
+    // if (!isServer) {
+    //   config.plugins.push(
+    //     new FederatedTypesPlugin({
+    //       federationConfig: federationConfig(isServer)
+    //     })
+    //   );
+    // }
 
     // Reduce Next.Js Bundle Size By Replacing React With Preact
     // https://joyofcode.xyz/next-bundle-size
