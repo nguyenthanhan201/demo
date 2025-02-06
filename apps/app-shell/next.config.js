@@ -7,6 +7,7 @@ const federationConfig = require('./src/configs/federationConfig');
 // const CompressionPlugin = require('compression-webpack-plugin');
 
 const beUrl = process.env.NEXT_PUBLIC_BE || '';
+const dev = process.env.NODE_ENV === 'development';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -107,13 +108,14 @@ const nextConfig = {
     }
 
     config.plugins.push(new NextFederationPlugin(federationConfig(isServer)));
-    // if (!isServer) {
-    //   config.plugins.push(
-    //     new FederatedTypesPlugin({
-    //       federationConfig: federationConfig(isServer)
-    //     })
-    //   );
-    // }
+    if (!isServer && dev) {
+      console.log('Adding FederatedTypesPlugin');
+      config.plugins.push(
+        new FederatedTypesPlugin({
+          federationConfig: federationConfig(isServer)
+        })
+      );
+    }
 
     // Reduce Next.Js Bundle Size By Replacing React With Preact
     // https://joyofcode.xyz/next-bundle-size
