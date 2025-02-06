@@ -8,6 +8,8 @@ const federationConfig = require('./src/configs/federationConfig');
 
 const beUrl = process.env.NEXT_PUBLIC_BE || '';
 const dev = process.env.NODE_ENV === 'development';
+const NEXTJS_MODULE_ADMIN_URL = process.env.NEXTJS_MODULE_ADMIN_URL;
+console.log('👌  NEXTJS_MODULE_ADMIN_URL:', NEXTJS_MODULE_ADMIN_URL);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
