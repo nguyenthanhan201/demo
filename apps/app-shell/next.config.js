@@ -168,7 +168,7 @@ const nextConfig = {
       transform: '@mui/icons-material/{{ matches.[1] }}/{{member}}'
     }
   },
-  rewrites() {
+  async rewrites() {
     // console.log('Rewrites configuration applied');
     // return {
     //   afterFiles: [
