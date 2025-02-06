@@ -226,8 +226,8 @@ const nextConfig = {
     //     // }
     //   ]
     // };
-    return [{ source: '/api/:path*', destination: `${beUrl}api/:path*` }];
-    // return [];
+    // return [{ source: '/api/:path*', destination: `${beUrl}api/:path*` }];
+    return [];
   }
   // redirects() {
   //   return [{ source: '/api/:path*', destination: `${beUrl}api/:path*`, permanent: false }];
