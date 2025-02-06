@@ -28,7 +28,17 @@
       "persistent": true,
       "env": ["CONTENT_APP_URL"]
     }
-  }
-  // "globalEnv": ["CONTENT_APP_URL, NEXT_PUBLIC_SHOP_APP_URL"]
+  },
+  "globalEnv": [
+    // "CONTENT_APP_URL, NEXT_PUBLIC_SHOP_APP_URL",
+    // "CONTENT_APP_URL",
+    "NEXT_PUBLIC_BE",
+    "NEXT_PUBLIC_100MS_TOKEN_ENDPOINT",
+    "NEXTJS_MODULE_ADMIN_URL",
+    "NEXTJS_MODULE_LIVESTREAM_URL",
+    "VUEJS_MODULE_BUILDER_URL",
+    "NEXT_PUBLIC_API_MOCKING",
+    "NEXT_PUBLIC_90S_URL"
+  ]
   // "globalPassThroughEnv": ["NEXT_PUBLIC_CONTENT_APP_URL", "GITHUB_TOKEN"]
 }
