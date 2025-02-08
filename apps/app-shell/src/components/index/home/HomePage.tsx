@@ -6,15 +6,12 @@ import dynamic from 'next/dynamic';
 
 import Grid from '@/components/shared/Grid';
 import HeroSlider from '@/components/shared/HeroSlider';
-import Img from '@/components/shared/Img/Img';
-import PolicyCard from '@/components/shared/PolicyCard';
 import ProductCard from '@/components/shared/ProductCard';
 import Section, { SectionBody, SectionTitle } from '@/components/shared/Section';
 import { Brand } from '@/types/brand.type';
 import { Product } from '@/types/product.type';
 import heroSliderData from '@/utils/fake-data/hero-slider';
-import policy from '@/utils/fake-data/policy';
-import Link from 'next/link';
+import BrandItem from './components/BrandItem';
 
 const SlideBanner = dynamic(import('@/components/shared/SlideBanner'));
 
@@ -50,17 +47,13 @@ const HomePage = ({ brands, products }: { brands: Brand[]; products: Product[] }
         <SectionTitle>các thương hiệu hợp tác</SectionTitle>
         <SectionBody>
           <Grid col={6} gap={20} id='list-brands' mdCol={2} smCol={1}>
-            {brands.map((item) => {
-              return (
-                <Link href={`brand/${item._id}`} key={item._id} prefetch={false}>
-                  <Img alt={item.name} height={200} src={item.logo} width={200} />
-                </Link>
-              );
-            })}
+            {brands.map((item) => (
+              <BrandItem brand={item} key={item._id} />
+            ))}
           </Grid>
         </SectionBody>
       </Section>
-      <Section>
+      {/* <Section>
         <SectionBody>
           <Grid col={4} gap={20} mdCol={2} smCol={1}>
             {policy.map((item, index) => (
@@ -73,7 +66,7 @@ const HomePage = ({ brands, products }: { brands: Brand[]; products: Product[] }
             ))}
           </Grid>
         </SectionBody>
-      </Section>
+      </Section> */}
       <Section>
         <SectionTitle>top sản phẩm bản chạy trong tuần</SectionTitle>
         <SectionBody>

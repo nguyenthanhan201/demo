@@ -71,7 +71,12 @@ const LoginPage = () => {
 
   return (
     <div className='form-login'>
-      <img alt='yolo-gif' loading='lazy' src='/images/gifs/ezgif.com-gif-maker.webp' />
+      <img
+        alt='yolo-gif'
+        className='!max-w-[500px] aspect-square'
+        loading='eager'
+        src='/images/login.png'
+      />
       <div className='form-login__left'>
         <img alt='logo' src='/images/Logo-2.png' />
         <button className='btn btn-google' onClick={googleSignIn} type='button'>

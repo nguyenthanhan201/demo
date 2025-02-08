@@ -114,9 +114,19 @@ const MyApp = ({ Component, pageProps }: any) => {
 };
 export default MyApp;
 MyApp.getInitialProps = async (appContext: AppContext): Promise<AppInitialProps> => {
-  const pageProps = await App.getInitialProps(appContext);
   const { ctx } = appContext;
+  const pathName = ctx.pathname;
+
+  const pageProps = await App.getInitialProps(appContext);
   const token = getAccessTokenFromServerSidePropsContext(ctx);
+
+  if (pathName.includes('/admin')) {
+    return {
+      pageProps: {
+        ...pageProps.pageProps
+      }
+    };
+  }
 
   if (token) {
     setContext(ctx);

@@ -46,7 +46,7 @@ const Sidebar = () => {
               className={`${router.pathname === sidebar.to && 'pointer-events-none'}`}
               key={index}
             >
-              <Link className='flex items-center gap-2' href={sidebar.to}>
+              <Link className='flex items-center gap-2' href={sidebar.to} prefetch={false}>
                 {sidebar.icon}
                 <span>{sidebar.name}</span>
               </Link>
