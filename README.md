@@ -30,6 +30,12 @@ Note: microfrontends run in the following address:
 npx depcheck
 ```
 
+## Flow working
+
+```sh
+checkout form main branch
+```
+
 ## Using this example
 
 Run the following command:
