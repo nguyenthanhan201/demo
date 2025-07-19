@@ -36,7 +36,7 @@ export abstract class CrudRepository<T> {
       },
       ...config
     });
-    console.log('👌  res:', res);
+    // console.log('👌  res:', res);
 
     if (res.code === 'ERROR') {
       console.log(`Lấy danh sách ${this.apiName} thất  bại.`);

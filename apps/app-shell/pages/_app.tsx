@@ -4,6 +4,7 @@ import '../src/sass/index.scss';
 
 import { setContext } from '@/lib/axios/http';
 import useAuth from '@/lib/hooks/useAuth';
+import { useSSE } from '@/lib/hooks/useSSE';
 import useTheme from '@/lib/hooks/useTheme';
 import { ToastProvider } from '@/lib/providers/toast-provider';
 import { useNetwork } from 'my-package/dist/useNetwork';
@@ -11,6 +12,7 @@ import { DefaultSeo, NextSeo } from 'next-seo';
 import App, { AppContext, AppInitialProps } from 'next/app';
 import { Roboto } from 'next/font/google';
 import { Fragment } from 'react';
+import { toast } from 'react-toastify';
 
 const roboto = Roboto({
   weight: ['400', '500', '700'],
@@ -88,6 +90,24 @@ const MyApp = ({ Component, pageProps }: any) => {
   //   // [Hydrate, { state: pageProps.dehydratedState }],
   //   [ToastProvider] as any
   // ] as const);
+
+  useSSE(`${process.env.NEXT_PUBLIC_BE}blog/v1/notification/sse`, (data) => {
+    toast.info(
+      <div>
+        <div className='font-bold text-sm'>📢 {data.title}</div>
+        <div className='text-xs'>{data.description}</div>
+      </div>,
+      {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+      }
+    );
+  });
 
   if (!online) return <>you offline</>;
   return (

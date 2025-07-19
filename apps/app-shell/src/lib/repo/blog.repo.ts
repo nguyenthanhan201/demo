@@ -23,7 +23,7 @@ export class BlogRepository extends CrudRepository<any> {
   }
 
   async getDetailBlog(id: string) {
-    const res = await get<Blog>(`blog/v1/${id}`);
+    const res = await get<Blog>(`blog/v1/blog/${id}`);
 
     if (res.code === 'ERROR') {
       throw res.error;
